@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Catalog - Miracle Store</title>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Shared Styles -->
+    <link rel="stylesheet" href="shared.css">
+
+    <style>
+        /* === CATALOG HEADER BANNER === */
+        .catalog-hero {
+            background: linear-gradient(135deg, rgba(18, 179, 166, 0.08) 0%, rgba(114, 217, 111, 0.12) 100%);
+            padding: 45px 5%;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .catalog-hero h1 {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--black);
+            margin-bottom: 8px;
+        }
+
+        .catalog-hero p {
+            font-size: 15px;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* === TOOLBAR & CONTROLS === */
+        .catalog-container {
+            max-width: 1320px;
+            margin: 0 auto;
+            padding: 30px 5% 60px;
+        }
+
+        .catalog-toolbar {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .search-and-sort-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        /* Live Search Bar */
+        .search-box-wrap {
+            position: relative;
+            flex: 1;
+            min-width: 280px;
+            max-width: 550px;
+        }
+
+        .search-box-wrap i.search-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #9ca3af;
+            font-size: 15px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 40px 12px 38px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 14px;
+            outline: none;
+            transition: var(--transition);
+            background: #fafafa;
+        }
+
+        .search-input:focus {
+            border-color: var(--primary-teal);
+            background: #fff;
+            box-shadow: 0 0 0 3px rgba(18, 179, 166, 0.15);
+        }
+
+        .clear-search-btn {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #9ca3af;
+            font-size: 14px;
+            cursor: pointer;
+            display: none;
+        }
+
+        .clear-search-btn:hover {
+            color: var(--black);
+        }
+
+        /* Sort Dropdown */
+        .sort-box-wrap {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sort-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-muted);
+            white-space: nowrap;
+        }
+
+        .sort-select {
+            padding: 10px 14px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--dark-grey);
+            background: #fff;
+            outline: none;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .sort-select:focus {
+            border-color: var(--primary-teal);
+        }
+
+        /* Category Filter Tabs */
+        .category-filter-tabs {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 6px;
+            scrollbar-width: thin;
+        }
+
+        .category-filter-tabs::-webkit-scrollbar {
+            height: 4px;
+        }
+
+        .category-filter-tabs::-webkit-scrollbar-thumb {
+            background: #e5e7eb;
+            border-radius: 4px;
+        }
+
+        .filter-tab-btn {
+            padding: 9px 18px;
+            border: 1px solid var(--border-color);
+            border-radius: 30px;
+            background: var(--white);
+            color: var(--dark-grey);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .filter-tab-btn:hover {
+            border-color: var(--primary-teal);
+            color: var(--primary-teal);
+        }
+
+        .filter-tab-btn.active {
+            background: var(--primary-teal);
+            color: var(--white);
+            border-color: var(--primary-teal);
+            box-shadow: 0 2px 8px rgba(18, 179, 166, 0.3);
+        }
+
+        .filter-tab-count {
+            font-size: 11px;
+            background: rgba(0, 0, 0, 0.08);
+            padding: 1px 6px;
+            border-radius: 10px;
+        }
+
+        .filter-tab-btn.active .filter-tab-count {
+            background: rgba(255, 255, 255, 0.25);
+            color: var(--white);
+        }
+
+        /* Results Status Bar */
+        .results-status-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #f1f2f4;
+        }
+
+        .results-count strong {
+            color: var(--black);
+        }
+
+        /* Product Grid */
+        .catalog-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+        }
+
+        /* Empty State */
+        .catalog-empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 70px 20px;
+            background: #fafafa;
+            border-radius: 12px;
+            border: 1px dashed #d1d5db;
+        }
+
+        .catalog-empty-state i {
+            font-size: 50px;
+            color: #9ca3af;
+            margin-bottom: 15px;
+        }
+
+        .catalog-empty-state h3 {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--black);
+            margin-bottom: 8px;
+        }
+
+        .catalog-empty-state p {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .reset-filters-btn {
+            padding: 10px 22px;
+            background: var(--primary-teal);
+            color: var(--white);
+            border: none;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .reset-filters-btn:hover {
+            background: var(--primary-teal-dark);
+        }
+
+        @media (max-width: 1100px) {
+            .catalog-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .catalog-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 16px;
+            }
+            .catalog-hero {
+                padding: 30px 15px;
+            }
+            .catalog-hero h1 {
+                font-size: 24px;
+            }
+            .search-and-sort-row {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .search-box-wrap {
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .catalog-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ANNOUNCEMENT BAR -->
+    <div class="announcement-bar">
+        Free Shipping on Orders Over Rs. 2,000 | Flat Rs. 300 Nationwide Delivery
+    </div>
+
+    <!-- MAIN HEADER -->
+    <header class="main-header">
+        <button class="menu-btn" onclick="toggleMenu()" aria-label="Open menu">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <div class="logo-container">
+            <a href="index.html">
+                <img src="media/logo.webp" alt="Miracle Store Logo">
+            </a>
+        </div>
+
+        <nav class="desktop-nav">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="catalog.html" class="active">All Products</a></li>
+                <li><a href="catalog.html?category=watches">Watches</a></li>
+                <li><a href="catalog.html?category=accessories">Accessories</a></li>
+                <li><a href="catalog.html?category=clothing">Clothing</a></li>
+                <li><a href="catalog.html?category=cosmetics">Cosmetics</a></li>
+                <li><a href="catalog.html?category=flowers">Flowers</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+        </nav>
+
+        <div class="header-icons">
+            <a href="catalog.html" title="Search Catalog"><i class="fa-solid fa-magnifying-glass"></i></a>
+            <div class="header-cart-wrap" onclick="toggleCart()" title="Shopping Cart">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <span class="cart-badge-count" id="headerCartCount" style="display:none;">0</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- MOBILE MENU DRAWER -->
+    <div class="mobile-menu-overlay" onclick="toggleMenu()"></div>
+    <div class="mobile-menu">
+        <div class="close-menu">
+            <h4>Miracle Store</h4>
+            <i class="fa-solid fa-xmark" onclick="toggleMenu()"></i>
+        </div>
+        <nav class="mobile-nav">
+            <ul>
+                <li><a href="index.html" onclick="toggleMenu()">Home</a></li>
+                <li><a href="catalog.html" class="active" onclick="toggleMenu()">All Products</a></li>
+                <li><a href="catalog.html?category=watches" onclick="toggleMenu()">Watches</a></li>
+                <li><a href="catalog.html?category=accessories" onclick="toggleMenu()">Mobile Accessories</a></li>
+                <li><a href="catalog.html?category=clothing" onclick="toggleMenu()">Clothing</a></li>
+                <li><a href="catalog.html?category=cosmetics" onclick="toggleMenu()">Cosmetics</a></li>
+                <li><a href="catalog.html?category=flowers" onclick="toggleMenu()">Flowers & Decor</a></li>
+                <li><a href="index.html#contact" onclick="toggleMenu()">Contact Us</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- SLIDING CART DRAWER -->
+    <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+    <div class="sliding-cart" id="slidingCart">
+        <div class="cart-header">
+            <div class="cart-header-title">
+                <i class="fa-solid fa-bag-shopping" style="color:var(--primary-teal);"></i>
+                <h3>Shopping Cart</h3>
+                <span class="cart-count-pill" id="cartHeaderCount">0</span>
+            </div>
+            <i class="fa-solid fa-xmark close-cart" onclick="toggleCart()"></i>
+        </div>
+        <div class="cart-items" id="cartItemsContainer">
+            <!-- Populated via cart.js -->
+        </div>
+        <div class="cart-footer" id="cartFooter">
+            <div class="cart-summary-box">
+                <div class="cart-summary-row">
+                    <span>Subtotal:</span>
+                    <strong id="cartSubtotal">Rs. 0</strong>
+                </div>
+                <div class="cart-summary-row">
+                    <span>Delivery Charges:</span>
+                    <span id="cartDelivery">Rs. 300</span>
+                </div>
+                <div class="cart-summary-row cart-grand-total">
+                    <span>Grand Total:</span>
+                    <strong id="cartGrandTotal">Rs. 300</strong>
+                </div>
+            </div>
+            <a href="checkout.html" class="checkout-btn" id="cartCheckoutBtn">
+                <span>Proceed to Checkout</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </a>
+            <button type="button" class="continue-shopping-btn" onclick="toggleCart()">Continue Shopping</button>
+        </div>
+    </div>
+
+    <!-- HERO BANNER -->
+    <section class="catalog-hero">
+        <h1>Miracle Store Catalog</h1>
+        <p>Browse our complete catalog of luxury watches, mobile accessories, designer unstitched suits, skincare cosmetics, and artificial home blooms.</p>
+    </section>
+
+    <!-- MAIN CATALOG CONTAINER -->
+    <main class="catalog-container">
+        <div class="catalog-toolbar">
+            <!-- Search & Sort Row -->
+            <div class="search-and-sort-row">
+                <div class="search-box-wrap">
+                    <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                    <input type="text" id="catalogSearchInput" class="search-input" placeholder="Search by product name, category, or keyword..." autocomplete="off">
+                    <button type="button" id="clearSearchBtn" class="clear-search-btn" title="Clear Search"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+
+                <div class="sort-box-wrap">
+                    <span class="sort-label">Sort by:</span>
+                    <select id="catalogSortSelect" class="sort-select">
+                        <option value="newest">Newest First</option>
+                        <option value="price-low">Price: Low to High</option>
+                        <option value="price-high">Price: High to Low</option>
+                        <option value="name-asc">Name: A to Z</option>
+                        <option value="name-desc">Name: Z to A</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Category Tabs -->
+            <div class="category-filter-tabs" id="categoryFilterTabs">
+                <button type="button" class="filter-tab-btn active" data-category="all">
+                    <span>All Products</span>
+                    <span class="filter-tab-count" id="count-all">0</span>
+                </button>
+                <button type="button" class="filter-tab-btn" data-category="watches">
+                    <span>Watches</span>
+                    <span class="filter-tab-count" id="count-watches">0</span>
+                </button>
+                <button type="button" class="filter-tab-btn" data-category="accessories">
+                    <span>Accessories</span>
+                    <span class="filter-tab-count" id="count-accessories">0</span>
+                </button>
+                <button type="button" class="filter-tab-btn" data-category="clothing">
+                    <span>Clothing</span>
+                    <span class="filter-tab-count" id="count-clothing">0</span>
+                </button>
+                <button type="button" class="filter-tab-btn" data-category="cosmetics">
+                    <span>Cosmetics</span>
+                    <span class="filter-tab-count" id="count-cosmetics">0</span>
+                </button>
+                <button type="button" class="filter-tab-btn" data-category="flowers">
+                    <span>Flowers & Decor</span>
+                    <span class="filter-tab-count" id="count-flowers">0</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Results Status -->
+        <div class="results-status-bar">
+            <span class="results-count" id="resultsCount">Loading products...</span>
+            <span id="activeFilterBadge" style="display:none; color: var(--primary-teal); font-weight: 600;"></span>
+        </div>
+
+        <!-- Product Grid -->
+        <div class="catalog-grid" id="catalogGrid">
+            <!-- Dynamic product cards populated via JavaScript -->
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-col">
+                <h2 class="footer-logo"><span style="color: var(--primary-teal);">MIRACLE</span> STORE</h2>
+                <p class="powered-by">POWERED BY AL RASHEED GROUP</p>
+                <p class="footer-desc">Your ultimate destination for premium watches, mobile tech accessories, women's fashion, beauty cosmetics, and artisanal home decor.</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+                    <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-col">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="catalog.html">All Products</a></li>
+                    <li><a href="catalog.html?category=watches">Watches</a></li>
+                    <li><a href="catalog.html?category=accessories">Accessories</a></li>
+                    <li><a href="catalog.html?category=clothing">Clothing</a></li>
+                    <li><a href="catalog.html?category=cosmetics">Cosmetics</a></li>
+                    <li><a href="catalog.html?category=flowers">Flowers & Decor</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h3>Customer Care</h3>
+                <ul>
+                    <li><a href="index.html#contact">Contact Us</a></li>
+                    <li><a href="#">Shipping Policy</a></li>
+                    <li><a href="#">Return & Exchange</a></li>
+                    <li><a href="#">FAQs</a></li>
+                    <li><a href="#">Track Order</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h3>Secure Payments</h3>
+                <p style="color: #bbb; font-size: 14px; margin-bottom: 15px;">Cash on Delivery (COD) available across Pakistan.</p>
+                <div class="payment-icons">
+                    <i class="fa-brands fa-cc-visa"></i>
+                    <i class="fa-brands fa-cc-mastercard"></i>
+                    <i class="fa-brands fa-paypal"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 Miracle Store. All Rights Reserved. Powered by Al Rasheed Group.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="cart.js"></script>
+    <script src="sheet-sync.js"></script>
+
+    <script>
+        let allCatalogProducts = [];
+        let currentCategory = 'all';
+        let searchQuery = '';
+        let currentSort = 'newest';
+
+        async function initCatalogPage() {
+            // Read URL category filter
+            const params = new URLSearchParams(window.location.search);
+            const catParam = params.get('category');
+            if (catParam) {
+                currentCategory = catParam.toLowerCase().trim();
+            }
+
+            // Sync category tab active state
+            syncCategoryTabsUI();
+
+            // Fetch products
+            allCatalogProducts = await fetchProductsFromSheet();
+
+            // Update tab count badges
+            updateTabCounts();
+
+            // Initial render
+            applyFiltersAndRender();
+
+            // Event Listeners
+            setupCatalogEventListeners();
+        }
+
+        function updateTabCounts() {
+            const counts = { all: allCatalogProducts.length, watches: 0, accessories: 0, clothing: 0, cosmetics: 0, flowers: 0 };
+            allCatalogProducts.forEach(p => {
+                if (counts[p.category] !== undefined) {
+                    counts[p.category]++;
+                }
+            });
+
+            for (const key in counts) {
+                const el = document.getElementById(`count-${key}`);
+                if (el) el.textContent = counts[key];
+            }
+        }
+
+        function syncCategoryTabsUI() {
+            const tabs = document.querySelectorAll('.filter-tab-btn');
+            tabs.forEach(btn => {
+                const cat = btn.getAttribute('data-category');
+                if (cat === currentCategory) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+        }
+
+        function setupCatalogEventListeners() {
+            // Search Input (Real-time live typing)
+            const searchInput = document.getElementById('catalogSearchInput');
+            const clearBtn = document.getElementById('clearSearchBtn');
+
+            searchInput.addEventListener('input', (e) => {
+                searchQuery = e.target.value.trim().toLowerCase();
+                clearBtn.style.display = searchQuery.length > 0 ? 'block' : 'none';
+                applyFiltersAndRender();
+            });
+
+            clearBtn.addEventListener('click', () => {
+                searchInput.value = '';
+                searchQuery = '';
+                clearBtn.style.display = 'none';
+                applyFiltersAndRender();
+            });
+
+            // Category Filter Tabs
+            document.querySelectorAll('.filter-tab-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    currentCategory = btn.getAttribute('data-category');
+                    syncCategoryTabsUI();
+
+                    // Update URL without reloading
+                    const url = new URL(window.location);
+                    if (currentCategory === 'all') {
+                        url.searchParams.delete('category');
+                    } else {
+                        url.searchParams.set('category', currentCategory);
+                    }
+                    window.history.replaceState({}, '', url);
+
+                    applyFiltersAndRender();
+                });
+            });
+
+            // Sort Dropdown
+            document.getElementById('catalogSortSelect').addEventListener('change', (e) => {
+                currentSort = e.target.value;
+                applyFiltersAndRender();
+            });
+        }
+
+        function applyFiltersAndRender() {
+            const grid = document.getElementById('catalogGrid');
+            const statusEl = document.getElementById('resultsCount');
+
+            if (!allCatalogProducts || allCatalogProducts.length === 0) {
+                grid.innerHTML = `
+                    <div class="catalog-empty-state">
+                        <i class="fa-solid fa-box-open"></i>
+                        <h3>No Products Available</h3>
+                        <p>No products have been added to the store spreadsheet yet.</p>
+                    </div>
+                `;
+                statusEl.textContent = 'Showing 0 products';
+                return;
+            }
+
+            // 1. Category Filtering
+            let filtered = allCatalogProducts.filter(p => {
+                if (currentCategory === 'all') return true;
+                return p.category === currentCategory;
+            });
+
+            // 2. Search Query Filtering
+            if (searchQuery) {
+                filtered = filtered.filter(p => {
+                    const titleMatch = (p.title || '').toLowerCase().includes(searchQuery);
+                    const descMatch = (p.description || '').toLowerCase().includes(searchQuery);
+                    const catMatch = (p.categoryLabel || '').toLowerCase().includes(searchQuery);
+                    return titleMatch || descMatch || catMatch;
+                });
+            }
+
+            // 3. Sorting
+            filtered.sort((a, b) => {
+                if (currentSort === 'price-low') {
+                    return a.price - b.price;
+                } else if (currentSort === 'price-high') {
+                    return b.price - a.price;
+                } else if (currentSort === 'name-asc') {
+                    return a.title.localeCompare(b.title);
+                } else if (currentSort === 'name-desc') {
+                    return b.title.localeCompare(a.title);
+                }
+                // Default: newest first (already in reverse sheet order)
+                return 0;
+            });
+
+            // 4. Update status count
+            const categoryText = currentCategory === 'all' ? 'All Collections' : getCategoryLabel(currentCategory);
+            statusEl.innerHTML = `Showing <strong>${filtered.length}</strong> products in <em>${categoryText}</em>${searchQuery ? ` matching "${escapeCartHtml(searchQuery)}"` : ''}`;
+
+            // 5. Render Grid
+            if (filtered.length === 0) {
+                grid.innerHTML = `
+                    <div class="catalog-empty-state">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <h3>No Products Found</h3>
+                        <p>No items matched your current search "${escapeCartHtml(searchQuery)}" or selected category.</p>
+                        <button type="button" class="reset-filters-btn" onclick="resetAllCatalogFilters()">Clear All Filters</button>
+                    </div>
+                `;
+            } else {
+                grid.innerHTML = filtered.map(p => createProductCardHtml(p)).join('');
+            }
+        }
+
+        function resetAllCatalogFilters() {
+            currentCategory = 'all';
+            searchQuery = '';
+            document.getElementById('catalogSearchInput').value = '';
+            document.getElementById('clearSearchBtn').style.display = 'none';
+            syncCategoryTabsUI();
+            const url = new URL(window.location);
+            url.searchParams.delete('category');
+            window.history.replaceState({}, '', url);
+            applyFiltersAndRender();
+        }
+
+        document.addEventListener('DOMContentLoaded', initCatalogPage);
+    </script>
+</body>
+
+</html>
+

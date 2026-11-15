@@ -7,6 +7,8 @@
     <title>Miracle Store - Home</title>
     <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Shared Styles -->
+    <link rel="stylesheet" href="shared.css">
 
     <style>
         /* === CSS VARIABLES & RESET === */
@@ -91,11 +93,14 @@
 
         /* Dynamic Google Sheet Loader Styles */
         .category-section {
-            display: none; /* Initially hide all category sections until products exist in Google Sheet */
+            display: none;
+            /* Initially hide all category sections until products exist in Google Sheet */
         }
+
         .category-section.dyn-visible {
             display: block !important;
         }
+
         .dyn-nav-hidden {
             display: none !important;
         }
@@ -281,7 +286,7 @@
 
         <!-- Logo Area (Image Only) -->
         <div class="logo-container">
-            <a href="#">
+            <a href="index.html">
                 <img src="media/logo.webp" fetchpriority="high" alt="Miracle Store Logo">
             </a>
         </div>
@@ -289,20 +294,24 @@
         <!-- Desktop Navigation -->
         <nav class="desktop-nav">
             <ul>
-                <li><a href="#" class="active">Home</a></li>
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="catalog.html">All Products</a></li>
                 <li class="dyn-nav-hidden"><a href="#watches-section">Watches</a></li>
                 <li class="dyn-nav-hidden"><a href="#accessories-section">Accessories</a></li>
                 <li class="dyn-nav-hidden"><a href="#clothing-section">Clothing</a></li>
                 <li class="dyn-nav-hidden"><a href="#cosmetics-section">Cosmetics</a></li>
                 <li class="dyn-nav-hidden"><a href="#flowers-section">Flowers</a></li>
+                <li><a href="#contact">Contact</a></li>
             </ul>
         </nav>
 
         <!-- Header Icons -->
         <div class="header-icons">
-            <i class="fa-solid fa-magnifying-glass"></i>
-            <i class="fa-regular fa-user"></i>
-            <i class="fa-solid fa-cart-shopping"></i>
+            <a href="catalog.html" title="Search Catalog"><i class="fa-solid fa-magnifying-glass"></i></a>
+            <div class="header-cart-wrap" onclick="toggleCart()" title="Shopping Cart">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <span class="cart-badge-count" id="headerCartCount" style="display:none;">0</span>
+            </div>
         </div>
     </header>
 
@@ -310,11 +319,13 @@
     <div class="mobile-menu-overlay" onclick="toggleMenu()"></div>
     <div class="mobile-menu">
         <div class="close-menu" onclick="toggleMenu()">
+            <h4>Miracle Store</h4>
             <i class="fa-solid fa-xmark"></i>
         </div>
         <nav class="mobile-nav">
             <ul>
-                <li><a href="#" onclick="toggleMenu()">Home</a></li>
+                <li><a href="index.html" onclick="toggleMenu()">Home</a></li>
+                <li><a href="catalog.html" onclick="toggleMenu()">All Products</a></li>
                 <li class="dyn-nav-hidden"><a href="#watches-section" onclick="toggleMenu()">Watches</a></li>
                 <li class="dyn-nav-hidden"><a href="#accessories-section" onclick="toggleMenu()">Accessories</a></li>
                 <li class="dyn-nav-hidden"><a href="#clothing-section" onclick="toggleMenu()">Clothing</a></li>
@@ -404,16 +415,36 @@
     <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
     <div class="sliding-cart" id="slidingCart">
         <div class="cart-header">
-            <h3>Your Cart</h3>
+            <div class="cart-header-title">
+                <i class="fa-solid fa-bag-shopping" style="color:var(--primary-teal);"></i>
+                <h3>Shopping Cart</h3>
+                <span class="cart-count-pill" id="cartHeaderCount">0</span>
+            </div>
             <i class="fa-solid fa-xmark close-cart" onclick="toggleCart()"></i>
         </div>
         <div class="cart-items" id="cartItemsContainer">
-            <!-- Cart items will appear here -->
-            <p style="text-align: center; color: #777; margin-top: 20px;" id="emptyCartMsg">Your cart is currently
-                empty.</p>
+            <!-- Rendered dynamically via cart.js -->
         </div>
-        <div class="cart-footer">
-            <button class="checkout-btn">Proceed to Checkout</button>
+        <div class="cart-footer" id="cartFooter">
+            <div class="cart-summary-box">
+                <div class="cart-summary-row">
+                    <span>Subtotal:</span>
+                    <strong id="cartSubtotal">Rs. 0</strong>
+                </div>
+                <div class="cart-summary-row">
+                    <span>Delivery Charges:</span>
+                    <span id="cartDelivery">Rs. 300</span>
+                </div>
+                <div class="cart-summary-row cart-grand-total">
+                    <span>Grand Total:</span>
+                    <strong id="cartGrandTotal">Rs. 300</strong>
+                </div>
+            </div>
+            <a href="checkout.html" class="checkout-btn" id="cartCheckoutBtn">
+                <span>Proceed to Checkout</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </a>
+            <button type="button" class="continue-shopping-btn" onclick="toggleCart()">Continue Shopping</button>
         </div>
     </div>
 
@@ -495,63 +526,12 @@
             </p>
         </div>
         <div class="product-grid" id="watches-grid">
-            <!-- Watch 1 -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="media/product_1.webp" alt="Miracle Classic White" loading="lazy">
-                </div>
-                <div class="product-info">
-                    <h4>Miracle Classic White</h4>
-                    <p class="price">Rs. 4,500</p>
-                    <button class="add-to-cart-btn"
-                        onclick="addToCart('Miracle Classic White', 'Rs. 4,500', 'media/product_1.webp')">Add to
-                        Cart</button>
-                </div>
-            </div>
-            <!-- Watch 2 -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="media/product_2.webp" alt="Executive Black Edition" loading="lazy">
-                </div>
-                <div class="product-info">
-                    <h4>Executive Black Edition</h4>
-                    <p class="price">Rs. 6,200</p>
-                    <button class="add-to-cart-btn"
-                        onclick="addToCart('Executive Black Edition', 'Rs. 6,200', 'media/product_2.webp')">Add to
-                        Cart</button>
-                </div>
-            </div>
-            <!-- Watch 3 -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="media/product_6.webp" alt="Midnight Chronograph" loading="lazy">
-                </div>
-                <div class="product-info">
-                    <h4>Midnight Chronograph</h4>
-                    <p class="price">Rs. 7,100</p>
-                    <button class="add-to-cart-btn"
-                        onclick="addToCart('Midnight Chronograph', 'Rs. 7,100', 'media/product_6.webp')">Add to
-                        Cart</button>
-                </div>
-            </div>
-            <!-- Watch 4 -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="media/product_4.webp" alt="Luxury Gold Heritage" loading="lazy">
-                </div>
-                <div class="product-info">
-                    <h4>Luxury Gold Heritage</h4>
-                    <p class="price">Rs. 8,500</p>
-                    <button class="add-to-cart-btn"
-                        onclick="addToCart('Luxury Gold Heritage', 'Rs. 8,500', 'media/product_4.webp')">Add to
-                        Cart</button>
-                </div>
-            </div>
+            <!-- Dynamic products loaded from Google Sheet -->
         </div>
 
         <!-- View All Watches Button -->
         <div class="category-view-all">
-            <a href="#watches-section" class="view-all-btn">
+            <a href="catalog.html?category=watches" class="view-all-btn">
                 <span>View All Watches</span>
                 <i class="fa-solid fa-arrow-right"></i>
             </a>
@@ -586,71 +566,12 @@
                 daily performance.</p>
         </div>
         <div class="product-grid" id="accessories-grid">
-            <!-- Accessory 1 -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://images.unsplash.com/photo-1586816879360-004f5b0c51e3?auto=format&fit=crop&w=600&q=80"
-                        onerror="this.onerror=null; this.src='media/cat_2.webp';" alt="Magnetic Fast Wireless Charger"
-                        loading="lazy">
-                </div>
-                <div class="product-info">
-                    <h4>Fast Magnetic Charger 15W</h4>
-                    <p class="price">Rs. 2,900</p>
-                    <button class="add-to-cart-btn"
-                        onclick="addToCart('Fast Magnetic Charger 15W', 'Rs. 2,900', 'https://images.unsplash.com/photo-1586816879360-004f5b0c51e3?auto=format&fit=crop&w=600&q=80')">Add
-                        to Cart</button>
-                </div>
-            </div>
-            <!-- Accessory 2 -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?auto=format&fit=crop&w=600&q=80"
-                        onerror="this.onerror=null; this.src='media/cat_2.webp';" alt="Armor Drop-Proof Case"
-                        loading="lazy">
-                </div>
-                <div class="product-info">
-                    <h4>Armor Drop-Proof Phone Case</h4>
-                    <p class="price">Rs. 1,450</p>
-                    <button class="add-to-cart-btn"
-                        onclick="addToCart('Armor Drop-Proof Phone Case', 'Rs. 1,450', 'https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?auto=format&fit=crop&w=600&q=80')">Add
-                        to Cart</button>
-                </div>
-            </div>
-            <!-- Accessory 3 -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://images.unsplash.com/photo-1590658268037-6bf12165a8df?auto=format&fit=crop&w=600&q=80"
-                        onerror="this.onerror=null; this.src='media/cat_2.webp';" alt="ANC True Wireless Earbuds"
-                        loading="lazy">
-                </div>
-                <div class="product-info">
-                    <h4>Pro ANC Wireless Earbuds</h4>
-                    <p class="price">Rs. 4,800</p>
-                    <button class="add-to-cart-btn"
-                        onclick="addToCart('Pro ANC Wireless Earbuds', 'Rs. 4,800', 'https://images.unsplash.com/photo-1590658268037-6bf12165a8df?auto=format&fit=crop&w=600&q=80')">Add
-                        to Cart</button>
-                </div>
-            </div>
-            <!-- Accessory 4 -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://images.unsplash.com/photo-1583863788434-e58a36330cf0?auto=format&fit=crop&w=600&q=80"
-                        onerror="this.onerror=null; this.src='media/cat_2.webp';" alt="Braided Ultra-Fast Cable"
-                        loading="lazy">
-                </div>
-                <div class="product-info">
-                    <h4>Braided Ultra-Fast 100W Cable</h4>
-                    <p class="price">Rs. 950</p>
-                    <button class="add-to-cart-btn"
-                        onclick="addToCart('Braided Ultra-Fast 100W Cable', 'Rs. 950', 'https://images.unsplash.com/photo-1583863788434-e58a36330cf0?auto=format&fit=crop&w=600&q=80')">Add
-                        to Cart</button>
-                </div>
-            </div>
+            <!-- Dynamic products loaded from Google Sheet -->
         </div>
 
         <!-- View All Accessories Button -->
         <div class="category-view-all">
-            <a href="#accessories-section" class="view-all-btn">
+            <a href="catalog.html?category=accessories" class="view-all-btn">
                 <span>View All Accessories</span>
                 <i class="fa-solid fa-arrow-right"></i>
             </a>
@@ -659,7 +580,7 @@
         <!-- 50/50 ABOUT / PROMO SECTION - ACCESSORIES -->
         <div class="promo-split reverse">
             <div class="promo-image">
-                <img src="media/about_2.jpg" onerror="this.onerror=null; this.src='media/cat_2.webp';"
+                <img src="media/about_2.webp" onerror="this.onerror=null; this.src='media/cat_2.webp';"
                     alt="Smart Tech & Mobile Accessories" loading="lazy">
             </div>
             <div class="promo-content">
@@ -686,63 +607,12 @@
                 timeless eastern elegance.</p>
         </div>
         <div class="product-grid" id="clothing-grid">
-            <!-- Clothing 1 -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="media/clothing_2.jpg" alt="Baroque Luxury Embroidered 3-Piece" loading="lazy">
-                </div>
-                <div class="product-info">
-                    <h4>Baroque Luxury Embroidered 3-Piece</h4>
-                    <p class="price">Rs. 5,800</p>
-                    <button class="add-to-cart-btn"
-                        onclick="addToCart('Baroque Luxury Embroidered 3-Piece', 'Rs. 5,800', 'media/clothing_2.jpg')">Add
-                        to Cart</button>
-                </div>
-            </div>
-            <!-- Clothing 2 -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="media/clothing_1.jpg" alt="LAAM Royal Plum Embroidered Suit" loading="lazy">
-                </div>
-                <div class="product-info">
-                    <h4>LAAM Royal Plum Embroidered Suit</h4>
-                    <p class="price">Rs. 6,400</p>
-                    <button class="add-to-cart-btn"
-                        onclick="addToCart('LAAM Royal Plum Embroidered Suit', 'Rs. 6,400', 'media/clothing_1.jpg')">Add
-                        to Cart</button>
-                </div>
-            </div>
-            <!-- Clothing 3 -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="media/clothing_3.jpg" alt="Baroque Crimson Rose Silk Collection" loading="lazy">
-                </div>
-                <div class="product-info">
-                    <h4>Baroque Crimson Rose Silk Collection</h4>
-                    <p class="price">Rs. 5,200</p>
-                    <button class="add-to-cart-btn"
-                        onclick="addToCart('Baroque Crimson Rose Silk Collection', 'Rs. 5,200', 'media/clothing_3.jpg')">Add
-                        to Cart</button>
-                </div>
-            </div>
-            <!-- Clothing 4 -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="media/clothing_4.jpg" alt="LAAM Velvet Heritage Cutwork 3-Piece" loading="lazy">
-                </div>
-                <div class="product-info">
-                    <h4>LAAM Velvet Heritage Cutwork 3-Piece</h4>
-                    <p class="price">Rs. 6,900</p>
-                    <button class="add-to-cart-btn"
-                        onclick="addToCart('LAAM Velvet Heritage Cutwork 3-Piece', 'Rs. 6,900', 'media/clothing_4.jpg')">Add
-                        to Cart</button>
-                </div>
-            </div>
+            <!-- Dynamic products loaded from Google Sheet -->
         </div>
 
         <!-- View All Clothing Button -->
         <div class="category-view-all">
-            <a href="#clothing-section" class="view-all-btn">
+            <a href="catalog.html?category=clothing" class="view-all-btn">
                 <span>View All Clothing</span>
                 <i class="fa-solid fa-arrow-right"></i>
             </a>
@@ -751,7 +621,7 @@
         <!-- 50/50 ABOUT / PROMO SECTION - CLOTHING -->
         <div class="promo-split">
             <div class="promo-image">
-                <img src="media/about_3.jpg" alt="Luxury Women's Eastern Wear" loading="lazy">
+                <img src="media/about_3.webp" alt="Luxury Women's Eastern Wear" loading="lazy">
             </div>
             <div class="promo-content">
                 <span>Luxury Women's Eastern Wear</span>
@@ -777,71 +647,12 @@
                 beauty essentials.</p>
         </div>
         <div class="product-grid" id="cosmetics-grid">
-            <!-- Cosmetic 1 -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=600&q=80"
-                        onerror="this.onerror=null; this.src='media/cat_4.webp';" alt="Radiance Vitamin C Serum"
-                        loading="lazy">
-                </div>
-                <div class="product-info">
-                    <h4>Radiance Vitamin C Serum</h4>
-                    <p class="price">Rs. 2,400</p>
-                    <button class="add-to-cart-btn"
-                        onclick="addToCart('Radiance Vitamin C Serum', 'Rs. 2,400', 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=600&q=80')">Add
-                        to Cart</button>
-                </div>
-            </div>
-            <!-- Cosmetic 2 -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=600&q=80"
-                        onerror="this.onerror=null; this.src='media/cat_4.webp';" alt="Ultra-Hydrating Glow Moisturizer"
-                        loading="lazy">
-                </div>
-                <div class="product-info">
-                    <h4>Ultra-Hydrating Glow Cream</h4>
-                    <p class="price">Rs. 2,100</p>
-                    <button class="add-to-cart-btn"
-                        onclick="addToCart('Ultra-Hydrating Glow Cream', 'Rs. 2,100', 'https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=600&q=80')">Add
-                        to Cart</button>
-                </div>
-            </div>
-            <!-- Cosmetic 3 -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=600&q=80"
-                        onerror="this.onerror=null; this.src='media/cat_4.webp';" alt="Velvet Matte Long-Wear Lipstick"
-                        loading="lazy">
-                </div>
-                <div class="product-info">
-                    <h4>Velvet Matte Long-Wear Lipstick</h4>
-                    <p class="price">Rs. 1,600</p>
-                    <button class="add-to-cart-btn"
-                        onclick="addToCart('Velvet Matte Long-Wear Lipstick', 'Rs. 1,600', 'https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=600&q=80')">Add
-                        to Cart</button>
-                </div>
-            </div>
-            <!-- Cosmetic 4 -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?auto=format&fit=crop&w=600&q=80"
-                        onerror="this.onerror=null; this.src='media/cat_4.webp';" alt="Daily UV Shield SPF 50+"
-                        loading="lazy">
-                </div>
-                <div class="product-info">
-                    <h4>Daily UV Shield SPF 50+</h4>
-                    <p class="price">Rs. 1,850</p>
-                    <button class="add-to-cart-btn"
-                        onclick="addToCart('Daily UV Shield SPF 50+', 'Rs. 1,850', 'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?auto=format&fit=crop&w=600&q=80')">Add
-                        to Cart</button>
-                </div>
-            </div>
+            <!-- Dynamic products loaded from Google Sheet -->
         </div>
 
         <!-- View All Cosmetics Button -->
         <div class="category-view-all">
-            <a href="#cosmetics-section" class="view-all-btn">
+            <a href="catalog.html?category=cosmetics" class="view-all-btn">
                 <span>View All Cosmetics</span>
                 <i class="fa-solid fa-arrow-right"></i>
             </a>
@@ -850,7 +661,7 @@
         <!-- 50/50 ABOUT / PROMO SECTION - COSMETICS -->
         <div class="promo-split reverse">
             <div class="promo-image">
-                <img src="media/about_4.jpg" onerror="this.onerror=null; this.src='media/cat_4.webp';"
+                <img src="media/about_4.webp" onerror="this.onerror=null; this.src='media/cat_4.webp';"
                     alt="Radiant Skincare & Cosmetics" loading="lazy">
             </div>
             <div class="promo-content">
@@ -876,71 +687,12 @@
                 home decor.</p>
         </div>
         <div class="product-grid" id="flowers-grid">
-            <!-- Flower 1 -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=600&q=80"
-                        onerror="this.onerror=null; this.src='media/cat_5.webp';" alt="Real-Touch White Lilies Bouquet"
-                        loading="lazy">
-                </div>
-                <div class="product-info">
-                    <h4>Real-Touch White Lilies Bouquet</h4>
-                    <p class="price">Rs. 2,200</p>
-                    <button class="add-to-cart-btn"
-                        onclick="addToCart('Real-Touch White Lilies Bouquet', 'Rs. 2,200', 'https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=600&q=80')">Add
-                        to Cart</button>
-                </div>
-            </div>
-            <!-- Flower 2 -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=600&q=80"
-                        onerror="this.onerror=null; this.src='media/cat_5.webp';"
-                        alt="Velvet Royal Red Roses (Set of 6)" loading="lazy">
-                </div>
-                <div class="product-info">
-                    <h4>Velvet Royal Red Roses (Set of 6)</h4>
-                    <p class="price">Rs. 1,800</p>
-                    <button class="add-to-cart-btn"
-                        onclick="addToCart('Velvet Royal Red Roses (Set of 6)', 'Rs. 1,800', 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=600&q=80')">Add
-                        to Cart</button>
-                </div>
-            </div>
-            <!-- Flower 3 -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://images.unsplash.com/photo-1525310072745-f49212b5ac6d?auto=format&fit=crop&w=600&q=80"
-                        onerror="this.onerror=null; this.src='media/cat_5.webp';" alt="Luxury Potted Orchid Bloom"
-                        loading="lazy">
-                </div>
-                <div class="product-info">
-                    <h4>Luxury Potted Orchid Bloom</h4>
-                    <p class="price">Rs. 3,500</p>
-                    <button class="add-to-cart-btn"
-                        onclick="addToCart('Luxury Potted Orchid Bloom', 'Rs. 3,500', 'https://images.unsplash.com/photo-1525310072745-f49212b5ac6d?auto=format&fit=crop&w=600&q=80')">Add
-                        to Cart</button>
-                </div>
-            </div>
-            <!-- Flower 4 -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="https://images.unsplash.com/photo-1581783342308-f792dbdd27c5?auto=format&fit=crop&w=600&q=80"
-                        onerror="this.onerror=null; this.src='media/cat_5.webp';" alt="Nordic Minimalist Ceramic Vase"
-                        loading="lazy">
-                </div>
-                <div class="product-info">
-                    <h4>Nordic Minimalist Ceramic Vase</h4>
-                    <p class="price">Rs. 2,650</p>
-                    <button class="add-to-cart-btn"
-                        onclick="addToCart('Nordic Minimalist Ceramic Vase', 'Rs. 2,650', 'https://images.unsplash.com/photo-1581783342308-f792dbdd27c5?auto=format&fit=crop&w=600&q=80')">Add
-                        to Cart</button>
-                </div>
-            </div>
+            <!-- Dynamic products loaded from Google Sheet -->
         </div>
 
         <!-- View All Flowers Button -->
         <div class="category-view-all">
-            <a href="#flowers-section" class="view-all-btn">
+            <a href="catalog.html?category=flowers" class="view-all-btn">
                 <span>View All Flowers</span>
                 <i class="fa-solid fa-arrow-right"></i>
             </a>
@@ -1476,53 +1228,6 @@
         }
     </style>
 
-    <!-- ==========================================
-     PART 2 JAVASCRIPT (Add this inside your <script> tag)
-     ========================================== -->
-    <script>
-        // --- Sliding Cart Logic ---
-        const cart = document.getElementById('slidingCart');
-        const cartOverlay = document.getElementById('cartOverlay');
-        const cartItemsContainer = document.getElementById('cartItemsContainer');
-        const emptyCartMsg = document.getElementById('emptyCartMsg');
-
-        function toggleCart() {
-            cart.classList.toggle('active');
-            cartOverlay.classList.toggle('active');
-        }
-
-        // Link Header Cart Icon to open Sliding Cart
-        // (Make sure to add onclick="toggleCart()" to your cart icon in Part 1 header)
-        document.querySelector('.fa-cart-shopping').addEventListener('click', toggleCart);
-
-        // --- Add to Cart Logic ---
-        function addToCart(title, price, imgUrl) {
-            // Remove empty message if it exists
-            if (emptyCartMsg) {
-                emptyCartMsg.style.display = 'none';
-            }
-
-            // Create new item row
-            const itemRow = document.createElement('div');
-            itemRow.classList.add('cart-item-row');
-
-            itemRow.innerHTML = `
-            <img src="${imgUrl}" class="cart-item-img" alt="${title}">
-            <div class="cart-item-details">
-                <h5>${title}</h5>
-                <p>${price}</p>
-            </div>
-        `;
-
-            // Add to cart container
-            cartItemsContainer.appendChild(itemRow);
-
-            // Open cart drawer automatically
-            if (!cart.classList.contains('active')) {
-                toggleCart();
-            }
-        }
-    </script>
     <!-- ==========================================
      PART 4: TRUST BADGES & BRAND MARQUEE
      (Paste this HTML directly below Part 3)
@@ -2176,125 +1881,28 @@
         }
     </style>
 
-    <!-- ==========================================
-     PART 5 JAVASCRIPT (Add this inside your <script> tag)
-     ========================================== -->
+    <!-- Scripts -->
+    <script src="cart.js"></script>
+    <script src="sheet-sync.js"></script>
+
     <script>
-        // Demo function for Contact Form
+        // Contact Form
         function submitForm(event) {
             event.preventDefault();
             alert("Thank you! Your message has been sent to Miracle Store.");
             document.getElementById('contactForm').reset();
         }
 
-        // Demo function for Newsletter Subscription
+        // Newsletter Subscription
         function submitNewsletter(event) {
             event.preventDefault();
             alert("Subscribed successfully! Welcome to Miracle Store.");
             event.target.reset();
         }
 
-        /* =========================================================
-           GOOGLE SHEETS DYNAMIC PRODUCTS LOADER (GOOGLE FORMS SYNC)
-           ========================================================= */
-        const GOOGLE_SHEET_CONFIG = {
-            csvUrl: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTLpK648W8ufKmKP-8QRidY_nG8K7qDECjyHn3aDCyyTgYz1zKIFS32dA8BLiTbvo4oXBcjjzZn5dRc/pub?output=csv',
-            maxPerCategory: 4
-        };
-
-        // Helper: Convert Google Drive sharing link to direct view URL
-        function convertDriveImageUrl(url) {
-            if (!url) return '';
-            const trimmed = String(url).trim();
-            // Google Drive open/view links
-            const matchId = trimmed.match(/[-\w]{25,}/);
-            if (trimmed.includes('drive.google.com') && matchId) {
-                return `https://lh3.googleusercontent.com/d/${matchId[0]}`;
-            }
-            return trimmed;
-        }
-
-        // Helper: Normalize category string to match our 5 key buckets
-        function normalizeCategory(catStr) {
-            if (!catStr) return null;
-            const c = String(catStr).toLowerCase();
-            if (c.includes('watch') || c.includes('ghadi')) return 'watches';
-            if (c.includes('accessor') || c.includes('mobile') || c.includes('cover') || c.includes('charger') || c.includes('cable') || c.includes('earbud')) return 'accessories';
-            if (c.includes('cloth') || c.includes('dress') || c.includes('suit') || c.includes('kurti') || c.includes('lawn') || c.includes('fabric') || c.includes('women')) return 'clothing';
-            if (c.includes('cosmetic') || c.includes('makeup') || c.includes('skin') || c.includes('serum') || c.includes('cream') || c.includes('beauty')) return 'cosmetics';
-            if (c.includes('flower') || c.includes('decor') || c.includes('vase') || c.includes('pot') || c.includes('plant')) return 'flowers';
-            return null;
-        }
-
-        // Format price nicely
-        function formatPrice(val) {
-            if (!val) return 'Rs. 0';
-            let str = String(val).trim();
-            if (!/^rs\.?/i.test(str)) {
-                str = 'Rs. ' + str;
-            }
-            return str;
-        }
-
-        // Escape HTML to prevent injection
-        function escapeHtml(str) {
-            return String(str || '')
-                .replace(/&/g, '&amp;')
-                .replace(/</g, '&lt;')
-                .replace(/>/g, '&gt;')
-                .replace(/"/g, '&quot;')
-                .replace(/'/g, '&#039;');
-        }
-
-        // Robust CSV Parser handling quotes and commas
-        function parseCSV(text) {
-            const lines = [];
-            let row = [];
-            let current = '';
-            let inQuotes = false;
-
-            for (let i = 0; i < text.length; i++) {
-                const char = text[i];
-                const nextChar = text[i + 1];
-
-                if (char === '"') {
-                    if (inQuotes && nextChar === '"') {
-                        current += '"';
-                        i++;
-                    } else {
-                        inQuotes = !inQuotes;
-                    }
-                } else if (char === ',' && !inQuotes) {
-                    row.push(current);
-                    current = '';
-                } else if ((char === '\r' || char === '\n') && !inQuotes) {
-                    if (char === '\r' && nextChar === '\n') {
-                        i++;
-                    }
-                    row.push(current);
-                    if (row.some(val => val.trim().length > 0)) {
-                        lines.push(row);
-                    }
-                    row = [];
-                    current = '';
-                } else {
-                    current += char;
-                }
-            }
-
-            if (current.length > 0 || row.length > 0) {
-                row.push(current);
-                if (row.some(val => val.trim().length > 0)) {
-                    lines.push(row);
-                }
-            }
-
-            return lines;
-        }
-
         // Hide/Show navigation links corresponding to a category
         function updateCategoryNavVisibility(categoryKey, isVisible) {
-            const selector = `a[href="#${categoryKey}-section"]`;
+            const selector = `a[href="#${categoryKey}-section"], a[href*="category=${categoryKey}"]`;
             document.querySelectorAll(selector).forEach(link => {
                 const li = link.closest('li') || link;
                 if (!isVisible) {
@@ -2305,135 +1913,41 @@
             });
         }
 
-        // Render dynamic cards into grid
-        function renderCategoryCards(gridEl, items) {
-            gridEl.innerHTML = '';
-            items.forEach(item => {
-                const card = document.createElement('div');
-                card.className = 'product-card';
-
-                const imgSrc = convertDriveImageUrl(item.image) || 'media/product_1.webp';
-                const title = item.name || 'Miracle Product';
-                const price = formatPrice(item.price);
-
-                card.innerHTML = `
-                    <div class="product-image">
-                        <img src="${escapeHtml(imgSrc)}" alt="${escapeHtml(title)}" loading="lazy" onerror="this.src='media/product_1.webp';">
-                    </div>
-                    <div class="product-info">
-                        <h4>${escapeHtml(title)}</h4>
-                        <p class="price">${escapeHtml(price)}</p>
-                        <button class="add-to-cart-btn" onclick="addToCart('${escapeHtml(title).replace(/'/g, "\\'")}', '${escapeHtml(price).replace(/'/g, "\\'")}', '${escapeHtml(imgSrc).replace(/'/g, "\\'")}')">Add to Cart</button>
-                    </div>
-                `;
-                gridEl.appendChild(card);
-            });
-        }
-
-        // Main loader function
-        async function loadGoogleSheetProducts() {
+        // Load Products into Home Page Grids
+        async function loadHomePageProducts() {
             try {
-                // Fetch published CSV endpoint directly
-                const response = await fetch(GOOGLE_SHEET_CONFIG.csvUrl + '&_t=' + Date.now());
-                if (!response.ok) {
-                    throw new Error(`Google Sheet CSV fetch error: ${response.status}`);
-                }
-                const csvText = await response.text();
-                const parsedRows = parseCSV(csvText);
-
-                if (!parsedRows || parsedRows.length < 2) {
-                    console.log('No data rows found in Google Sheet CSV.');
-                    return;
-                }
-
-                // First row is the header
-                const headers = parsedRows[0].map(h => (h || '').trim().toLowerCase());
-                let nameIdx = -1, catIdx = -1, priceIdx = -1, imgIdx = -1;
-
-                headers.forEach((h, idx) => {
-                    if (h.includes('name') || h.includes('title') || h.includes('item') || h.includes('product')) {
-                        if (nameIdx === -1) nameIdx = idx;
-                    }
-                    if (h.includes('categor')) {
-                        catIdx = idx;
-                    }
-                    if (h.includes('price') || h.includes('cost') || h.includes('amount') || h.includes('rs')) {
-                        priceIdx = idx;
-                    }
-                    if (h.includes('image') || h.includes('photo') || h.includes('picture') || h.includes('drive') || h.includes('file') || h.includes('upload') || h.includes('attachment')) {
-                        imgIdx = idx;
-                    }
-                });
-
-                // Fallback column positions if header text is custom
-                if (nameIdx === -1) nameIdx = 1;
-                if (catIdx === -1) catIdx = 2;
-                if (priceIdx === -1) priceIdx = 3;
-                if (imgIdx === -1) imgIdx = 4;
-
-                const categorized = {
-                    watches: [],
-                    accessories: [],
-                    clothing: [],
-                    cosmetics: [],
-                    flowers: []
-                };
-
-                // Data rows (excluding header) reversed so newest rows come first
-                const dataRows = parsedRows.slice(1).reverse();
-
-                dataRows.forEach(row => {
-                    const rawCat = (row[catIdx] || '').trim();
-                    const bucket = normalizeCategory(rawCat);
-                    const name = (row[nameIdx] || '').trim();
-                    const price = (row[priceIdx] || '').trim();
-                    const img = (row[imgIdx] || '').trim();
-
-                    if (bucket && (name || img)) {
-                        categorized[bucket].push({
-                            name: name,
-                            price: price,
-                            image: img
-                        });
-                    }
-                });
-
-                // Apply to DOM for all 5 categories
+                const products = await fetchProductsFromSheet();
                 const allCategories = ['watches', 'accessories', 'clothing', 'cosmetics', 'flowers'];
 
                 allCategories.forEach(catKey => {
                     const sectionEl = document.getElementById(`${catKey}-section`);
                     const gridEl = document.getElementById(`${catKey}-grid`);
-                    const items = categorized[catKey] || [];
 
                     if (!sectionEl || !gridEl) return;
 
-                    if (items.length === 0) {
-                        // Agar is category ka koi product nahi hai to category ka product section aur about dono hide
+                    const catItems = products.filter(p => p.category === catKey);
+
+                    if (catItems.length === 0) {
+                        // Agar is category ka koi product Google Sheet mein nahi hai to pura section aur nav link hide ho jaye
                         sectionEl.classList.remove('dyn-visible');
                         updateCategoryNavVisibility(catKey, false);
                     } else {
-                        // Maximum 4 newest products
-                        const topItems = items.slice(0, GOOGLE_SHEET_CONFIG.maxPerCategory);
-                        renderCategoryCards(gridEl, topItems);
+                        // Sirf top 4 newest products display hon
+                        const top4 = catItems.slice(0, 4);
+                        gridEl.innerHTML = top4.map(p => createProductCardHtml(p)).join('');
                         sectionEl.classList.add('dyn-visible');
                         updateCategoryNavVisibility(catKey, true);
                     }
                 });
 
-                console.log('✅ Google Sheets published CSV loaded successfully:', categorized);
+                console.log('✅ Miracle Store Home Page products loaded:', products.length);
 
             } catch (err) {
-                console.warn('⚠️ Google Sheets loader failed:', err);
+                console.warn('⚠️ Miracle Store Home Page product loader error:', err);
             }
         }
 
-        // Auto execute on page load
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', loadGoogleSheetProducts);
-        } else {
-            loadGoogleSheetProducts();
-        }
+        document.addEventListener('DOMContentLoaded', loadHomePageProducts);
     </script>
 </body>
 
