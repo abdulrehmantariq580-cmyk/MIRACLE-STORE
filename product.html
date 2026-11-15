@@ -11,10 +11,19 @@
     <link rel="stylesheet" href="shared.css">
 
     <style>
+        html, body {
+            overflow-x: hidden;
+            max-width: 100%;
+            width: 100%;
+        }
+
         .product-page-wrapper {
             padding: 30px 5% 60px;
             max-width: 1280px;
+            width: 100%;
+            box-sizing: border-box;
             margin: 0 auto;
+            overflow-x: hidden;
         }
 
         /* Breadcrumbs */
@@ -366,6 +375,15 @@
         }
 
         @media (max-width: 600px) {
+            .product-page-wrapper {
+                padding: 16px 12px 40px;
+            }
+            .product-main-title {
+                font-size: 22px;
+            }
+            .product-price-amount {
+                font-size: 24px;
+            }
             .action-buttons-group {
                 flex-direction: column;
             }
@@ -373,7 +391,8 @@
                 grid-template-columns: 1fr;
             }
             .related-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 8px;
             }
         }
     </style>
@@ -511,7 +530,11 @@
                     <h1 class="product-main-title" id="detailProductTitle">Product Title</h1>
 
                     <div class="product-price-row">
-                        <span class="product-price-amount" id="detailProductPrice">Rs. 0</span>
+                        <div style="display:flex; align-items:baseline; gap:12px; flex-wrap:wrap;">
+                            <span class="product-price-amount" id="detailProductPrice">Rs. 0</span>
+                            <del class="product-price-cut-large" id="detailProductCutPrice" style="display:none; text-decoration:line-through; color:#9ca3af; font-size:18px; font-weight:600;"></del>
+                            <span class="detail-discount-pill" id="detailDiscountPill" style="display:none; background:#fee2e2; color:#ef4444; font-size:13px; font-weight:700; padding:4px 9px; border-radius:6px;"></span>
+                        </div>
                         <div id="detailStockIndicator"></div>
                     </div>
 
@@ -706,10 +729,29 @@
                 qtyRow.style.display = 'none';
             }
 
-            // Text Info
+            // Text Info & Dual Price
             document.getElementById('detailCategoryChip').textContent = currentProduct.categoryLabel;
             document.getElementById('detailProductTitle').textContent = currentProduct.title;
-            document.getElementById('detailProductPrice').textContent = currentProduct.priceFormatted;
+
+            const priceEl = document.getElementById('detailProductPrice');
+            const cutEl = document.getElementById('detailProductCutPrice');
+            const pillEl = document.getElementById('detailDiscountPill');
+
+            priceEl.textContent = currentProduct.priceFormatted;
+            if (currentProduct.hasDiscount && currentProduct.regularPriceFormatted) {
+                if (cutEl) {
+                    cutEl.textContent = currentProduct.regularPriceFormatted;
+                    cutEl.style.display = 'inline';
+                }
+                if (pillEl) {
+                    pillEl.textContent = `${currentProduct.discountPercent}% OFF`;
+                    pillEl.style.display = 'inline-block';
+                }
+            } else {
+                if (cutEl) cutEl.style.display = 'none';
+                if (pillEl) pillEl.style.display = 'none';
+            }
+
             document.getElementById('detailProductDescription').textContent = currentProduct.description;
 
             // Bind Add to Cart

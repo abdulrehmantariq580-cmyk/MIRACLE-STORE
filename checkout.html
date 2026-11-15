@@ -11,19 +11,31 @@
     <link rel="stylesheet" href="shared.css">
 
     <style>
+        html, body {
+            overflow-x: hidden;
+            max-width: 100%;
+            width: 100%;
+            position: relative;
+        }
+
         .checkout-wrapper {
             max-width: 1200px;
             margin: 0 auto;
             padding: 40px 5% 70px;
+            width: 100%;
+            overflow-x: hidden;
+            box-sizing: border-box;
         }
 
         .checkout-title-area {
             text-align: center;
-            margin-bottom: 35px;
+            margin-bottom: 30px;
+            width: 100%;
+            box-sizing: border-box;
         }
 
         .checkout-title-area h1 {
-            font-size: 30px;
+            font-size: 28px;
             font-weight: 800;
             color: var(--black);
             margin-bottom: 8px;
@@ -38,8 +50,11 @@
         .checkout-grid {
             display: grid;
             grid-template-columns: 1.25fr 1fr;
-            gap: 40px;
+            gap: 35px;
             align-items: start;
+            width: 100%;
+            max-width: 100%;
+            box-sizing: border-box;
         }
 
         /* Form Card */
@@ -47,8 +62,11 @@
             background: var(--white);
             border: 1px solid var(--border-color);
             border-radius: 12px;
-            padding: 28px;
+            padding: 26px;
             box-shadow: var(--shadow-sm);
+            width: 100%;
+            max-width: 100%;
+            box-sizing: border-box;
         }
 
         .checkout-card h3 {
@@ -397,14 +415,43 @@
         }
 
         @media (max-width: 860px) {
+            .checkout-wrapper {
+                padding: 20px 12px 50px;
+            }
+            .checkout-title-area h1 {
+                font-size: 22px;
+            }
             .checkout-grid {
                 grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .checkout-card {
+                padding: 18px 14px;
             }
             .order-summary-card {
                 position: static;
+                padding: 18px 14px;
             }
             .form-row-2 {
                 grid-template-columns: 1fr;
+                gap: 0;
+            }
+            .payment-method-box {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+                padding: 12px;
+            }
+            .payment-badge {
+                align-self: flex-start;
+            }
+            .btn-whatsapp-order {
+                font-size: 14px;
+                padding: 14px;
+            }
+            .checkout-item-title {
+                white-space: normal;
+                word-break: break-word;
             }
         }
     </style>
