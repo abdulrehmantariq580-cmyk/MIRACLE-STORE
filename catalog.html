@@ -360,6 +360,7 @@
                 <li><a href="catalog.html?category=watches">Watches</a></li>
                 <li><a href="catalog.html?category=accessories">Accessories</a></li>
                 <li><a href="catalog.html?category=clothing">Clothing</a></li>
+                <li><a href="catalog.html?category=bangles">Bangles</a></li>
                 <li><a href="catalog.html?category=cosmetics">Cosmetics</a></li>
                 <li><a href="catalog.html?category=flowers">Flowers</a></li>
                 <li><a href="index.html#contact">Contact</a></li>
@@ -389,6 +390,7 @@
                 <li><a href="catalog.html?category=watches" onclick="toggleMenu()">Watches</a></li>
                 <li><a href="catalog.html?category=accessories" onclick="toggleMenu()">Mobile Accessories</a></li>
                 <li><a href="catalog.html?category=clothing" onclick="toggleMenu()">Clothing</a></li>
+                <li><a href="catalog.html?category=bangles" onclick="toggleMenu()">Bangles & Jewellery</a></li>
                 <li><a href="catalog.html?category=cosmetics" onclick="toggleMenu()">Cosmetics</a></li>
                 <li><a href="catalog.html?category=flowers" onclick="toggleMenu()">Flowers & Decor</a></li>
                 <li><a href="index.html#contact" onclick="toggleMenu()">Contact Us</a></li>
@@ -480,6 +482,10 @@
                     <span>Clothing</span>
                     <span class="filter-tab-count" id="count-clothing">0</span>
                 </button>
+                <button type="button" class="filter-tab-btn" data-category="bangles">
+                    <span>Bangles & Jewellery</span>
+                    <span class="filter-tab-count" id="count-bangles">0</span>
+                </button>
                 <button type="button" class="filter-tab-btn" data-category="cosmetics">
                     <span>Cosmetics</span>
                     <span class="filter-tab-count" id="count-cosmetics">0</span>
@@ -499,7 +505,18 @@
 
         <!-- Product Grid -->
         <div class="catalog-grid" id="catalogGrid">
-            <!-- Dynamic product cards populated via JavaScript -->
+            <div class="miracle-loader-box" style="grid-column: 1 / -1;">
+                <div class="miracle-spinner-ring">
+                    <div class="miracle-spinner-icon">
+                        <i class="fa-solid fa-bag-shopping"></i>
+                    </div>
+                </div>
+                <h3 class="miracle-loader-title">Loading Catalog Inventory</h3>
+                <p class="miracle-loader-desc">Fetching live products across all categories...</p>
+                <div class="miracle-loader-bar">
+                    <div class="miracle-loader-bar-fill"></div>
+                </div>
+            </div>
         </div>
     </main>
 
@@ -526,6 +543,7 @@
                     <li><a href="catalog.html?category=watches">Watches</a></li>
                     <li><a href="catalog.html?category=accessories">Accessories</a></li>
                     <li><a href="catalog.html?category=clothing">Clothing</a></li>
+                    <li><a href="catalog.html?category=bangles">Bangles & Jewellery</a></li>
                     <li><a href="catalog.html?category=cosmetics">Cosmetics</a></li>
                     <li><a href="catalog.html?category=flowers">Flowers & Decor</a></li>
                 </ul>
@@ -593,7 +611,7 @@
         }
 
         function updateTabCounts() {
-            const counts = { all: allCatalogProducts.length, watches: 0, accessories: 0, clothing: 0, cosmetics: 0, flowers: 0 };
+            const counts = { all: allCatalogProducts.length, watches: 0, accessories: 0, clothing: 0, bangles: 0, cosmetics: 0, flowers: 0 };
             allCatalogProducts.forEach(p => {
                 if (counts[p.category] !== undefined) {
                     counts[p.category]++;

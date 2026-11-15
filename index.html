@@ -27,7 +27,8 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        html, body {
+        html,
+        body {
             background-color: var(--white);
             overflow-x: hidden;
             max-width: 100%;
@@ -104,6 +105,10 @@
         }
 
         .dyn-nav-hidden {
+            display: none !important;
+        }
+
+        .dyn-circle-hidden {
             display: none !important;
         }
 
@@ -310,6 +315,7 @@
                 <li class="dyn-nav-hidden"><a href="#watches-section">Watches</a></li>
                 <li class="dyn-nav-hidden"><a href="#accessories-section">Accessories</a></li>
                 <li class="dyn-nav-hidden"><a href="#clothing-section">Clothing</a></li>
+                <li class="dyn-nav-hidden"><a href="#bangles-section">Bangles</a></li>
                 <li class="dyn-nav-hidden"><a href="#cosmetics-section">Cosmetics</a></li>
                 <li class="dyn-nav-hidden"><a href="#flowers-section">Flowers</a></li>
                 <li><a href="#contact">Contact</a></li>
@@ -340,6 +346,8 @@
                 <li class="dyn-nav-hidden"><a href="#watches-section" onclick="toggleMenu()">Watches</a></li>
                 <li class="dyn-nav-hidden"><a href="#accessories-section" onclick="toggleMenu()">Accessories</a></li>
                 <li class="dyn-nav-hidden"><a href="#clothing-section" onclick="toggleMenu()">Clothing</a></li>
+                <li class="dyn-nav-hidden"><a href="#bangles-section" onclick="toggleMenu()">Bangles & Jewellery</a>
+                </li>
                 <li class="dyn-nav-hidden"><a href="#cosmetics-section" onclick="toggleMenu()">Cosmetics</a></li>
                 <li class="dyn-nav-hidden"><a href="#flowers-section" onclick="toggleMenu()">Flowers & Decor</a></li>
                 <li><a href="#contact" onclick="toggleMenu()">Contact Us</a></li>
@@ -465,29 +473,35 @@
         <div class="marquee-container">
             <div class="marquee-track">
                 <!-- Original Items -->
-                <div class="category-item"
+                <div class="category-item dyn-circle-hidden" data-category="watches"
                     onclick="document.getElementById('watches-section').scrollIntoView({behavior: 'smooth'})">
                     <div class="cat-circle"><img src="media/cat_1.webp" fetchpriority="high" alt="Watches"></div>
                     <span>Watches</span>
                 </div>
-                <div class="category-item"
+                <div class="category-item dyn-circle-hidden" data-category="accessories"
                     onclick="document.getElementById('accessories-section').scrollIntoView({behavior: 'smooth'})">
                     <div class="cat-circle"><img src="media/cat_2.webp" fetchpriority="high" alt="Mobile Accessories">
                     </div>
                     <span>Accessories</span>
                 </div>
-                <div class="category-item"
+                <div class="category-item dyn-circle-hidden" data-category="clothing"
                     onclick="document.getElementById('clothing-section').scrollIntoView({behavior: 'smooth'})">
                     <div class="cat-circle"><img src="media/cat_3.webp" fetchpriority="high" alt="Women's Clothing">
                     </div>
                     <span>Clothing</span>
                 </div>
-                <div class="category-item"
+                <div class="category-item dyn-circle-hidden" data-category="bangles"
+                    onclick="document.getElementById('bangles-section').scrollIntoView({behavior: 'smooth'})">
+                    <div class="cat-circle"><img src="media/cat_6.webp" fetchpriority="high" alt="Bangles & Jewellery">
+                    </div>
+                    <span>Bangles</span>
+                </div>
+                <div class="category-item dyn-circle-hidden" data-category="cosmetics"
                     onclick="document.getElementById('cosmetics-section').scrollIntoView({behavior: 'smooth'})">
                     <div class="cat-circle"><img src="media/cat_4.webp" fetchpriority="high" alt="Cosmetics"></div>
                     <span>Cosmetics</span>
                 </div>
-                <div class="category-item"
+                <div class="category-item dyn-circle-hidden" data-category="flowers"
                     onclick="document.getElementById('flowers-section').scrollIntoView({behavior: 'smooth'})">
                     <div class="cat-circle"><img src="media/cat_5.webp" fetchpriority="high" alt="Artificial Flowers">
                     </div>
@@ -495,29 +509,35 @@
                 </div>
 
                 <!-- Duplicated Items for Seamless Loop -->
-                <div class="category-item"
+                <div class="category-item dyn-circle-hidden" data-category="watches"
                     onclick="document.getElementById('watches-section').scrollIntoView({behavior: 'smooth'})">
                     <div class="cat-circle"><img src="media/cat_1.webp" fetchpriority="high" alt="Watches"></div>
                     <span>Watches</span>
                 </div>
-                <div class="category-item"
+                <div class="category-item dyn-circle-hidden" data-category="accessories"
                     onclick="document.getElementById('accessories-section').scrollIntoView({behavior: 'smooth'})">
                     <div class="cat-circle"><img src="media/cat_2.webp" fetchpriority="high" alt="Mobile Accessories">
                     </div>
                     <span>Accessories</span>
                 </div>
-                <div class="category-item"
+                <div class="category-item dyn-circle-hidden" data-category="clothing"
                     onclick="document.getElementById('clothing-section').scrollIntoView({behavior: 'smooth'})">
                     <div class="cat-circle"><img src="media/cat_3.webp" fetchpriority="high" alt="Women's Clothing">
                     </div>
                     <span>Clothing</span>
                 </div>
-                <div class="category-item"
+                <div class="category-item dyn-circle-hidden" data-category="bangles"
+                    onclick="document.getElementById('bangles-section').scrollIntoView({behavior: 'smooth'})">
+                    <div class="cat-circle"><img src="media/cat_6.webp" fetchpriority="high" alt="Bangles & Jewellery">
+                    </div>
+                    <span>Bangles</span>
+                </div>
+                <div class="category-item dyn-circle-hidden" data-category="cosmetics"
                     onclick="document.getElementById('cosmetics-section').scrollIntoView({behavior: 'smooth'})">
                     <div class="cat-circle"><img src="media/cat_4.webp" fetchpriority="high" alt="Cosmetics"></div>
                     <span>Cosmetics</span>
                 </div>
-                <div class="category-item"
+                <div class="category-item dyn-circle-hidden" data-category="flowers"
                     onclick="document.getElementById('flowers-section').scrollIntoView({behavior: 'smooth'})">
                     <div class="cat-circle"><img src="media/cat_5.webp" fetchpriority="high" alt="Artificial Flowers">
                     </div>
@@ -526,6 +546,45 @@
             </div>
         </div>
     </section>
+
+    <!-- ==========================================
+     EXPLORE ALL PRODUCTS HERO BANNER
+     (Directly below Shop By Category)
+     ========================================== -->
+    <section class="explore-all-banner-section">
+        <div class="explore-all-card">
+            <span class="explore-badge"><i class="fa-solid fa-sparkles"></i> Miracle Store Complete Catalog</span>
+            <h2 class="explore-title">Looking For Something Special? Explore All Products</h2>
+            <p class="explore-subtitle">Browse through our complete collection of authentic luxury watches, mobile accessories, designer fashion, bangles, cosmetics, and floral decor with live search and custom filters.</p>
+            
+            <div class="explore-features-row">
+                <span class="explore-feature-pill"><i class="fa-solid fa-truck-fast"></i> Rs. 300 Flat Nationwide Delivery</span>
+                <span class="explore-feature-pill"><i class="fa-solid fa-shield-halved"></i> 100% Authentic Quality</span>
+                <span class="explore-feature-pill"><i class="fa-solid fa-money-bill-wave"></i> Cash On Delivery Available</span>
+            </div>
+
+            <div class="explore-cta-wrap">
+                <a href="catalog.html" class="explore-main-btn">
+                    <span>View All Products</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- LIVE SHEET PRODUCTS LOADING STATE -->
+    <div class="miracle-loader-box" id="homePageLoader">
+        <div class="miracle-spinner-ring">
+            <div class="miracle-spinner-icon">
+                <i class="fa-solid fa-bag-shopping"></i>
+            </div>
+        </div>
+        <h3 class="miracle-loader-title">Loading Miracle Store Collections</h3>
+        <p class="miracle-loader-desc">Connecting to live inventory & fetching authentic products from Google Sheets...</p>
+        <div class="miracle-loader-bar">
+            <div class="miracle-loader-bar-fill"></div>
+        </div>
+    </div>
 
     <!-- ==========================================
      CATEGORY 1: WATCHES (NEW WATCHES ARRIVAL)
@@ -644,6 +703,47 @@
                 <button class="shop-now-btn"
                     onclick="document.getElementById('clothing-section').scrollIntoView({behavior: 'smooth'})">Explore
                     Women's Collection</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+     CATEGORY: BANGLES & JEWELLERY (NEW BANGLES ARRIVAL)
+     ========================================== -->
+    <section class="category-section" id="bangles-section" data-category="bangles">
+        <div class="category-header">
+            <h2 class="section-title">New Bangles & Jewellery Arrival</h2>
+            <p class="section-subtitle">Exquisite handcrafted crystal bangles, royal beaded kadas, and artisanal
+                traditional jewellery embellishments.</p>
+        </div>
+        <div class="product-grid" id="bangles-grid">
+            <!-- Dynamic products loaded from Google Sheet -->
+        </div>
+
+        <!-- View All Bangles Button -->
+        <div class="category-view-all">
+            <a href="catalog.html?category=bangles" class="view-all-btn">
+                <span>View All Bangles & Jewellery</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </a>
+        </div>
+
+        <!-- 50/50 ABOUT / PROMO SECTION - BANGLES -->
+        <div class="promo-split reverse">
+            <div class="promo-image">
+                <img src="media/about_6.webp" onerror="this.onerror=null; this.src='media/cat_6.jpg';"
+                    alt="Artisanal Handcrafted Bangles & Jewellery" loading="lazy">
+            </div>
+            <div class="promo-content">
+                <span>Artisanal Handcrafted Jewellery</span>
+                <h2>Timeless Elegance & Royal Crystal Brilliance</h2>
+                <p>Add a mesmerizing touch of royal glamour to every look with Miracle Store's artisanal bangles and
+                    jewellery collection. Meticulously handcrafted with shimmering crystal beads, lustrous pearls,
+                    delicate golden filigree, and signature hanging latkan charms, each piece is designed to elevate
+                    your festive ensembles with timeless grace and effortless luxury.</p>
+                <button class="shop-now-btn"
+                    onclick="document.getElementById('bangles-section').scrollIntoView({behavior: 'smooth'})">Explore
+                    Bangles Collection</button>
             </div>
         </div>
     </section>
@@ -1223,8 +1323,7 @@
             }
 
             .sliding-cart {
-                width: 300px;
-                right: -300px;
+                width: min(320px, 86vw);
             }
 
             .product-info h4 {
@@ -1561,10 +1660,12 @@
             <div class="footer-col">
                 <h3>Quick Links</h3>
                 <ul>
-                    <li><a href="#">Home</a></li>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="catalog.html">All Products</a></li>
                     <li class="dyn-nav-hidden"><a href="#watches-section">Watches</a></li>
                     <li class="dyn-nav-hidden"><a href="#accessories-section">Mobile Accessories</a></li>
                     <li class="dyn-nav-hidden"><a href="#clothing-section">Clothing</a></li>
+                    <li class="dyn-nav-hidden"><a href="#bangles-section">Bangles & Jewellery</a></li>
                     <li class="dyn-nav-hidden"><a href="#cosmetics-section">Cosmetics</a></li>
                     <li class="dyn-nav-hidden"><a href="#flowers-section">Flowers & Decor</a></li>
                 </ul>
@@ -1919,7 +2020,7 @@
             event.target.reset();
         }
 
-        // Hide/Show navigation links corresponding to a category
+        // Hide/Show navigation links and marquee category circles corresponding to a category
         function updateCategoryNavVisibility(categoryKey, isVisible) {
             const selector = `a[href="#${categoryKey}-section"], a[href*="category=${categoryKey}"]`;
             document.querySelectorAll(selector).forEach(link => {
@@ -1930,13 +2031,22 @@
                     li.classList.remove('dyn-nav-hidden');
                 }
             });
+
+            document.querySelectorAll(`.category-item[data-category="${categoryKey}"]`).forEach(circle => {
+                if (!isVisible) {
+                    circle.classList.add('dyn-circle-hidden');
+                } else {
+                    circle.classList.remove('dyn-circle-hidden');
+                }
+            });
         }
 
         // Load Products into Home Page Grids
         async function loadHomePageProducts() {
+            const loaderEl = document.getElementById('homePageLoader');
             try {
                 const products = await fetchProductsFromSheet();
-                const allCategories = ['watches', 'accessories', 'clothing', 'cosmetics', 'flowers'];
+                const allCategories = ['watches', 'accessories', 'clothing', 'bangles', 'cosmetics', 'flowers'];
 
                 allCategories.forEach(catKey => {
                     const sectionEl = document.getElementById(`${catKey}-section`);
@@ -1947,7 +2057,7 @@
                     const catItems = products.filter(p => p.category === catKey);
 
                     if (catItems.length === 0) {
-                        // Agar is category ka koi product Google Sheet mein nahi hai to pura section aur nav link hide ho jaye
+                        // Agar is category ka koi product Google Sheet mein nahi hai to pura section, about section, circle aur nav link hide ho jaye
                         sectionEl.classList.remove('dyn-visible');
                         updateCategoryNavVisibility(catKey, false);
                     } else {
@@ -1963,6 +2073,15 @@
 
             } catch (err) {
                 console.warn('⚠️ Miracle Store Home Page product loader error:', err);
+            } finally {
+                // Smoothly fade out loading animation
+                if (loaderEl) {
+                    loaderEl.style.opacity = '0';
+                    loaderEl.style.transform = 'scale(0.96)';
+                    setTimeout(() => {
+                        loaderEl.style.display = 'none';
+                    }, 350);
+                }
             }
         }
 

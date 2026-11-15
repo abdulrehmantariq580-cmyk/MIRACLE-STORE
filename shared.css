@@ -988,3 +988,282 @@ footer.main-footer {
         padding: 2px 6px;
     }
 }
+
+/* =========================================================
+   UNIVERSAL BRANDED LOADING ANIMATION & SKELETON STATES
+   ========================================================= */
+.miracle-loader-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 50px 20px;
+    background: #ffffff;
+    border-radius: 16px;
+    margin: 25px auto;
+    max-width: 560px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+    border: 1px solid #f0fdf4;
+    transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.miracle-spinner-ring {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    margin-bottom: 18px;
+}
+
+.miracle-spinner-ring::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 3.5px solid #e2e8f0;
+}
+
+.miracle-spinner-ring::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 3.5px solid transparent;
+    border-top-color: var(--primary-teal, #02aab0);
+    border-right-color: var(--primary-lime, #00cdac);
+    animation: miracleSpin 0.9s cubic-bezier(0.5, 0.1, 0.5, 0.9) infinite;
+}
+
+.miracle-spinner-icon {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    color: var(--primary-teal, #02aab0);
+    animation: miraclePulse 1.8s ease-in-out infinite;
+}
+
+@keyframes miracleSpin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes miraclePulse {
+    0%, 100% { transform: scale(0.9); opacity: 0.7; }
+    50% { transform: scale(1.1); opacity: 1; }
+}
+
+.miracle-loader-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--dark-grey, #222);
+    margin-bottom: 6px;
+    letter-spacing: -0.2px;
+}
+
+.miracle-loader-desc {
+    font-size: 13px;
+    color: var(--text-muted, #6b7280);
+    max-width: 420px;
+    line-height: 1.5;
+    margin-bottom: 18px;
+}
+
+.miracle-loader-bar {
+    width: 180px;
+    height: 4px;
+    background: #f1f5f9;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+}
+
+.miracle-loader-bar-fill {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -50%;
+    width: 50%;
+    background: linear-gradient(90deg, var(--primary-teal, #02aab0), var(--primary-lime, #00cdac));
+    border-radius: 10px;
+    animation: miracleBarSweep 1.4s ease-in-out infinite;
+}
+
+@keyframes miracleBarSweep {
+    0% { left: -50%; width: 30%; }
+    50% { left: 25%; width: 60%; }
+    100% { left: 105%; width: 30%; }
+}
+
+/* =========================================================
+   EXPLORE ALL PRODUCTS HERO BANNER (Used below categories)
+   ========================================================= */
+.explore-all-banner-section {
+    padding: 10px 20px 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.explore-all-card {
+    background: linear-gradient(135deg, #092027 0%, #203A43 50%, #2C5364 100%);
+    border-radius: 16px;
+    padding: 35px 30px;
+    color: #ffffff;
+    box-shadow: 0 10px 30px rgba(2, 170, 176, 0.15);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.explore-all-card::before {
+    content: '';
+    position: absolute;
+    top: -50px;
+    right: -50px;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(0, 205, 172, 0.25) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.explore-all-card::after {
+    content: '';
+    position: absolute;
+    bottom: -60px;
+    left: -60px;
+    width: 220px;
+    height: 220px;
+    background: radial-gradient(circle, rgba(2, 170, 176, 0.2) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.explore-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: rgba(0, 205, 172, 0.18);
+    color: #2dd4bf;
+    border: 1px solid rgba(45, 212, 191, 0.35);
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    padding: 5px 14px;
+    border-radius: 20px;
+    margin-bottom: 14px;
+}
+
+.explore-title {
+    font-size: 26px;
+    font-weight: 800;
+    margin-bottom: 10px;
+    letter-spacing: -0.3px;
+    line-height: 1.25;
+    color: #ffffff;
+}
+
+.explore-subtitle {
+    font-size: 14px;
+    color: #cbd5e1;
+    max-width: 680px;
+    line-height: 1.6;
+    margin: 0 auto 20px;
+}
+
+.explore-features-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.explore-feature-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #e2e8f0;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(4px);
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.explore-feature-pill i {
+    color: #00cdac;
+}
+
+.explore-cta-wrap {
+    margin-top: 5px;
+}
+
+.explore-main-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: linear-gradient(90deg, #02aab0, #00cdac);
+    color: #ffffff !important;
+    font-size: 15px;
+    font-weight: 700;
+    padding: 13px 32px;
+    border-radius: 30px;
+    text-decoration: none;
+    box-shadow: 0 4px 20px rgba(0, 205, 172, 0.35);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.explore-main-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 205, 172, 0.5);
+    color: #ffffff;
+}
+
+.explore-main-btn i {
+    transition: transform 0.2s ease;
+}
+
+.explore-main-btn:hover i {
+    transform: translateX(4px);
+}
+
+@media (max-width: 768px) {
+    .explore-all-banner-section {
+        padding: 5px 12px 20px;
+    }
+    .explore-all-card {
+        padding: 24px 16px;
+        border-radius: 14px;
+    }
+    .explore-title {
+        font-size: 20px;
+    }
+    .explore-subtitle {
+        font-size: 13px;
+        margin-bottom: 16px;
+    }
+    .explore-features-row {
+        gap: 8px;
+        margin-bottom: 18px;
+    }
+    .explore-feature-pill {
+        font-size: 11px;
+        padding: 5px 10px;
+    }
+    .explore-main-btn {
+        font-size: 14px;
+        padding: 11px 24px;
+        width: 100%;
+        justify-content: center;
+    }
+}
+

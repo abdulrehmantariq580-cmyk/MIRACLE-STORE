@@ -15,12 +15,13 @@ function convertDriveToCdn(url) {
     return trimmed;
 }
 
-// Normalize category into 5 core keys
+// Normalize category into core keys
 function normalizeCategoryKey(raw) {
     if (!raw) return 'other';
     const c = String(raw).toLowerCase().trim();
     if (c.includes('watch') || c.includes('ghadi')) return 'watches';
     if (c.includes('accessor') || c.includes('mobile') || c.includes('cover') || c.includes('charger') || c.includes('cable') || c.includes('earbud')) return 'accessories';
+    if (c.includes('bangle') || c.includes('churi') || c.includes('choodi') || c.includes('kara') || c.includes('bracelet') || c.includes('jewel')) return 'bangles';
     if (c.includes('cloth') || c.includes('dress') || c.includes('suit') || c.includes('kurti') || c.includes('lawn') || c.includes('fabric') || c.includes('women')) return 'clothing';
     if (c.includes('cosmetic') || c.includes('makeup') || c.includes('skin') || c.includes('serum') || c.includes('cream') || c.includes('beauty')) return 'cosmetics';
     if (c.includes('flower') || c.includes('decor') || c.includes('vase') || c.includes('pot') || c.includes('plant')) return 'flowers';
@@ -33,6 +34,7 @@ function getCategoryLabel(key) {
         case 'watches': return 'Luxury Watches';
         case 'accessories': return 'Mobile Accessories';
         case 'clothing': return "Women's Clothing";
+        case 'bangles': return 'Bangles & Jewellery';
         case 'cosmetics': return 'Cosmetics & Beauty';
         case 'flowers': return 'Flowers & Home Decor';
         default: return 'Miracle Collection';

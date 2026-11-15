@@ -424,6 +424,7 @@
                 <li><a href="catalog.html?category=watches">Watches</a></li>
                 <li><a href="catalog.html?category=accessories">Accessories</a></li>
                 <li><a href="catalog.html?category=clothing">Clothing</a></li>
+                <li><a href="catalog.html?category=bangles">Bangles</a></li>
                 <li><a href="catalog.html?category=cosmetics">Cosmetics</a></li>
                 <li><a href="catalog.html?category=flowers">Flowers</a></li>
                 <li><a href="index.html#contact">Contact</a></li>
@@ -453,6 +454,7 @@
                 <li><a href="catalog.html?category=watches" onclick="toggleMenu()">Watches</a></li>
                 <li><a href="catalog.html?category=accessories" onclick="toggleMenu()">Mobile Accessories</a></li>
                 <li><a href="catalog.html?category=clothing" onclick="toggleMenu()">Clothing</a></li>
+                <li><a href="catalog.html?category=bangles" onclick="toggleMenu()">Bangles & Jewellery</a></li>
                 <li><a href="catalog.html?category=cosmetics" onclick="toggleMenu()">Cosmetics</a></li>
                 <li><a href="catalog.html?category=flowers" onclick="toggleMenu()">Flowers & Decor</a></li>
                 <li><a href="index.html#contact" onclick="toggleMenu()">Contact Us</a></li>
@@ -499,9 +501,17 @@
 
     <!-- MAIN PRODUCT DETAILS CONTENT -->
     <main class="product-page-wrapper" id="productPageContent">
-        <div class="loading-state-box" id="loadingState">
-            <i class="fa-solid fa-spinner loading-spinner"></i>
-            <p style="font-weight: 600; color: #555;">Loading product details from Miracle Store...</p>
+        <div class="miracle-loader-box" id="loadingState">
+            <div class="miracle-spinner-ring">
+                <div class="miracle-spinner-icon">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                </div>
+            </div>
+            <h3 class="miracle-loader-title">Loading Product Details</h3>
+            <p class="miracle-loader-desc">Fetching specifications, high-res photos, and live pricing from Miracle Store...</p>
+            <div class="miracle-loader-bar">
+                <div class="miracle-loader-bar-fill"></div>
+            </div>
         </div>
 
         <div id="productDisplayArea" style="display: none;">
@@ -616,6 +626,7 @@
                     <li><a href="catalog.html?category=watches">Watches</a></li>
                     <li><a href="catalog.html?category=accessories">Accessories</a></li>
                     <li><a href="catalog.html?category=clothing">Clothing</a></li>
+                    <li><a href="catalog.html?category=bangles">Bangles & Jewellery</a></li>
                     <li><a href="catalog.html?category=cosmetics">Cosmetics</a></li>
                     <li><a href="catalog.html?category=flowers">Flowers & Decor</a></li>
                 </ul>

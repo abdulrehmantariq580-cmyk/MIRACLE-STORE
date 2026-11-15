@@ -213,7 +213,12 @@ function renderSlidingCartUI() {
 }
 
 // Drawer Toggle Functions
+let _lastCartToggleTime = 0;
 function toggleCart() {
+    const now = Date.now();
+    if (now - _lastCartToggleTime < 250) return;
+    _lastCartToggleTime = now;
+
     const cartEl = document.getElementById('slidingCart');
     const overlayEl = document.getElementById('cartOverlay');
     if (!cartEl) return;
@@ -281,12 +286,14 @@ document.addEventListener('DOMContentLoaded', () => {
     renderSlidingCartUI();
     updateHeaderCartBadge();
 
-    // Link any cart toggle icons
-    document.querySelectorAll('.header-cart-wrap, .fa-cart-shopping').forEach(el => {
-        el.addEventListener('click', (e) => {
-            e.preventDefault();
-            toggleCart();
-        });
+    // Link any cart toggle icons that don't already have inline onclick handlers
+    document.querySelectorAll('.header-cart-wrap').forEach(el => {
+        if (!el.getAttribute('onclick')) {
+            el.addEventListener('click', (e) => {
+                e.preventDefault();
+                toggleCart();
+            });
+        }
     });
 });
 
