@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Miracle Store - Home</title>
     <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <style>
         /* === CSS VARIABLES & RESET === */
         :root {
@@ -47,7 +48,7 @@
             justify-content: space-between;
             padding: 15px 5%;
             background-color: var(--white);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
             position: sticky;
             top: 0;
             z-index: 1000;
@@ -63,7 +64,8 @@
         }
 
         .logo-container img {
-            height: 45px; /* Adjust height as needed */
+            height: 45px;
+            /* Adjust height as needed */
             max-width: 100%;
             object-fit: contain;
         }
@@ -82,8 +84,20 @@
             transition: color 0.3s ease;
         }
 
-        .desktop-nav a:hover, .desktop-nav a.active {
+        .desktop-nav a:hover,
+        .desktop-nav a.active {
             color: var(--primary-teal);
+        }
+
+        /* Dynamic Google Sheet Loader Styles */
+        .category-section {
+            display: none; /* Initially hide all category sections until products exist in Google Sheet */
+        }
+        .category-section.dyn-visible {
+            display: block !important;
+        }
+        .dyn-nav-hidden {
+            display: none !important;
         }
 
         .header-icons {
@@ -108,7 +122,7 @@
             left: 0;
             width: 100%;
             height: 100vh;
-            background: rgba(0,0,0,0.5);
+            background: rgba(0, 0, 0, 0.5);
             z-index: 1001;
             opacity: 0;
             visibility: hidden;
@@ -125,7 +139,7 @@
             z-index: 1002;
             padding: 20px;
             transition: 0.4s ease;
-            box-shadow: 2px 0 15px rgba(0,0,0,0.1);
+            box-shadow: 2px 0 15px rgba(0, 0, 0, 0.1);
         }
 
         .mobile-menu.active {
@@ -164,27 +178,31 @@
         /* === HERO SECTION (16:9 Slider) === */
         .hero-section {
             width: 100%;
-            aspect-ratio: 16 / 9; /* Ensures strict 16:9 ratio on all devices */
+            aspect-ratio: 16 / 9;
+            /* Ensures strict 16:9 ratio on all devices */
             position: relative;
             overflow: hidden;
         }
 
         .slider-track {
             display: flex;
-            width: 300%; /* 3 banners = 300% */
+            width: 300%;
+            /* 3 banners = 300% */
             height: 100%;
             transition: transform 0.6s ease-in-out;
         }
 
         .slide {
-            width: 33.333%; /* 100% / 3 */
+            width: 33.333%;
+            /* 100% / 3 */
             height: 100%;
         }
 
         .slide img {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Prevents stretching */
+            object-fit: cover;
+            /* Prevents stretching */
         }
 
         /* Slider Indicators (Dots) */
@@ -208,7 +226,7 @@
 
         .dot.active {
             background: var(--primary-teal);
-            box-shadow: 0 0 5px rgba(0,0,0,0.3);
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
         }
 
         /* === RESPONSIVE DESIGN (MOBILE) === */
@@ -216,22 +234,29 @@
             .desktop-nav {
                 display: none;
             }
+
             .menu-btn {
                 display: block;
             }
+
             .header-icons {
                 gap: 15px;
             }
+
             header {
                 padding: 15px 20px;
             }
+
             .logo-container img {
-                height: 35px; /* Smaller logo for mobile */
+                height: 35px;
+                /* Smaller logo for mobile */
             }
+
             /* Hero slider dots adjusted for mobile */
             .slider-dots {
                 bottom: 10px;
             }
+
             .dot {
                 width: 8px;
                 height: 8px;
@@ -239,6 +264,7 @@
         }
     </style>
 </head>
+
 <body>
 
     <!-- ANNOUNCEMENT BAR -->
@@ -264,9 +290,11 @@
         <nav class="desktop-nav">
             <ul>
                 <li><a href="#" class="active">Home</a></li>
-                <li><a href="#">Watches</a></li>
-                <li><a href="#">Mobile Accessories</a></li>
-                <li><a href="#">Clothing</a></li>
+                <li class="dyn-nav-hidden"><a href="#watches-section">Watches</a></li>
+                <li class="dyn-nav-hidden"><a href="#accessories-section">Accessories</a></li>
+                <li class="dyn-nav-hidden"><a href="#clothing-section">Clothing</a></li>
+                <li class="dyn-nav-hidden"><a href="#cosmetics-section">Cosmetics</a></li>
+                <li class="dyn-nav-hidden"><a href="#flowers-section">Flowers</a></li>
             </ul>
         </nav>
 
@@ -286,12 +314,13 @@
         </div>
         <nav class="mobile-nav">
             <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Watches</a></li>
-                <li><a href="#">Mobile Accessories</a></li>
-                <li><a href="#">Clothing</a></li>
-                <li><a href="#">Cosmetics</a></li>
-                <li><a href="#">Contact Us</a></li>
+                <li><a href="#" onclick="toggleMenu()">Home</a></li>
+                <li class="dyn-nav-hidden"><a href="#watches-section" onclick="toggleMenu()">Watches</a></li>
+                <li class="dyn-nav-hidden"><a href="#accessories-section" onclick="toggleMenu()">Accessories</a></li>
+                <li class="dyn-nav-hidden"><a href="#clothing-section" onclick="toggleMenu()">Clothing</a></li>
+                <li class="dyn-nav-hidden"><a href="#cosmetics-section" onclick="toggleMenu()">Cosmetics</a></li>
+                <li class="dyn-nav-hidden"><a href="#flowers-section" onclick="toggleMenu()">Flowers & Decor</a></li>
+                <li><a href="#contact" onclick="toggleMenu()">Contact Us</a></li>
             </ul>
         </nav>
     </div>
@@ -312,7 +341,7 @@
                 <img src="media/banner_3.webp" fetchpriority="high" alt="Classic Watches Banner 3">
             </div>
         </div>
-        
+
         <!-- Slider Navigation Dots -->
         <div class="slider-dots">
             <span class="dot active" onclick="goToSlide(0)"></span>
@@ -340,7 +369,7 @@
         function updateSlider() {
             // Move track
             track.style.transform = `translateX(-${currentSlide * 33.333}%)`;
-            
+
             // Update dots
             dots.forEach(dot => dot.classList.remove('active'));
             dots[currentSlide].classList.add('active');
@@ -371,1205 +400,2041 @@
      (Paste this HTML directly below Part 1 Hero Section)
      ========================================== -->
 
-<!-- SLIDING CART DRAWER -->
-<div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
-<div class="sliding-cart" id="slidingCart">
-    <div class="cart-header">
-        <h3>Your Cart</h3>
-        <i class="fa-solid fa-xmark close-cart" onclick="toggleCart()"></i>
+    <!-- SLIDING CART DRAWER -->
+    <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+    <div class="sliding-cart" id="slidingCart">
+        <div class="cart-header">
+            <h3>Your Cart</h3>
+            <i class="fa-solid fa-xmark close-cart" onclick="toggleCart()"></i>
+        </div>
+        <div class="cart-items" id="cartItemsContainer">
+            <!-- Cart items will appear here -->
+            <p style="text-align: center; color: #777; margin-top: 20px;" id="emptyCartMsg">Your cart is currently
+                empty.</p>
+        </div>
+        <div class="cart-footer">
+            <button class="checkout-btn">Proceed to Checkout</button>
+        </div>
     </div>
-    <div class="cart-items" id="cartItemsContainer">
-        <!-- Cart items will appear here -->
-        <p style="text-align: center; color: #777; margin-top: 20px;" id="emptyCartMsg">Your cart is currently empty.</p>
-    </div>
-    <div class="cart-footer">
-        <button class="checkout-btn">Proceed to Checkout</button>
-    </div>
-</div>
 
-<!-- SHOP BY CATEGORY (Looping Marquee) -->
-<section class="categories-section">
-    <h2 class="section-title">Shop By Category</h2>
-    <div class="marquee-container">
-        <div class="marquee-track">
-            <!-- Original Items -->
-            <div class="category-item">
-                <div class="cat-circle"><img src="media/cat_1.webp" fetchpriority="high" alt="Watches"></div>
-                <span>Watches</span>
-            </div>
-            <div class="category-item">
-                <div class="cat-circle"><img src="media/cat_2.webp" fetchpriority="high" alt="Mobile Accessories"></div>
-                <span>Accessories</span>
-            </div>
-            <div class="category-item">
-                <div class="cat-circle"><img src="media/cat_3.webp" fetchpriority="high" alt="Mens Clothing"></div>
-                <span>Clothing</span>
-            </div>
-            <div class="category-item">
-                <div class="cat-circle"><img src="media/cat_4.webp" fetchpriority="high" alt="Cosmetics"></div>
-                <span>Cosmetics</span>
-            </div>
-            <div class="category-item">
-                <div class="cat-circle"><img src="media/cat_5.webp" fetchpriority="high"></div>
-                <span>Flowers</span>
-            </div>
-            
-            <!-- Duplicated Items for Seamless Loop -->
-            <div class="category-item">
-                <div class="cat-circle"><img src="media/cat_1.webp" fetchpriority="high" alt="Watches"></div>
-                <span>Watches</span>
-            </div>
-            <div class="category-item">
-                <div class="cat-circle"><img src="media/cat_2.webp" fetchpriority="high" alt="Mobile Accessories"></div>
-                <span>Accessories</span>
-            </div>
-            <div class="category-item">
-                <div class="cat-circle"><img src="media/cat_3.webp" fetchpriority="high" alt="Mens Clothing"></div>
-                <span>Clothing</span>
-            </div>
-            <div class="category-item">
-                <div class="cat-circle"><img src="media/cat_4.webp" fetchpriority="high" alt="Cosmetics"></div>
-                <span>Cosmetics</span>
-            </div>
-            <div class="category-item">
-                <div class="cat-circle"><img src="media/cat_5.webp" fetchpriority="high" alt="Artificial Flowers"></div>
-                <span>Flowers</span>
-            </div>
-        </div>
-    </div>
-</section>
+    <!-- SHOP BY CATEGORY (Looping Marquee) -->
+    <section class="categories-section">
+        <h2 class="section-title">Shop By Category</h2>
+        <div class="marquee-container">
+            <div class="marquee-track">
+                <!-- Original Items -->
+                <div class="category-item"
+                    onclick="document.getElementById('watches-section').scrollIntoView({behavior: 'smooth'})">
+                    <div class="cat-circle"><img src="media/cat_1.webp" fetchpriority="high" alt="Watches"></div>
+                    <span>Watches</span>
+                </div>
+                <div class="category-item"
+                    onclick="document.getElementById('accessories-section').scrollIntoView({behavior: 'smooth'})">
+                    <div class="cat-circle"><img src="media/cat_2.webp" fetchpriority="high" alt="Mobile Accessories">
+                    </div>
+                    <span>Accessories</span>
+                </div>
+                <div class="category-item"
+                    onclick="document.getElementById('clothing-section').scrollIntoView({behavior: 'smooth'})">
+                    <div class="cat-circle"><img src="media/cat_3.webp" fetchpriority="high" alt="Women's Clothing">
+                    </div>
+                    <span>Clothing</span>
+                </div>
+                <div class="category-item"
+                    onclick="document.getElementById('cosmetics-section').scrollIntoView({behavior: 'smooth'})">
+                    <div class="cat-circle"><img src="media/cat_4.webp" fetchpriority="high" alt="Cosmetics"></div>
+                    <span>Cosmetics</span>
+                </div>
+                <div class="category-item"
+                    onclick="document.getElementById('flowers-section').scrollIntoView({behavior: 'smooth'})">
+                    <div class="cat-circle"><img src="media/cat_5.webp" fetchpriority="high" alt="Artificial Flowers">
+                    </div>
+                    <span>Flowers</span>
+                </div>
 
-<!-- FEATURED PRODUCTS -->
-<section class="featured-products">
-    <h2 class="section-title">Featured Watches</h2>
-    <div class="product-grid">
-        <!-- Product 1 -->
-        <div class="product-card">
-            <div class="product-image">
-                <img src="media/product_1.webp" alt="Classic White Watch">
-            </div>
-            <div class="product-info">
-                <h4>Miracle Classic White</h4>
-                <p class="price">Rs. 4,500</p>
-                <button class="add-to-cart-btn" onclick="addToCart('Miracle Classic White', 'Rs. 4,500', 'media/product_1.webp')">Add to Cart</button>
-            </div>
-        </div>
-        <!-- Product 2 -->
-        <div class="product-card">
-            <div class="product-image">
-                <img src="media/product_2.webp" alt="Executive Black">
-            </div>
-            <div class="product-info">
-                <h4>Executive Black</h4>
-                <p class="price">Rs. 6,200</p>
-                <button class="add-to-cart-btn" onclick="addToCart('Executive Black', 'Rs. 6,200', 'media/product_2.webp')">Add to Cart</button>
-            </div>
-        </div>
-        <!-- Product 3 -->
-        <div class="product-card">
-            <div class="product-image">
-                <img src="media/product_3.webp" alt="Sport Series">
-            </div>
-            <div class="product-info">
-                <h4>Sport Series V1</h4>
-                <p class="price">Rs. 3,800</p>
-                <button class="add-to-cart-btn" onclick="addToCart('Sport Series V1', 'Rs. 3,800', 'media/product_3.webp')">Add to Cart</button>
+                <!-- Duplicated Items for Seamless Loop -->
+                <div class="category-item"
+                    onclick="document.getElementById('watches-section').scrollIntoView({behavior: 'smooth'})">
+                    <div class="cat-circle"><img src="media/cat_1.webp" fetchpriority="high" alt="Watches"></div>
+                    <span>Watches</span>
+                </div>
+                <div class="category-item"
+                    onclick="document.getElementById('accessories-section').scrollIntoView({behavior: 'smooth'})">
+                    <div class="cat-circle"><img src="media/cat_2.webp" fetchpriority="high" alt="Mobile Accessories">
+                    </div>
+                    <span>Accessories</span>
+                </div>
+                <div class="category-item"
+                    onclick="document.getElementById('clothing-section').scrollIntoView({behavior: 'smooth'})">
+                    <div class="cat-circle"><img src="media/cat_3.webp" fetchpriority="high" alt="Women's Clothing">
+                    </div>
+                    <span>Clothing</span>
+                </div>
+                <div class="category-item"
+                    onclick="document.getElementById('cosmetics-section').scrollIntoView({behavior: 'smooth'})">
+                    <div class="cat-circle"><img src="media/cat_4.webp" fetchpriority="high" alt="Cosmetics"></div>
+                    <span>Cosmetics</span>
+                </div>
+                <div class="category-item"
+                    onclick="document.getElementById('flowers-section').scrollIntoView({behavior: 'smooth'})">
+                    <div class="cat-circle"><img src="media/cat_5.webp" fetchpriority="high" alt="Artificial Flowers">
+                    </div>
+                    <span>Flowers</span>
+                </div>
             </div>
         </div>
-        <!-- Product 4 -->
-        <div class="product-card">
-            <div class="product-image">
-                <img src="media/product_4.webp" alt="Luxury Gold Edition">
-            </div>
-            <div class="product-info">
-                <h4>Luxury Gold Edition</h4>
-                <p class="price">Rs. 8,500</p>
-                <button class="add-to-cart-btn" onclick="addToCart('Luxury Gold Edition', 'Rs. 8,500', 'media/product_4.webp')">Add to Cart</button>
-            </div>
-        </div>
-    </div>
-</section>
+    </section>
 
-<!-- ==========================================
+    <!-- ==========================================
+     CATEGORY 1: WATCHES (NEW WATCHES ARRIVAL)
+     ========================================== -->
+    <section class="category-section" id="watches-section" data-category="watches">
+        <div class="category-header">
+            <h2 class="section-title">New Watches Arrival</h2>
+            <p class="section-subtitle">Discover our handpicked collection of masterfully engineered luxury timepieces.
+            </p>
+        </div>
+        <div class="product-grid" id="watches-grid">
+            <!-- Watch 1 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="media/product_1.webp" alt="Miracle Classic White" loading="lazy">
+                </div>
+                <div class="product-info">
+                    <h4>Miracle Classic White</h4>
+                    <p class="price">Rs. 4,500</p>
+                    <button class="add-to-cart-btn"
+                        onclick="addToCart('Miracle Classic White', 'Rs. 4,500', 'media/product_1.webp')">Add to
+                        Cart</button>
+                </div>
+            </div>
+            <!-- Watch 2 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="media/product_2.webp" alt="Executive Black Edition" loading="lazy">
+                </div>
+                <div class="product-info">
+                    <h4>Executive Black Edition</h4>
+                    <p class="price">Rs. 6,200</p>
+                    <button class="add-to-cart-btn"
+                        onclick="addToCart('Executive Black Edition', 'Rs. 6,200', 'media/product_2.webp')">Add to
+                        Cart</button>
+                </div>
+            </div>
+            <!-- Watch 3 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="media/product_6.webp" alt="Midnight Chronograph" loading="lazy">
+                </div>
+                <div class="product-info">
+                    <h4>Midnight Chronograph</h4>
+                    <p class="price">Rs. 7,100</p>
+                    <button class="add-to-cart-btn"
+                        onclick="addToCart('Midnight Chronograph', 'Rs. 7,100', 'media/product_6.webp')">Add to
+                        Cart</button>
+                </div>
+            </div>
+            <!-- Watch 4 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="media/product_4.webp" alt="Luxury Gold Heritage" loading="lazy">
+                </div>
+                <div class="product-info">
+                    <h4>Luxury Gold Heritage</h4>
+                    <p class="price">Rs. 8,500</p>
+                    <button class="add-to-cart-btn"
+                        onclick="addToCart('Luxury Gold Heritage', 'Rs. 8,500', 'media/product_4.webp')">Add to
+                        Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- View All Watches Button -->
+        <div class="category-view-all">
+            <a href="#watches-section" class="view-all-btn">
+                <span>View All Watches</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </a>
+        </div>
+
+        <!-- 50/50 ABOUT / PROMO SECTION - WATCHES -->
+        <div class="promo-split">
+            <div class="promo-image">
+                <img src="media/promo.webp" alt="Elevate Your Style - Miracle Watches" loading="lazy">
+            </div>
+            <div class="promo-content">
+                <span>Limited Edition Timepieces</span>
+                <h2>Elevate Your Style with Miracle Watches</h2>
+                <p>Discover our exclusive collection of luxury timepieces engineered for the modern gentleman. Built
+                    with high-precision Japanese quartz movements, surgical 316L stainless steel, and scratch-resistant
+                    sapphire mineral crystal, each watch seamlessly merges classic heritage with enduring distinction.
+                </p>
+                <button class="shop-now-btn"
+                    onclick="document.getElementById('watches-section').scrollIntoView({behavior: 'smooth'})">Shop The
+                    Watch Collection</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+     CATEGORY 2: ACCESSORIES (NEW ACCESSORIES ARRIVAL)
+     ========================================== -->
+    <section class="category-section" id="accessories-section" data-category="accessories">
+        <div class="category-header">
+            <h2 class="section-title">New Accessories Arrival</h2>
+            <p class="section-subtitle">Smart charging solutions, military-grade protection, and audio essentials for
+                daily performance.</p>
+        </div>
+        <div class="product-grid" id="accessories-grid">
+            <!-- Accessory 1 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1586816879360-004f5b0c51e3?auto=format&fit=crop&w=600&q=80"
+                        onerror="this.onerror=null; this.src='media/cat_2.webp';" alt="Magnetic Fast Wireless Charger"
+                        loading="lazy">
+                </div>
+                <div class="product-info">
+                    <h4>Fast Magnetic Charger 15W</h4>
+                    <p class="price">Rs. 2,900</p>
+                    <button class="add-to-cart-btn"
+                        onclick="addToCart('Fast Magnetic Charger 15W', 'Rs. 2,900', 'https://images.unsplash.com/photo-1586816879360-004f5b0c51e3?auto=format&fit=crop&w=600&q=80')">Add
+                        to Cart</button>
+                </div>
+            </div>
+            <!-- Accessory 2 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?auto=format&fit=crop&w=600&q=80"
+                        onerror="this.onerror=null; this.src='media/cat_2.webp';" alt="Armor Drop-Proof Case"
+                        loading="lazy">
+                </div>
+                <div class="product-info">
+                    <h4>Armor Drop-Proof Phone Case</h4>
+                    <p class="price">Rs. 1,450</p>
+                    <button class="add-to-cart-btn"
+                        onclick="addToCart('Armor Drop-Proof Phone Case', 'Rs. 1,450', 'https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?auto=format&fit=crop&w=600&q=80')">Add
+                        to Cart</button>
+                </div>
+            </div>
+            <!-- Accessory 3 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1590658268037-6bf12165a8df?auto=format&fit=crop&w=600&q=80"
+                        onerror="this.onerror=null; this.src='media/cat_2.webp';" alt="ANC True Wireless Earbuds"
+                        loading="lazy">
+                </div>
+                <div class="product-info">
+                    <h4>Pro ANC Wireless Earbuds</h4>
+                    <p class="price">Rs. 4,800</p>
+                    <button class="add-to-cart-btn"
+                        onclick="addToCart('Pro ANC Wireless Earbuds', 'Rs. 4,800', 'https://images.unsplash.com/photo-1590658268037-6bf12165a8df?auto=format&fit=crop&w=600&q=80')">Add
+                        to Cart</button>
+                </div>
+            </div>
+            <!-- Accessory 4 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1583863788434-e58a36330cf0?auto=format&fit=crop&w=600&q=80"
+                        onerror="this.onerror=null; this.src='media/cat_2.webp';" alt="Braided Ultra-Fast Cable"
+                        loading="lazy">
+                </div>
+                <div class="product-info">
+                    <h4>Braided Ultra-Fast 100W Cable</h4>
+                    <p class="price">Rs. 950</p>
+                    <button class="add-to-cart-btn"
+                        onclick="addToCart('Braided Ultra-Fast 100W Cable', 'Rs. 950', 'https://images.unsplash.com/photo-1583863788434-e58a36330cf0?auto=format&fit=crop&w=600&q=80')">Add
+                        to Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- View All Accessories Button -->
+        <div class="category-view-all">
+            <a href="#accessories-section" class="view-all-btn">
+                <span>View All Accessories</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </a>
+        </div>
+
+        <!-- 50/50 ABOUT / PROMO SECTION - ACCESSORIES -->
+        <div class="promo-split reverse">
+            <div class="promo-image">
+                <img src="media/about_2.jpg" onerror="this.onerror=null; this.src='media/cat_2.webp';"
+                    alt="Smart Tech & Mobile Accessories" loading="lazy">
+            </div>
+            <div class="promo-content">
+                <span>Next-Gen Tech Essentials</span>
+                <h2>Smart Gear Built for Daily Performance</h2>
+                <p>Upgrade your digital lifestyle with our premium mobile accessories. From ultra-fast magnetic wireless
+                    chargers and certified drop-tested phone cases to crystal-clear ANC earbuds, Miracle Store delivers
+                    certified safety, intelligent power delivery, and ergonomic durability you can rely on every single
+                    day.</p>
+                <button class="shop-now-btn"
+                    onclick="document.getElementById('accessories-section').scrollIntoView({behavior: 'smooth'})">Explore
+                    Accessories</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+     CATEGORY 3: CLOTHING (NEW CLOTHING ARRIVAL)
+     ========================================== -->
+    <section class="category-section" id="clothing-section" data-category="clothing">
+        <div class="category-header">
+            <h2 class="section-title">New Clothing Arrival</h2>
+            <p class="section-subtitle">Luxury embroidered 3-piece unstitched collections, pure silk dupattas, and
+                timeless eastern elegance.</p>
+        </div>
+        <div class="product-grid" id="clothing-grid">
+            <!-- Clothing 1 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="media/clothing_2.jpg" alt="Baroque Luxury Embroidered 3-Piece" loading="lazy">
+                </div>
+                <div class="product-info">
+                    <h4>Baroque Luxury Embroidered 3-Piece</h4>
+                    <p class="price">Rs. 5,800</p>
+                    <button class="add-to-cart-btn"
+                        onclick="addToCart('Baroque Luxury Embroidered 3-Piece', 'Rs. 5,800', 'media/clothing_2.jpg')">Add
+                        to Cart</button>
+                </div>
+            </div>
+            <!-- Clothing 2 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="media/clothing_1.jpg" alt="LAAM Royal Plum Embroidered Suit" loading="lazy">
+                </div>
+                <div class="product-info">
+                    <h4>LAAM Royal Plum Embroidered Suit</h4>
+                    <p class="price">Rs. 6,400</p>
+                    <button class="add-to-cart-btn"
+                        onclick="addToCart('LAAM Royal Plum Embroidered Suit', 'Rs. 6,400', 'media/clothing_1.jpg')">Add
+                        to Cart</button>
+                </div>
+            </div>
+            <!-- Clothing 3 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="media/clothing_3.jpg" alt="Baroque Crimson Rose Silk Collection" loading="lazy">
+                </div>
+                <div class="product-info">
+                    <h4>Baroque Crimson Rose Silk Collection</h4>
+                    <p class="price">Rs. 5,200</p>
+                    <button class="add-to-cart-btn"
+                        onclick="addToCart('Baroque Crimson Rose Silk Collection', 'Rs. 5,200', 'media/clothing_3.jpg')">Add
+                        to Cart</button>
+                </div>
+            </div>
+            <!-- Clothing 4 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="media/clothing_4.jpg" alt="LAAM Velvet Heritage Cutwork 3-Piece" loading="lazy">
+                </div>
+                <div class="product-info">
+                    <h4>LAAM Velvet Heritage Cutwork 3-Piece</h4>
+                    <p class="price">Rs. 6,900</p>
+                    <button class="add-to-cart-btn"
+                        onclick="addToCart('LAAM Velvet Heritage Cutwork 3-Piece', 'Rs. 6,900', 'media/clothing_4.jpg')">Add
+                        to Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- View All Clothing Button -->
+        <div class="category-view-all">
+            <a href="#clothing-section" class="view-all-btn">
+                <span>View All Clothing</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </a>
+        </div>
+
+        <!-- 50/50 ABOUT / PROMO SECTION - CLOTHING -->
+        <div class="promo-split">
+            <div class="promo-image">
+                <img src="media/about_3.jpg" alt="Luxury Women's Eastern Wear" loading="lazy">
+            </div>
+            <div class="promo-content">
+                <span>Luxury Women's Eastern Wear</span>
+                <h2>Timeless Grace & Intricate Handcrafted Embroidery</h2>
+                <p>Immerse yourself in sheer luxury with Miracle Store's exclusive women's eastern wear collection.
+                    Featuring pure premium lawn, organza detailing, fine resham embroidery, and lustrous digital silk
+                    dupattas, each ensemble is crafted to celebrate traditional grace with contemporary allure. Perfect
+                    for festive celebrations, weddings, and formal gatherings.</p>
+                <button class="shop-now-btn"
+                    onclick="document.getElementById('clothing-section').scrollIntoView({behavior: 'smooth'})">Explore
+                    Women's Collection</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+     CATEGORY 4: COSMETICS (NEW COSMETICS ARRIVAL)
+     ========================================== -->
+    <section class="category-section" id="cosmetics-section" data-category="cosmetics">
+        <div class="category-header">
+            <h2 class="section-title">New Cosmetics Arrival</h2>
+            <p class="section-subtitle">Dermatologically tested formulations, active botanical serums, and radiant
+                beauty essentials.</p>
+        </div>
+        <div class="product-grid" id="cosmetics-grid">
+            <!-- Cosmetic 1 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=600&q=80"
+                        onerror="this.onerror=null; this.src='media/cat_4.webp';" alt="Radiance Vitamin C Serum"
+                        loading="lazy">
+                </div>
+                <div class="product-info">
+                    <h4>Radiance Vitamin C Serum</h4>
+                    <p class="price">Rs. 2,400</p>
+                    <button class="add-to-cart-btn"
+                        onclick="addToCart('Radiance Vitamin C Serum', 'Rs. 2,400', 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=600&q=80')">Add
+                        to Cart</button>
+                </div>
+            </div>
+            <!-- Cosmetic 2 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=600&q=80"
+                        onerror="this.onerror=null; this.src='media/cat_4.webp';" alt="Ultra-Hydrating Glow Moisturizer"
+                        loading="lazy">
+                </div>
+                <div class="product-info">
+                    <h4>Ultra-Hydrating Glow Cream</h4>
+                    <p class="price">Rs. 2,100</p>
+                    <button class="add-to-cart-btn"
+                        onclick="addToCart('Ultra-Hydrating Glow Cream', 'Rs. 2,100', 'https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=600&q=80')">Add
+                        to Cart</button>
+                </div>
+            </div>
+            <!-- Cosmetic 3 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=600&q=80"
+                        onerror="this.onerror=null; this.src='media/cat_4.webp';" alt="Velvet Matte Long-Wear Lipstick"
+                        loading="lazy">
+                </div>
+                <div class="product-info">
+                    <h4>Velvet Matte Long-Wear Lipstick</h4>
+                    <p class="price">Rs. 1,600</p>
+                    <button class="add-to-cart-btn"
+                        onclick="addToCart('Velvet Matte Long-Wear Lipstick', 'Rs. 1,600', 'https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=600&q=80')">Add
+                        to Cart</button>
+                </div>
+            </div>
+            <!-- Cosmetic 4 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?auto=format&fit=crop&w=600&q=80"
+                        onerror="this.onerror=null; this.src='media/cat_4.webp';" alt="Daily UV Shield SPF 50+"
+                        loading="lazy">
+                </div>
+                <div class="product-info">
+                    <h4>Daily UV Shield SPF 50+</h4>
+                    <p class="price">Rs. 1,850</p>
+                    <button class="add-to-cart-btn"
+                        onclick="addToCart('Daily UV Shield SPF 50+', 'Rs. 1,850', 'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?auto=format&fit=crop&w=600&q=80')">Add
+                        to Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- View All Cosmetics Button -->
+        <div class="category-view-all">
+            <a href="#cosmetics-section" class="view-all-btn">
+                <span>View All Cosmetics</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </a>
+        </div>
+
+        <!-- 50/50 ABOUT / PROMO SECTION - COSMETICS -->
+        <div class="promo-split reverse">
+            <div class="promo-image">
+                <img src="media/about_4.jpg" onerror="this.onerror=null; this.src='media/cat_4.webp';"
+                    alt="Radiant Skincare & Cosmetics" loading="lazy">
+            </div>
+            <div class="promo-content">
+                <span>Dermatologist-Approved Formulas</span>
+                <h2>Pure Radiance & Rejuvenating Skincare</h2>
+                <p>Unveil your most luminous complexion with our botanical beauty and skincare formulations. Packed with
+                    hyaluronic acid, active vitamin C serums, and deep hydrators, our paraben-free products nourish,
+                    protect, and enhance your natural glow with weightless, all-day confidence.</p>
+                <button class="shop-now-btn"
+                    onclick="document.getElementById('cosmetics-section').scrollIntoView({behavior: 'smooth'})">Explore
+                    Cosmetics</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+     CATEGORY 5: FLOWERS & DECOR (NEW FLOWERS ARRIVAL)
+     ========================================== -->
+    <section class="category-section" id="flowers-section" data-category="flowers">
+        <div class="category-header">
+            <h2 class="section-title">New Flowers & Decor Arrival</h2>
+            <p class="section-subtitle">Everlasting real-touch artificial floral arrangements and handcrafted artisanal
+                home decor.</p>
+        </div>
+        <div class="product-grid" id="flowers-grid">
+            <!-- Flower 1 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=600&q=80"
+                        onerror="this.onerror=null; this.src='media/cat_5.webp';" alt="Real-Touch White Lilies Bouquet"
+                        loading="lazy">
+                </div>
+                <div class="product-info">
+                    <h4>Real-Touch White Lilies Bouquet</h4>
+                    <p class="price">Rs. 2,200</p>
+                    <button class="add-to-cart-btn"
+                        onclick="addToCart('Real-Touch White Lilies Bouquet', 'Rs. 2,200', 'https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=600&q=80')">Add
+                        to Cart</button>
+                </div>
+            </div>
+            <!-- Flower 2 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=600&q=80"
+                        onerror="this.onerror=null; this.src='media/cat_5.webp';"
+                        alt="Velvet Royal Red Roses (Set of 6)" loading="lazy">
+                </div>
+                <div class="product-info">
+                    <h4>Velvet Royal Red Roses (Set of 6)</h4>
+                    <p class="price">Rs. 1,800</p>
+                    <button class="add-to-cart-btn"
+                        onclick="addToCart('Velvet Royal Red Roses (Set of 6)', 'Rs. 1,800', 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=600&q=80')">Add
+                        to Cart</button>
+                </div>
+            </div>
+            <!-- Flower 3 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1525310072745-f49212b5ac6d?auto=format&fit=crop&w=600&q=80"
+                        onerror="this.onerror=null; this.src='media/cat_5.webp';" alt="Luxury Potted Orchid Bloom"
+                        loading="lazy">
+                </div>
+                <div class="product-info">
+                    <h4>Luxury Potted Orchid Bloom</h4>
+                    <p class="price">Rs. 3,500</p>
+                    <button class="add-to-cart-btn"
+                        onclick="addToCart('Luxury Potted Orchid Bloom', 'Rs. 3,500', 'https://images.unsplash.com/photo-1525310072745-f49212b5ac6d?auto=format&fit=crop&w=600&q=80')">Add
+                        to Cart</button>
+                </div>
+            </div>
+            <!-- Flower 4 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1581783342308-f792dbdd27c5?auto=format&fit=crop&w=600&q=80"
+                        onerror="this.onerror=null; this.src='media/cat_5.webp';" alt="Nordic Minimalist Ceramic Vase"
+                        loading="lazy">
+                </div>
+                <div class="product-info">
+                    <h4>Nordic Minimalist Ceramic Vase</h4>
+                    <p class="price">Rs. 2,650</p>
+                    <button class="add-to-cart-btn"
+                        onclick="addToCart('Nordic Minimalist Ceramic Vase', 'Rs. 2,650', 'https://images.unsplash.com/photo-1581783342308-f792dbdd27c5?auto=format&fit=crop&w=600&q=80')">Add
+                        to Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- View All Flowers Button -->
+        <div class="category-view-all">
+            <a href="#flowers-section" class="view-all-btn">
+                <span>View All Flowers</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </a>
+        </div>
+
+        <!-- 50/50 ABOUT / PROMO SECTION - FLOWERS & DECOR -->
+        <div class="promo-split">
+            <div class="promo-image">
+                <img src="media/about_5.jpg" onerror="this.onerror=null; this.src='media/cat_5.webp';"
+                    alt="Artificial Flowers & Home Decor" loading="lazy">
+            </div>
+            <div class="promo-content">
+                <span>Everlasting Botanical Accents</span>
+                <h2>Timeless Floral Beauty for Living Spaces</h2>
+                <p>Transform any room into an inviting sanctuary with Miracle Store's lifelike artificial floral
+                    arrangements and artisan home decor. Crafted with real-touch silks and vibrant botanical gradients,
+                    our blooms provide everlasting beauty with zero watering, no wilting, and hypoallergenic perfection
+                    for homes and offices.</p>
+                <button class="shop-now-btn"
+                    onclick="document.getElementById('flowers-section').scrollIntoView({behavior: 'smooth'})">Explore
+                    Home Florals</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
      PART 2 CSS (Add this inside your <style> tag)
      ========================================== -->
-<style>
-    /* Section Titles */
-    .section-title {
-        text-align: center;
-        margin: 40px 0 20px;
-        font-size: 28px;
-        font-weight: 700;
-        color: var(--black);
-    }
-
-    /* SLIDING CART DRAWER */
-    .cart-overlay {
-        position: fixed;
-        top: 0; left: 0; width: 100%; height: 100vh;
-        background: rgba(0,0,0,0.5);
-        z-index: 1999;
-        opacity: 0; visibility: hidden;
-        transition: 0.3s ease;
-    }
-    .cart-overlay.active {
-        opacity: 1; visibility: visible;
-    }
-    .sliding-cart {
-        position: fixed;
-        top: 0; right: -350px;
-        width: 350px; height: 100vh;
-        background: var(--white);
-        z-index: 2000;
-        box-shadow: -2px 0 15px rgba(0,0,0,0.1);
-        transition: right 0.4s ease;
-        display: flex; flex-direction: column;
-    }
-    .sliding-cart.active {
-        right: 0;
-    }
-    .cart-header {
-        display: flex; justify-content: space-between; align-items: center;
-        padding: 20px; border-bottom: 1px solid #eee;
-    }
-    .close-cart {
-        font-size: 20px; cursor: pointer; color: var(--black);
-    }
-    .cart-items {
-        flex: 1; padding: 20px; overflow-y: auto;
-    }
-    .cart-footer {
-        padding: 20px; border-top: 1px solid #eee;
-    }
-    .checkout-btn {
-        width: 100%; padding: 12px;
-        background: linear-gradient(90deg, var(--primary-teal), var(--primary-lime));
-        color: var(--white); border: none; font-size: 16px;
-        font-weight: 600; cursor: pointer; border-radius: 5px;
-    }
-    /* Dynamic Cart Item styling */
-    .cart-item-row {
-        display: flex; align-items: center; gap: 15px;
-        margin-bottom: 15px; border-bottom: 1px solid #f4f4f4; padding-bottom: 10px;
-    }
-    .cart-item-img { width: 60px; height: 60px; object-fit: cover; border-radius: 5px; }
-    .cart-item-details h5 { font-size: 14px; margin-bottom: 5px; }
-    .cart-item-details p { font-size: 14px; font-weight: bold; color: var(--primary-teal); }
-
-    /* SHOP BY CATEGORY (Looping Marquee) */
-    .categories-section {
-        padding: 20px 0;
-        background-color: var(--light-grey);
-        overflow: hidden;
-    }
-    .marquee-container {
-        width: 100%;
-        overflow: hidden;
-        white-space: nowrap;
-        padding: 20px 0;
-    }
-    .marquee-track {
-        display: inline-flex;
-        gap: 40px;
-        animation: scrollMarquee 15s linear infinite;
-    }
-    .marquee-container:hover .marquee-track {
-        animation-play-state: paused;
-    }
-    .category-item {
-        display: flex; flex-direction: column; align-items: center; cursor: pointer;
-    }
-    .cat-circle {
-        width: 120px; height: 120px;
-        border-radius: 50%; overflow: hidden;
-        border: 3px solid var(--primary-teal);
-        padding: 3px; background: var(--white);
-        margin-bottom: 10px; transition: transform 0.3s;
-    }
-    .cat-circle img {
-        width: 100%; height: 100%;
-        object-fit: cover; border-radius: 50%;
-    }
-    .category-item:hover .cat-circle {
-        transform: scale(1.05);
-    }
-    .category-item span {
-        font-weight: 600; font-size: 15px; color: var(--black);
-    }
-    @keyframes scrollMarquee {
-        0% { transform: translateX(0); }
-        100% { transform: translateX(-50%); } /* Scrolls exactly half to loop perfectly */
-    }
-
-    /* FEATURED PRODUCTS (4 on PC, 2 on Mobile) */
-    .featured-products {
-        padding: 30px 5%;
-    }
-    .product-grid {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 20px;
-    }
-    .product-card {
-        background: var(--white);
-        border: 1px solid #eee;
-        border-radius: 8px;
-        overflow: hidden;
-        transition: box-shadow 0.3s ease;
-    }
-    .product-card:hover {
-        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    }
-    .product-image {
-        width: 100%;
-        aspect-ratio: 1 / 1;
-        overflow: hidden;
-    }
-    .product-image img {
-        width: 100%; height: 100%;
-        object-fit: cover; transition: transform 0.5s ease;
-    }
-    .product-card:hover .product-image img {
-        transform: scale(1.08);
-    }
-    .product-info {
-        padding: 15px; text-align: center;
-    }
-    .product-info h4 {
-        font-size: 16px; margin-bottom: 8px; color: var(--black);
-    }
-    .product-info .price {
-        color: var(--primary-teal); font-weight: bold; margin-bottom: 15px;
-    }
-    .add-to-cart-btn {
-        width: 100%; padding: 10px;
-        background: linear-gradient(90deg, var(--primary-teal), var(--primary-lime));
-        color: var(--white); border: none;
-        border-radius: 5px; font-weight: 600;
-        cursor: pointer; transition: opacity 0.3s;
-    }
-    .add-to-cart-btn:hover {
-        opacity: 0.9;
-    }
-
-    /* RESPONSIVE (MOBILE ADJUSTMENTS) */
-    @media (max-width: 768px) {
-        .product-grid {
-            grid-template-columns: repeat(2, 1fr); /* 2 in a row for mobile */
-            gap: 10px;
+    <style>
+        /* Section Titles */
+        .section-title {
+            text-align: center;
+            margin: 40px 0 20px;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--black);
         }
-        .cat-circle {
-            width: 80px; height: 80px;
+
+        /* SLIDING CART DRAWER */
+        .cart-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1999;
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.3s ease;
         }
-        .category-item span {
-            font-size: 13px;
+
+        .cart-overlay.active {
+            opacity: 1;
+            visibility: visible;
         }
+
         .sliding-cart {
-            width: 300px; right: -300px;
+            position: fixed;
+            top: 0;
+            right: -350px;
+            width: 350px;
+            height: 100vh;
+            background: var(--white);
+            z-index: 2000;
+            box-shadow: -2px 0 15px rgba(0, 0, 0, 0.1);
+            transition: right 0.4s ease;
+            display: flex;
+            flex-direction: column;
         }
-        .product-info h4 {
-            font-size: 14px;
-        }
-        .add-to-cart-btn {
-            font-size: 13px; padding: 8px;
-        }
-    }
-</style>
 
-<!-- ==========================================
+        .sliding-cart.active {
+            right: 0;
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .close-cart {
+            font-size: 20px;
+            cursor: pointer;
+            color: var(--black);
+        }
+
+        .cart-items {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .cart-footer {
+            padding: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(90deg, var(--primary-teal), var(--primary-lime));
+            color: var(--white);
+            border: none;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        /* Dynamic Cart Item styling */
+        .cart-item-row {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #f4f4f4;
+            padding-bottom: 10px;
+        }
+
+        .cart-item-img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+
+        .cart-item-details h5 {
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .cart-item-details p {
+            font-size: 14px;
+            font-weight: bold;
+            color: var(--primary-teal);
+        }
+
+        /* SHOP BY CATEGORY (Looping Marquee) */
+        .categories-section {
+            padding: 20px 0;
+            background-color: var(--light-grey);
+            overflow: hidden;
+        }
+
+        .marquee-container {
+            width: 100%;
+            overflow: hidden;
+            white-space: nowrap;
+            padding: 20px 0;
+        }
+
+        .marquee-track {
+            display: inline-flex;
+            gap: 40px;
+            animation: scrollMarquee 15s linear infinite;
+        }
+
+        .marquee-container:hover .marquee-track {
+            animation-play-state: paused;
+        }
+
+        .category-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .cat-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid var(--primary-teal);
+            padding: 3px;
+            background: var(--white);
+            margin-bottom: 10px;
+            transition: transform 0.3s;
+        }
+
+        .cat-circle img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .category-item:hover .cat-circle {
+            transform: scale(1.05);
+        }
+
+        .category-item span {
+            font-weight: 600;
+            font-size: 15px;
+            color: var(--black);
+        }
+
+        @keyframes scrollMarquee {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+
+            /* Scrolls exactly half to loop perfectly */
+        }
+
+        /* CATEGORY SHOWCASE & PRODUCT GRID (4 on PC, 2 on Mobile) */
+        .category-section,
+        .featured-products {
+            padding: 45px 5% 15px;
+            background-color: var(--white);
+        }
+
+        .category-section:nth-of-type(even) {
+            background-color: #fbfcfc;
+        }
+
+        .category-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .category-header .section-title {
+            margin: 0 0 10px 0;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--black);
+            position: relative;
+            display: inline-block;
+        }
+
+        .category-header .section-title::after {
+            content: '';
+            display: block;
+            width: 45px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-teal), var(--primary-lime));
+            margin: 8px auto 0;
+            border-radius: 2px;
+        }
+
+        .category-header .section-subtitle {
+            font-size: 15px;
+            color: #666;
+            max-width: 650px;
+            margin: 0 auto;
+            line-height: 1.5;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .product-card {
+            background: var(--white);
+            border: 1px solid #eee;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: box-shadow 0.3s ease, transform 0.3s ease;
+        }
+
+        .product-card:hover {
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transform: translateY(-3px);
+        }
+
+        .product-image {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            overflow: hidden;
+            background: #fdfdfd;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.08);
+        }
+
+        .product-info {
+            padding: 15px;
+            text-align: center;
+        }
+
+        .product-info h4 {
+            font-size: 15px;
+            margin-bottom: 8px;
+            color: var(--black);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .product-info .price {
+            color: var(--primary-teal);
+            font-weight: bold;
+            margin-bottom: 15px;
+            font-size: 15px;
+        }
+
+        .add-to-cart-btn {
+            width: 100%;
+            padding: 10px;
+            background: linear-gradient(90deg, var(--primary-teal), var(--primary-lime));
+            color: var(--white);
+            border: none;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+
+        .add-to-cart-btn:hover {
+            opacity: 0.9;
+        }
+
+        /* VIEW ALL CATEGORY BUTTON */
+        .category-view-all {
+            display: flex;
+            justify-content: center;
+            margin: 30px 0 35px;
+        }
+
+        .view-all-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 32px;
+            border: 2px solid var(--primary-teal);
+            background: var(--white);
+            color: var(--primary-teal);
+            font-size: 15px;
+            font-weight: 600;
+            border-radius: 30px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(18, 179, 166, 0.1);
+            cursor: pointer;
+        }
+
+        .view-all-btn:hover {
+            background: linear-gradient(90deg, var(--primary-teal), var(--primary-lime));
+            color: var(--white);
+            border-color: transparent;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(18, 179, 166, 0.3);
+        }
+
+        .view-all-btn i {
+            transition: transform 0.3s ease;
+        }
+
+        .view-all-btn:hover i {
+            transform: translateX(4px);
+        }
+
+        /* 50/50 PROMO SPLIT SECTION (ABOUT FOR CATEGORIES) */
+        .promo-split {
+            display: flex;
+            align-items: stretch;
+            background-color: var(--light-grey);
+            margin: 35px 0 15px 0;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #ebebeb;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .promo-split:hover {
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+        }
+
+        .promo-split.reverse {
+            flex-direction: row-reverse;
+        }
+
+        .promo-image {
+            flex: 1;
+            width: 50%;
+            min-height: 380px;
+            overflow: hidden;
+            background: #000;
+        }
+
+        .promo-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.6s ease;
+        }
+
+        .promo-split:hover .promo-image img {
+            transform: scale(1.05);
+        }
+
+        .promo-content {
+            flex: 1;
+            padding: 45px 7%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: #fafbfb;
+        }
+
+        .promo-content span {
+            color: var(--primary-teal);
+            font-weight: 700;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 12px;
+        }
+
+        .promo-content h2 {
+            font-size: 28px;
+            color: var(--black);
+            margin-bottom: 15px;
+            line-height: 1.3;
+        }
+
+        .promo-content p {
+            color: #555;
+            font-size: 15px;
+            line-height: 1.7;
+            margin-bottom: 25px;
+        }
+
+        .shop-now-btn {
+            align-self: flex-start;
+            padding: 12px 30px;
+            background: linear-gradient(90deg, var(--primary-teal), var(--primary-lime));
+            color: var(--white);
+            border: none;
+            font-size: 15px;
+            font-weight: 600;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .shop-now-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(18, 179, 166, 0.4);
+        }
+
+        /* RESPONSIVE (MOBILE ADJUSTMENTS) */
+        @media (max-width: 900px) {
+
+            .promo-split,
+            .promo-split.reverse {
+                flex-direction: column !important;
+                margin: 25px 0 10px 0;
+            }
+
+            .promo-image {
+                width: 100%;
+                min-height: 250px;
+                max-height: 320px;
+            }
+
+            .promo-content {
+                padding: 30px 6%;
+                text-align: center;
+                align-items: center;
+            }
+
+            .promo-content h2 {
+                font-size: 22px;
+            }
+
+            .promo-content p {
+                font-size: 14px;
+            }
+
+            .shop-now-btn {
+                align-self: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .product-grid {
+                grid-template-columns: repeat(2, 1fr);
+                /* 2 in a row for mobile */
+                gap: 10px;
+            }
+
+            .cat-circle {
+                width: 80px;
+                height: 80px;
+            }
+
+            .category-item span {
+                font-size: 13px;
+            }
+
+            .sliding-cart {
+                width: 300px;
+                right: -300px;
+            }
+
+            .product-info h4 {
+                font-size: 14px;
+            }
+
+            .product-info .price {
+                font-size: 14px;
+            }
+
+            .add-to-cart-btn {
+                font-size: 13px;
+                padding: 8px;
+            }
+
+            .view-all-btn {
+                font-size: 14px;
+                padding: 10px 25px;
+            }
+        }
+    </style>
+
+    <!-- ==========================================
      PART 2 JAVASCRIPT (Add this inside your <script> tag)
      ========================================== -->
-<script>
-    // --- Sliding Cart Logic ---
-    const cart = document.getElementById('slidingCart');
-    const cartOverlay = document.getElementById('cartOverlay');
-    const cartItemsContainer = document.getElementById('cartItemsContainer');
-    const emptyCartMsg = document.getElementById('emptyCartMsg');
+    <script>
+        // --- Sliding Cart Logic ---
+        const cart = document.getElementById('slidingCart');
+        const cartOverlay = document.getElementById('cartOverlay');
+        const cartItemsContainer = document.getElementById('cartItemsContainer');
+        const emptyCartMsg = document.getElementById('emptyCartMsg');
 
-    function toggleCart() {
-        cart.classList.toggle('active');
-        cartOverlay.classList.toggle('active');
-    }
-
-    // Link Header Cart Icon to open Sliding Cart
-    // (Make sure to add onclick="toggleCart()" to your cart icon in Part 1 header)
-    document.querySelector('.fa-cart-shopping').addEventListener('click', toggleCart);
-
-    // --- Add to Cart Logic ---
-    function addToCart(title, price, imgUrl) {
-        // Remove empty message if it exists
-        if (emptyCartMsg) {
-            emptyCartMsg.style.display = 'none';
+        function toggleCart() {
+            cart.classList.toggle('active');
+            cartOverlay.classList.toggle('active');
         }
 
-        // Create new item row
-        const itemRow = document.createElement('div');
-        itemRow.classList.add('cart-item-row');
-        
-        itemRow.innerHTML = `
+        // Link Header Cart Icon to open Sliding Cart
+        // (Make sure to add onclick="toggleCart()" to your cart icon in Part 1 header)
+        document.querySelector('.fa-cart-shopping').addEventListener('click', toggleCart);
+
+        // --- Add to Cart Logic ---
+        function addToCart(title, price, imgUrl) {
+            // Remove empty message if it exists
+            if (emptyCartMsg) {
+                emptyCartMsg.style.display = 'none';
+            }
+
+            // Create new item row
+            const itemRow = document.createElement('div');
+            itemRow.classList.add('cart-item-row');
+
+            itemRow.innerHTML = `
             <img src="${imgUrl}" class="cart-item-img" alt="${title}">
             <div class="cart-item-details">
                 <h5>${title}</h5>
                 <p>${price}</p>
             </div>
         `;
-        
-        // Add to cart container
-        cartItemsContainer.appendChild(itemRow);
 
-        // Open cart drawer automatically
-        if (!cart.classList.contains('active')) {
-            toggleCart();
+            // Add to cart container
+            cartItemsContainer.appendChild(itemRow);
+
+            // Open cart drawer automatically
+            if (!cart.classList.contains('active')) {
+                toggleCart();
+            }
         }
-    }
-</script>
-<!-- ==========================================
-     PART 3: PROMO SPLIT SECTION & NEW ARRIVALS
-     (Paste this HTML directly below Part 2)
-     ========================================== -->
-
-<!-- 50/50 PROMO SPLIT SECTION -->
-<section class="promo-split">
-    <div class="promo-image">
-        <img src="media/promo.webp" alt="Premium Watch Promo">
-    </div>
-    <div class="promo-content">
-        <span>Limited Edition</span>
-        <h2>Elevate Your Style with Miracle Store</h2>
-        <p>Discover our exclusive collection of premium timepieces designed for the modern gentleman. Experience unmatched elegance and precision.</p>
-        <button class="shop-now-btn">Shop The Collection</button>
-    </div>
-</section>
-
-<!-- NEW ARRIVALS CAROUSEL -->
-<section class="new-arrivals">
-    <div class="carousel-header">
-        <h2 class="section-title" style="margin: 0;">New Arrivals</h2>
-        <div class="carousel-controls">
-            <button class="carousel-btn prev-btn" onclick="scrollCarousel(-1)"><i class="fa-solid fa-chevron-left"></i></button>
-            <button class="carousel-btn next-btn" onclick="scrollCarousel(1)"><i class="fa-solid fa-chevron-right"></i></button>
-        </div>
-    </div>
-
-    <div class="carousel-container" id="newArrivalsTrack">
-        <!-- Arrival Product 1 -->
-        <div class="arrival-card">
-            <div class="arrival-image">
-                <img src="media/product_5.webp" alt="Sapphire Elite">
-            </div>
-            <div class="arrival-info">
-                <h4>Sapphire Elite</h4>
-                <p class="price">Rs. 5,500</p>
-                <button class="add-to-cart-btn" onclick="addToCart('Sapphire Elite', 'Rs. 5,500', 'media/product_5.webp')">Add to Cart</button>
-            </div>
-        </div>
-        <!-- Arrival Product 2 -->
-        <div class="arrival-card">
-            <div class="arrival-image">
-                <img src="media/product_6.webp" alt="Midnight Chrono">
-            </div>
-            <div class="arrival-info">
-                <h4>Midnight Chrono</h4>
-                <p class="price">Rs. 7,100</p>
-                <button class="add-to-cart-btn" onclick="addToCart('Midnight Chrono', 'Rs. 7,100', 'media/product_6.webp')">Add to Cart</button>
-            </div>
-        </div>
-        <!-- Arrival Product 3 -->
-        <div class="arrival-card">
-            <div class="arrival-image">
-                <img src="media/product_7.webp" alt="Ocean Blue Dial">
-            </div>
-            <div class="arrival-info">
-                <h4>Ocean Blue Dial</h4>
-                <p class="price">Rs. 4,900</p>
-                <button class="add-to-cart-btn" onclick="addToCart('Ocean Blue Dial', 'Rs. 4,900', 'media/product_7.webp')">Add to Cart</button>
-            </div>
-        </div>
-        <!-- Arrival Product 4 -->
-        <div class="arrival-card">
-            <div class="arrival-image">
-                <img src="media/product_8.webp" alt="Minimalist Silver">
-            </div>
-            <div class="arrival-info">
-                <h4>Minimalist Silver</h4>
-                <p class="price">Rs. 3,500</p>
-                <button class="add-to-cart-btn" onclick="addToCart('Minimalist Silver', 'Rs. 3,500', 'media/product_8.webp')">Add to Cart</button>
-            </div>
-        </div>
-        <!-- Arrival Product 5 -->
-        <div class="arrival-card">
-            <div class="arrival-image">
-                <img src="media/product_9.webp" alt="Urban Tracker">
-            </div>
-            <div class="arrival-info">
-                <h4>Urban Tracker</h4>
-                <p class="price">Rs. 4,200</p>
-                <button class="add-to-cart-btn" onclick="addToCart('Urban Tracker', 'Rs. 4,200', 'media/product_9.webp')">Add to Cart</button>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- ==========================================
-     PART 3 CSS (Add this inside your <style> tag)
-     ========================================== -->
-<style>
-    /* 50/50 PROMO SPLIT SECTION */
-    .promo-split {
-        display: flex;
-        align-items: center;
-        background-color: var(--light-grey);
-        margin: 50px 0;
-    }
-    .promo-image {
-        flex: 1;
-        width: 50%;
-    }
-    .promo-image img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        min-height: 400px;
-    }
-    .promo-content {
-        flex: 1;
-        padding: 50px 8%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-    }
-    .promo-content span {
-        color: var(--primary-teal);
-        font-weight: 700;
-        font-size: 14px;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        margin-bottom: 10px;
-    }
-    .promo-content h2 {
-        font-size: 32px;
-        color: var(--black);
-        margin-bottom: 20px;
-        line-height: 1.2;
-    }
-    .promo-content p {
-        color: #555;
-        font-size: 16px;
-        line-height: 1.6;
-        margin-bottom: 30px;
-    }
-    .shop-now-btn {
-        align-self: flex-start;
-        padding: 12px 30px;
-        background: linear-gradient(90deg, var(--primary-teal), var(--primary-lime));
-        color: var(--white);
-        border: none;
-        font-size: 16px;
-        font-weight: 600;
-        cursor: pointer;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    .shop-now-btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(18, 179, 166, 0.4);
-    }
-
-    /* NEW ARRIVALS CAROUSEL */
-    .new-arrivals {
-        padding: 40px 5%;
-        background-color: var(--white);
-    }
-    .carousel-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 30px;
-    }
-    .carousel-controls {
-        display: flex;
-        gap: 10px;
-    }
-    .carousel-btn {
-        background: var(--white);
-        border: 2px solid var(--primary-teal);
-        color: var(--primary-teal);
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        transition: 0.3s ease;
-    }
-    .carousel-btn:hover {
-        background: var(--primary-teal);
-        color: var(--white);
-    }
-    .carousel-container {
-        display: flex;
-        gap: 20px;
-        overflow-x: auto;
-        scroll-behavior: smooth;
-        padding-bottom: 15px; /* for scrollbar spacing */
-        scroll-snap-type: x mandatory;
-    }
-    /* Hide scrollbar for cleaner look */
-    .carousel-container::-webkit-scrollbar {
-        height: 6px;
-    }
-    .carousel-container::-webkit-scrollbar-thumb {
-        background-color: #ddd;
-        border-radius: 10px;
-    }
-    .arrival-card {
-        flex: 0 0 calc(25% - 15px); /* 4 items per row on PC */
-        background: var(--white);
-        border: 1px solid #eee;
-        border-radius: 8px;
-        overflow: hidden;
-        scroll-snap-align: start;
-    }
-    .arrival-card:hover {
-        box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-    }
-    .arrival-image {
-        width: 100%;
-        aspect-ratio: 1 / 1;
-        overflow: hidden;
-    }
-    .arrival-image img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: transform 0.5s ease;
-    }
-    .arrival-card:hover .arrival-image img {
-        transform: scale(1.08);
-    }
-    .arrival-info {
-        padding: 15px;
-        text-align: center;
-    }
-    .arrival-info h4 {
-        font-size: 16px;
-        margin-bottom: 8px;
-        color: var(--black);
-    }
-    .arrival-info .price {
-        color: var(--primary-teal);
-        font-weight: bold;
-        margin-bottom: 15px;
-    }
-
-    /* RESPONSIVE (MOBILE ADJUSTMENTS) */
-    @media (max-width: 900px) {
-        .promo-split {
-            flex-direction: column;
-        }
-        .promo-image {
-            width: 100%;
-        }
-        .promo-image img {
-            min-height: 250px;
-        }
-        .promo-content {
-            padding: 30px 5%;
-            text-align: center;
-            align-items: center;
-        }
-        .arrival-card {
-            flex: 0 0 calc(50% - 10px); /* 2 items per row on Mobile */
-        }
-        .carousel-btn {
-            width: 35px;
-            height: 35px;
-        }
-    }
-</style>
-
-<!-- ==========================================
-     PART 3 JAVASCRIPT (Add this inside your <script> tag)
-     ========================================== -->
-<script>
-    // --- New Arrivals Carousel Scroll Logic ---
-    function scrollCarousel(direction) {
-        const track = document.getElementById('newArrivalsTrack');
-        const cardWidth = track.querySelector('.arrival-card').offsetWidth;
-        const gap = 20; // Matches CSS gap
-        
-        // Scroll amount: 1 card + gap
-        const scrollAmount = (cardWidth + gap) * direction;
-        track.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-    }
-</script>
-<!-- ==========================================
+    </script>
+    <!-- ==========================================
      PART 4: TRUST BADGES & BRAND MARQUEE
      (Paste this HTML directly below Part 3)
      ========================================== -->
 
-<!-- TRUST BADGES SECTION -->
-<section class="trust-badges">
-    <div class="badge-container">
-        <!-- Badge 1 -->
-        <div class="badge-item">
-            <div class="badge-icon">
-                <i class="fa-solid fa-truck-fast"></i>
+    <!-- TRUST BADGES SECTION -->
+    <section class="trust-badges">
+        <div class="badge-container">
+            <!-- Badge 1 -->
+            <div class="badge-item">
+                <div class="badge-icon">
+                    <i class="fa-solid fa-truck-fast"></i>
+                </div>
+                <h4>Free Shipping</h4>
+                <p>On all orders above Rs. 2,000</p>
             </div>
-            <h4>Free Shipping</h4>
-            <p>On all orders above Rs. 2,000</p>
-        </div>
-        <!-- Badge 2 -->
-        <div class="badge-item">
-            <div class="badge-icon">
-                <i class="fa-solid fa-headset"></i>
+            <!-- Badge 2 -->
+            <div class="badge-item">
+                <div class="badge-icon">
+                    <i class="fa-solid fa-headset"></i>
+                </div>
+                <h4>24/7 Support</h4>
+                <p>Dedicated customer service</p>
             </div>
-            <h4>24/7 Support</h4>
-            <p>Dedicated customer service</p>
-        </div>
-        <!-- Badge 3 -->
-        <div class="badge-item">
-            <div class="badge-icon">
-                <i class="fa-solid fa-shield-halved"></i>
+            <!-- Badge 3 -->
+            <div class="badge-item">
+                <div class="badge-icon">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
+                <h4>Secure Payments</h4>
+                <p>100% safe & encrypted checkouts</p>
             </div>
-            <h4>Secure Payments</h4>
-            <p>100% safe & encrypted checkouts</p>
-        </div>
-        <!-- Badge 4 -->
-        <div class="badge-item">
-            <div class="badge-icon">
-                <i class="fa-solid fa-certificate"></i>
+            <!-- Badge 4 -->
+            <div class="badge-item">
+                <div class="badge-icon">
+                    <i class="fa-solid fa-certificate"></i>
+                </div>
+                <h4>Authentic Products</h4>
+                <p>Guaranteed premium quality</p>
             </div>
-            <h4>Authentic Products</h4>
-            <p>Guaranteed premium quality</p>
         </div>
-    </div>
-</section>
+    </section>
 
-<!-- BRAND LOGOS MARQUEE (UPDATED) -->
-<section class="brand-marquee-section">
-    <h2 class="section-title" style="margin-top: 0;">Top Brands We Carry</h2>
-    <div class="brands-marquee-container">
-        <div class="brands-track">
-            <!-- Text-based logos for a sharp, premium demo look -->
-            <div class="brand-logo"><h3>ROLEX</h3></div>
-            <div class="brand-logo"><h3 style="font-family: 'Times New Roman', serif;">CASIO</h3></div>
-            <div class="brand-logo"><h3 style="letter-spacing: 4px;">TISSOT</h3></div>
-            <div class="brand-logo"><h3 style="font-style: italic;">SEIKO</h3></div>
-            <div class="brand-logo"><h3>OMEGA</h3></div>
-            <div class="brand-logo"><h3 style="font-weight: 900;">FOSSIL</h3></div>
-            
-            <!-- Duplicated for Infinite Loop -->
-            <div class="brand-logo"><h3>ROLEX</h3></div>
-            <div class="brand-logo"><h3 style="font-family: 'Times New Roman', serif;">CASIO</h3></div>
-            <div class="brand-logo"><h3 style="letter-spacing: 4px;">TISSOT</h3></div>
-            <div class="brand-logo"><h3 style="font-style: italic;">SEIKO</h3></div>
-            <div class="brand-logo"><h3>OMEGA</h3></div>
-            <div class="brand-logo"><h3 style="font-weight: 900;">FOSSIL</h3></div>
-        </div>
-    </div>
-</section>
+    <!-- BRAND LOGOS MARQUEE (UPDATED) -->
+    <section class="brand-marquee-section">
+        <h2 class="section-title" style="margin-top: 0;">Top Brands We Carry</h2>
+        <div class="brands-marquee-container">
+            <div class="brands-track">
+                <!-- Text-based logos for a sharp, premium demo look -->
+                <div class="brand-logo">
+                    <h3>ROLEX</h3>
+                </div>
+                <div class="brand-logo">
+                    <h3 style="font-family: 'Times New Roman', serif;">CASIO</h3>
+                </div>
+                <div class="brand-logo">
+                    <h3 style="letter-spacing: 4px;">TISSOT</h3>
+                </div>
+                <div class="brand-logo">
+                    <h3 style="font-style: italic;">SEIKO</h3>
+                </div>
+                <div class="brand-logo">
+                    <h3>OMEGA</h3>
+                </div>
+                <div class="brand-logo">
+                    <h3 style="font-weight: 900;">FOSSIL</h3>
+                </div>
 
-<!-- ==========================================
+                <!-- Duplicated for Infinite Loop -->
+                <div class="brand-logo">
+                    <h3>ROLEX</h3>
+                </div>
+                <div class="brand-logo">
+                    <h3 style="font-family: 'Times New Roman', serif;">CASIO</h3>
+                </div>
+                <div class="brand-logo">
+                    <h3 style="letter-spacing: 4px;">TISSOT</h3>
+                </div>
+                <div class="brand-logo">
+                    <h3 style="font-style: italic;">SEIKO</h3>
+                </div>
+                <div class="brand-logo">
+                    <h3>OMEGA</h3>
+                </div>
+                <div class="brand-logo">
+                    <h3 style="font-weight: 900;">FOSSIL</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
      PART 4 CSS (Add this inside your <style> tag)
      ========================================== -->
-<style>
-    /* TRUST BADGES SECTION */
-    .trust-badges {
-        padding: 40px 5%;
-        background-color: var(--white);
-        border-top: 1px solid #eee;
-        border-bottom: 1px solid #eee;
-        margin-bottom: 50px;
-    }
-    .badge-container {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 20px;
-        text-align: center;
-    }
-    .badge-item {
-        padding: 20px;
-        transition: transform 0.3s ease;
-    }
-    .badge-item:hover {
-        transform: translateY(-5px);
-    }
-    .badge-icon {
-        font-size: 35px;
-        background: linear-gradient(90deg, var(--primary-teal), var(--primary-lime));
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        margin-bottom: 15px;
-    }
-    .badge-item h4 {
-        font-size: 16px;
-        color: var(--black);
-        margin-bottom: 8px;
-    }
-    .badge-item p {
-        font-size: 13px;
-        color: #777;
-    }
+    <style>
+        /* TRUST BADGES SECTION */
+        .trust-badges {
+            padding: 40px 5%;
+            background-color: var(--white);
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 50px;
+        }
 
-   /* BRAND LOGOS MARQUEE CSS (UPDATED) */
-.brand-marquee-section {
-    padding: 0 0 50px 0;
-    background-color: var(--white);
-    overflow: hidden;
-}
-.brands-marquee-container {
-    width: 100%;
-    overflow: hidden;
-    white-space: nowrap;
-    padding: 30px 0;
-    background: var(--white); /* Changed to pure white for max contrast */
-    border-top: 1px solid #eee;
-    border-bottom: 1px solid #eee;
-}
-.brands-track {
-    display: inline-flex;
-    gap: 80px;
-    align-items: center;
-    animation: scrollBrands 20s linear infinite;
-}
-.brands-marquee-container:hover .brands-track {
-    animation-play-state: paused;
-}
-.brand-logo {
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.brand-logo h3 {
-    font-size: 26px;
-    color: var(--black); /* Solid black for sharp look */
-    font-weight: 800;
-    letter-spacing: 1.5px;
-    margin: 0;
-    transition: color 0.3s ease, transform 0.3s ease;
-    cursor: pointer;
-}
-.brand-logo:hover h3 {
-    color: var(--primary-teal); /* Highlights in theme color on hover */
-    transform: scale(1.1);
-}
-
-@keyframes scrollBrands {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); } 
-}
-
-/* Mobile Adjustment for Marquee */
-@media (max-width: 500px) {
-    .brand-logo h3 {
-        font-size: 20px;
-    }
-    .brands-track {
-        gap: 50px;
-    }
-}
-    /* RESPONSIVE (MOBILE ADJUSTMENTS) */
-    @media (max-width: 900px) {
         .badge-container {
-            grid-template-columns: repeat(2, 1fr); /* 2 items per row on tablet/large phones */
-            gap: 15px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            text-align: center;
         }
-    }
-    @media (max-width: 500px) {
+
+        .badge-item {
+            padding: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .badge-item:hover {
+            transform: translateY(-5px);
+        }
+
         .badge-icon {
-            font-size: 28px;
+            font-size: 35px;
+            background: linear-gradient(90deg, var(--primary-teal), var(--primary-lime));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
         }
+
         .badge-item h4 {
-            font-size: 14px;
+            font-size: 16px;
+            color: var(--black);
+            margin-bottom: 8px;
         }
-        .brand-logo {
-            height: 35px; /* Smaller logos on mobile */
+
+        .badge-item p {
+            font-size: 13px;
+            color: #777;
         }
+
+        /* BRAND LOGOS MARQUEE CSS (UPDATED) */
+        .brand-marquee-section {
+            padding: 0 0 50px 0;
+            background-color: var(--white);
+            overflow: hidden;
+        }
+
+        .brands-marquee-container {
+            width: 100%;
+            overflow: hidden;
+            white-space: nowrap;
+            padding: 30px 0;
+            background: var(--white);
+            /* Changed to pure white for max contrast */
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+        }
+
         .brands-track {
-            gap: 40px;
+            display: inline-flex;
+            gap: 80px;
+            align-items: center;
+            animation: scrollBrands 20s linear infinite;
         }
-    }
-</style>
-<!-- ==========================================
+
+        .brands-marquee-container:hover .brands-track {
+            animation-play-state: paused;
+        }
+
+        .brand-logo {
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .brand-logo h3 {
+            font-size: 26px;
+            color: var(--black);
+            /* Solid black for sharp look */
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            margin: 0;
+            transition: color 0.3s ease, transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .brand-logo:hover h3 {
+            color: var(--primary-teal);
+            /* Highlights in theme color on hover */
+            transform: scale(1.1);
+        }
+
+        @keyframes scrollBrands {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* Mobile Adjustment for Marquee */
+        @media (max-width: 500px) {
+            .brand-logo h3 {
+                font-size: 20px;
+            }
+
+            .brands-track {
+                gap: 50px;
+            }
+        }
+
+        /* RESPONSIVE (MOBILE ADJUSTMENTS) */
+        @media (max-width: 900px) {
+            .badge-container {
+                grid-template-columns: repeat(2, 1fr);
+                /* 2 items per row on tablet/large phones */
+                gap: 15px;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .badge-icon {
+                font-size: 28px;
+            }
+
+            .badge-item h4 {
+                font-size: 14px;
+            }
+
+            .brand-logo {
+                height: 35px;
+                /* Smaller logos on mobile */
+            }
+
+            .brands-track {
+                gap: 40px;
+            }
+        }
+    </style>
+    <!-- ==========================================
      PART 5: CONTACT, NEWSLETTER & FOOTER
      (Paste this HTML directly below Part 4)
      ========================================== -->
 
-<!-- CONTACT US SECTION -->
-<section class="contact-section">
-    <div class="contact-container">
-        <div class="contact-info">
-            <h2>Get In Touch</h2>
-            <p>Have a question about our watches or future categories? Our support team is here to help you 24/7.</p>
-            <div class="info-item">
-                <i class="fa-solid fa-location-dot"></i>
-                <span>123 Miracle Street, Commercial Area, Pakistan</span>
+    <!-- CONTACT US SECTION -->
+    <section class="contact-section" id="contact">
+        <div class="contact-container">
+            <div class="contact-info">
+                <h2>Get In Touch</h2>
+                <p>Have a question about our watches or categories? Our support team is here to help you 24/7.</p>
+                <div class="info-item">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <span>123 Miracle Street, Commercial Area, Pakistan</span>
+                </div>
+                <div class="info-item">
+                    <i class="fa-solid fa-phone"></i>
+                    <span>+92 300 0000000</span>
+                </div>
+                <div class="info-item">
+                    <i class="fa-solid fa-envelope"></i>
+                    <span>support@miraclestore.com</span>
+                </div>
             </div>
-            <div class="info-item">
-                <i class="fa-solid fa-phone"></i>
-                <span>+92 300 0000000</span>
-            </div>
-            <div class="info-item">
-                <i class="fa-solid fa-envelope"></i>
-                <span>support@miraclestore.com</span>
+            <div class="contact-form-container">
+                <form id="contactForm" onsubmit="submitForm(event)">
+                    <div class="form-row">
+                        <input type="text" placeholder="Your Name" required>
+                        <input type="email" placeholder="Your Email" required>
+                    </div>
+                    <input type="text" placeholder="Subject" required>
+                    <textarea rows="4" placeholder="Your Message" required></textarea>
+                    <button type="submit" class="submit-btn">Send Message</button>
+                </form>
             </div>
         </div>
-        <div class="contact-form-container">
-            <form id="contactForm" onsubmit="submitForm(event)">
-                <div class="form-row">
-                    <input type="text" placeholder="Your Name" required>
-                    <input type="email" placeholder="Your Email" required>
-                </div>
-                <input type="text" placeholder="Subject" required>
-                <textarea rows="4" placeholder="Your Message" required></textarea>
-                <button type="submit" class="submit-btn">Send Message</button>
+    </section>
+
+    <!-- NEWSLETTER SECTION -->
+    <section class="newsletter-section">
+        <div class="newsletter-content">
+            <h2>Subscribe to Our Newsletter</h2>
+            <p>Get the latest updates on new watch collections, upcoming mobile accessories, clothing, cosmetics, and
+                exclusive discounts!</p>
+            <form class="newsletter-form" onsubmit="submitNewsletter(event)">
+                <input type="email" placeholder="Enter your email address" required>
+                <button type="submit">Subscribe</button>
             </form>
         </div>
-    </div>
-</section>
+    </section>
 
-<!-- NEWSLETTER SECTION -->
-<section class="newsletter-section">
-    <div class="newsletter-content">
-        <h2>Subscribe to Our Newsletter</h2>
-        <p>Get the latest updates on new watch collections, upcoming mobile accessories, clothing, and exclusive discounts!</p>
-        <form class="newsletter-form" onsubmit="submitNewsletter(event)">
-            <input type="email" placeholder="Enter your email address" required>
-            <button type="submit">Subscribe</button>
-        </form>
-    </div>
-</section>
+    <!-- FOOTER SECTION -->
+    <footer class="main-footer">
+        <div class="footer-container">
+            <!-- Footer Column 1: Brand Info -->
+            <div class="footer-col">
+                <!-- Using H2 for demo, you can replace with your white logo PNG -->
+                <h2 class="footer-logo"><span style="color: var(--primary-teal);">MIRACLE</span> STORE</h2>
+                <p class="powered-by">POWERED BY AL RASHEED GROUP</p>
+                <p class="footer-desc">Your ultimate destination for premium watches, mobile tech accessories, modern
+                    apparel, beauty cosmetics, and artisanal home florals.</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+                    <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+                </div>
+            </div>
 
-<!-- FOOTER SECTION -->
-<footer class="main-footer">
-    <div class="footer-container">
-        <!-- Footer Column 1: Brand Info -->
-        <div class="footer-col">
-            <!-- Using H2 for demo, you can replace with your white logo PNG -->
-            <h2 class="footer-logo"><span style="color: var(--primary-teal);">MIRACLE</span> STORE</h2>
-            <p class="powered-by">POWERED BY AL RASHEED GROUP</p>
-            <p class="footer-desc">Your ultimate destination for premium watches. Expanding soon to fashion, tech, and lifestyle accessories to elevate your everyday look.</p>
-            <div class="social-icons">
-                <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
-                <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                <a href="#"><i class="fa-brands fa-tiktok"></i></a>
-                <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+            <!-- Footer Column 2: Quick Links -->
+            <div class="footer-col">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li class="dyn-nav-hidden"><a href="#watches-section">Watches</a></li>
+                    <li class="dyn-nav-hidden"><a href="#accessories-section">Mobile Accessories</a></li>
+                    <li class="dyn-nav-hidden"><a href="#clothing-section">Clothing</a></li>
+                    <li class="dyn-nav-hidden"><a href="#cosmetics-section">Cosmetics</a></li>
+                    <li class="dyn-nav-hidden"><a href="#flowers-section">Flowers & Decor</a></li>
+                </ul>
+            </div>
+
+            <!-- Footer Column 3: Customer Care -->
+            <div class="footer-col">
+                <h3>Customer Care</h3>
+                <ul>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">Shipping Policy</a></li>
+                    <li><a href="#">Return & Exchange</a></li>
+                    <li><a href="#">FAQs</a></li>
+                    <li><a href="#">Track Order</a></li>
+                </ul>
+            </div>
+
+            <!-- Footer Column 4: Payment Methods -->
+            <div class="footer-col">
+                <h3>Secure Payments</h3>
+                <p style="color: #bbb; font-size: 14px; margin-bottom: 15px;">We accept all major credit cards and
+                    digital wallets.</p>
+                <div class="payment-icons">
+                    <i class="fa-brands fa-cc-visa"></i>
+                    <i class="fa-brands fa-cc-mastercard"></i>
+                    <i class="fa-brands fa-paypal"></i>
+                </div>
             </div>
         </div>
 
-        <!-- Footer Column 2: Quick Links -->
-        <div class="footer-col">
-            <h3>Quick Links</h3>
-            <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Shop Watches</a></li>
-                <li><a href="#">Mobile Accessories (Soon)</a></li>
-                <li><a href="#">Clothing (Soon)</a></li>
-                <li><a href="#">About Us</a></li>
-            </ul>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Miracle Store. All Rights Reserved. Powered by Al Rasheed Group.</p>
         </div>
+    </footer>
 
-        <!-- Footer Column 3: Customer Care -->
-        <div class="footer-col">
-            <h3>Customer Care</h3>
-            <ul>
-                <li><a href="#">Contact Us</a></li>
-                <li><a href="#">Shipping Policy</a></li>
-                <li><a href="#">Return & Exchange</a></li>
-                <li><a href="#">FAQs</a></li>
-                <li><a href="#">Track Order</a></li>
-            </ul>
-        </div>
-
-        <!-- Footer Column 4: Payment Methods -->
-        <div class="footer-col">
-            <h3>Secure Payments</h3>
-            <p style="color: #bbb; font-size: 14px; margin-bottom: 15px;">We accept all major credit cards and digital wallets.</p>
-            <div class="payment-icons">
-                <i class="fa-brands fa-cc-visa"></i>
-                <i class="fa-brands fa-cc-mastercard"></i>
-                <i class="fa-brands fa-paypal"></i>
-            </div>
-        </div>
-    </div>
-    
-    <div class="footer-bottom">
-        <p>&copy; 2026 Miracle Store. All Rights Reserved. Powered by Al Rasheed Group.</p>
-    </div>
-</footer>
-
-<!-- ==========================================
+    <!-- ==========================================
      PART 5 CSS (Add this inside your <style> tag)
      ========================================== -->
-<style>
-    /* CONTACT US SECTION */
-    .contact-section {
-        padding: 60px 5%;
-        background-color: var(--white);
-    }
-    .contact-container {
-        display: flex;
-        gap: 50px;
-        max-width: 1200px;
-        margin: 0 auto;
-    }
-    .contact-info {
-        flex: 1;
-    }
-    .contact-info h2 {
-        font-size: 32px;
-        margin-bottom: 15px;
-        color: var(--black);
-    }
-    .contact-info p {
-        color: #666;
-        line-height: 1.6;
-        margin-bottom: 30px;
-    }
-    .info-item {
-        display: flex;
-        align-items: center;
-        gap: 15px;
-        margin-bottom: 20px;
-    }
-    .info-item i {
-        width: 40px; height: 40px;
-        background: var(--light-grey);
-        color: var(--primary-teal);
-        border-radius: 50%;
-        display: flex; justify-content: center; align-items: center;
-        font-size: 16px;
-    }
-    .info-item span {
-        font-weight: 500;
-        color: var(--black);
-    }
-    
-    .contact-form-container {
-        flex: 1.5;
-        background: var(--light-grey);
-        padding: 40px;
-        border-radius: 10px;
-    }
-    .contact-form-container form {
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-    }
-    .form-row {
-        display: flex;
-        gap: 20px;
-    }
-    .contact-form-container input, .contact-form-container textarea {
-        width: 100%;
-        padding: 15px;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        font-size: 15px;
-        outline: none;
-        transition: border 0.3s;
-    }
-    .contact-form-container input:focus, .contact-form-container textarea:focus {
-        border-color: var(--primary-teal);
-    }
-    .submit-btn {
-        padding: 15px;
-        background: linear-gradient(90deg, var(--primary-teal), var(--primary-lime));
-        color: var(--white);
-        border: none;
-        border-radius: 5px;
-        font-size: 16px;
-        font-weight: bold;
-        cursor: pointer;
-        transition: opacity 0.3s;
-    }
-    .submit-btn:hover {
-        opacity: 0.9;
-    }
-
-    /* NEWSLETTER SECTION */
-    .newsletter-section {
-        background: linear-gradient(90deg, var(--primary-teal), var(--primary-lime));
-        padding: 60px 5%;
-        text-align: center;
-        color: var(--white);
-    }
-    .newsletter-content {
-        max-width: 700px;
-        margin: 0 auto;
-    }
-    .newsletter-content h2 {
-        font-size: 30px;
-        margin-bottom: 15px;
-    }
-    .newsletter-content p {
-        font-size: 16px;
-        margin-bottom: 30px;
-        opacity: 0.9;
-    }
-    .newsletter-form {
-        display: flex;
-        justify-content: center;
-        gap: 10px;
-    }
-    .newsletter-form input {
-        flex: 1;
-        max-width: 400px;
-        padding: 15px 20px;
-        border: none;
-        border-radius: 5px;
-        font-size: 15px;
-        outline: none;
-    }
-    .newsletter-form button {
-        padding: 15px 30px;
-        background: var(--black);
-        color: var(--white);
-        border: none;
-        border-radius: 5px;
-        font-size: 16px;
-        font-weight: bold;
-        cursor: pointer;
-        transition: background 0.3s;
-    }
-    .newsletter-form button:hover {
-        background: #333;
-    }
-
-    /* FOOTER SECTION */
-    .main-footer {
-        background-color: var(--black);
-        color: var(--white);
-        padding-top: 60px;
-    }
-    .footer-container {
-        display: grid;
-        grid-template-columns: 2fr 1fr 1fr 1fr;
-        gap: 40px;
-        padding: 0 5% 50px;
-    }
-    .footer-logo {
-        font-size: 28px;
-        margin-bottom: 5px;
-    }
-    .powered-by {
-        font-size: 12px;
-        letter-spacing: 2px;
-        color: var(--primary-lime);
-        margin-bottom: 20px;
-        font-weight: bold;
-    }
-    .footer-desc {
-        color: #bbb;
-        line-height: 1.6;
-        margin-bottom: 25px;
-    }
-    .social-icons {
-        display: flex;
-        gap: 15px;
-    }
-    .social-icons a {
-        width: 35px; height: 35px;
-        background: #222;
-        color: var(--white);
-        display: flex; justify-content: center; align-items: center;
-        border-radius: 50%;
-        text-decoration: none;
-        transition: 0.3s;
-    }
-    .social-icons a:hover {
-        background: var(--primary-teal);
-    }
-    
-    .footer-col h3 {
-        font-size: 18px;
-        margin-bottom: 25px;
-        position: relative;
-        padding-bottom: 10px;
-    }
-    .footer-col h3::after {
-        content: '';
-        position: absolute;
-        left: 0; bottom: 0;
-        width: 40px; height: 2px;
-        background: var(--primary-teal);
-    }
-    .footer-col ul {
-        list-style: none;
-    }
-    .footer-col ul li {
-        margin-bottom: 15px;
-    }
-    .footer-col ul li a {
-        color: #bbb;
-        text-decoration: none;
-        transition: 0.3s;
-    }
-    .footer-col ul li a:hover {
-        color: var(--primary-lime);
-        padding-left: 5px;
-    }
-    
-    .payment-icons {
-        display: flex;
-        gap: 15px;
-        font-size: 35px;
-        color: #fff;
-    }
-
-    .footer-bottom {
-        background: #111;
-        text-align: center;
-        padding: 20px 5%;
-        color: #777;
-        font-size: 14px;
-    }
-
-    /* RESPONSIVE (MOBILE ADJUSTMENTS) */
-    @media (max-width: 900px) {
-        .contact-container {
-            flex-direction: column;
+    <style>
+        /* CONTACT US SECTION */
+        .contact-section {
+            padding: 60px 5%;
+            background-color: var(--white);
         }
-        .form-row {
+
+        .contact-container {
+            display: flex;
+            gap: 50px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .contact-info {
+            flex: 1;
+        }
+
+        .contact-info h2 {
+            font-size: 32px;
+            margin-bottom: 15px;
+            color: var(--black);
+        }
+
+        .contact-info p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .info-item i {
+            width: 40px;
+            height: 40px;
+            background: var(--light-grey);
+            color: var(--primary-teal);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 16px;
+        }
+
+        .info-item span {
+            font-weight: 500;
+            color: var(--black);
+        }
+
+        .contact-form-container {
+            flex: 1.5;
+            background: var(--light-grey);
+            padding: 40px;
+            border-radius: 10px;
+        }
+
+        .contact-form-container form {
+            display: flex;
             flex-direction: column;
             gap: 20px;
         }
-        .footer-container {
-            grid-template-columns: repeat(2, 1fr);
-        }
-    }
-    @media (max-width: 600px) {
-        .newsletter-form {
-            flex-direction: column;
-        }
-        .newsletter-form input {
-            max-width: 100%;
-        }
-        .footer-container {
-            grid-template-columns: 1fr;
-        }
-    }
-</style>
 
-<!-- ==========================================
+        .form-row {
+            display: flex;
+            gap: 20px;
+        }
+
+        .contact-form-container input,
+        .contact-form-container textarea {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 15px;
+            outline: none;
+            transition: border 0.3s;
+        }
+
+        .contact-form-container input:focus,
+        .contact-form-container textarea:focus {
+            border-color: var(--primary-teal);
+        }
+
+        .submit-btn {
+            padding: 15px;
+            background: linear-gradient(90deg, var(--primary-teal), var(--primary-lime));
+            color: var(--white);
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+
+        .submit-btn:hover {
+            opacity: 0.9;
+        }
+
+        /* NEWSLETTER SECTION */
+        .newsletter-section {
+            background: linear-gradient(90deg, var(--primary-teal), var(--primary-lime));
+            padding: 60px 5%;
+            text-align: center;
+            color: var(--white);
+        }
+
+        .newsletter-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .newsletter-content h2 {
+            font-size: 30px;
+            margin-bottom: 15px;
+        }
+
+        .newsletter-content p {
+            font-size: 16px;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .newsletter-form {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            max-width: 400px;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        .newsletter-form button {
+            padding: 15px 30px;
+            background: var(--black);
+            color: var(--white);
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .newsletter-form button:hover {
+            background: #333;
+        }
+
+        /* FOOTER SECTION */
+        .main-footer {
+            background-color: var(--black);
+            color: var(--white);
+            padding-top: 60px;
+        }
+
+        .footer-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            padding: 0 5% 50px;
+        }
+
+        .footer-logo {
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+
+        .powered-by {
+            font-size: 12px;
+            letter-spacing: 2px;
+            color: var(--primary-lime);
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .footer-desc {
+            color: #bbb;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-icons a {
+            width: 35px;
+            height: 35px;
+            background: #222;
+            color: var(--white);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .social-icons a:hover {
+            background: var(--primary-teal);
+        }
+
+        .footer-col h3 {
+            font-size: 18px;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 2px;
+            background: var(--primary-teal);
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 15px;
+        }
+
+        .footer-col ul li a {
+            color: #bbb;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--primary-lime);
+            padding-left: 5px;
+        }
+
+        .payment-icons {
+            display: flex;
+            gap: 15px;
+            font-size: 35px;
+            color: #fff;
+        }
+
+        .footer-bottom {
+            background: #111;
+            text-align: center;
+            padding: 20px 5%;
+            color: #777;
+            font-size: 14px;
+        }
+
+        /* RESPONSIVE (MOBILE ADJUSTMENTS) */
+        @media (max-width: 900px) {
+            .contact-container {
+                flex-direction: column;
+            }
+
+            .form-row {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .footer-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .newsletter-form {
+                flex-direction: column;
+            }
+
+            .newsletter-form input {
+                max-width: 100%;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+
+    <!-- ==========================================
      PART 5 JAVASCRIPT (Add this inside your <script> tag)
      ========================================== -->
-<script>
-    // Demo function for Contact Form
-    function submitForm(event) {
-        event.preventDefault();
-        alert("Thank you! Your message has been sent to Miracle Store.");
-        document.getElementById('contactForm').reset();
-    }
+    <script>
+        // Demo function for Contact Form
+        function submitForm(event) {
+            event.preventDefault();
+            alert("Thank you! Your message has been sent to Miracle Store.");
+            document.getElementById('contactForm').reset();
+        }
 
-    // Demo function for Newsletter Subscription
-    function submitNewsletter(event) {
-        event.preventDefault();
-        alert("Subscribed successfully! Welcome to Miracle Store.");
-        event.target.reset();
-    }
-</script>
+        // Demo function for Newsletter Subscription
+        function submitNewsletter(event) {
+            event.preventDefault();
+            alert("Subscribed successfully! Welcome to Miracle Store.");
+            event.target.reset();
+        }
+
+        /* =========================================================
+           GOOGLE SHEETS DYNAMIC PRODUCTS LOADER (GOOGLE FORMS SYNC)
+           ========================================================= */
+        const GOOGLE_SHEET_CONFIG = {
+            csvUrl: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTLpK648W8ufKmKP-8QRidY_nG8K7qDECjyHn3aDCyyTgYz1zKIFS32dA8BLiTbvo4oXBcjjzZn5dRc/pub?output=csv',
+            maxPerCategory: 4
+        };
+
+        // Helper: Convert Google Drive sharing link to direct view URL
+        function convertDriveImageUrl(url) {
+            if (!url) return '';
+            const trimmed = String(url).trim();
+            // Google Drive open/view links
+            const matchId = trimmed.match(/[-\w]{25,}/);
+            if (trimmed.includes('drive.google.com') && matchId) {
+                return `https://lh3.googleusercontent.com/d/${matchId[0]}`;
+            }
+            return trimmed;
+        }
+
+        // Helper: Normalize category string to match our 5 key buckets
+        function normalizeCategory(catStr) {
+            if (!catStr) return null;
+            const c = String(catStr).toLowerCase();
+            if (c.includes('watch') || c.includes('ghadi')) return 'watches';
+            if (c.includes('accessor') || c.includes('mobile') || c.includes('cover') || c.includes('charger') || c.includes('cable') || c.includes('earbud')) return 'accessories';
+            if (c.includes('cloth') || c.includes('dress') || c.includes('suit') || c.includes('kurti') || c.includes('lawn') || c.includes('fabric') || c.includes('women')) return 'clothing';
+            if (c.includes('cosmetic') || c.includes('makeup') || c.includes('skin') || c.includes('serum') || c.includes('cream') || c.includes('beauty')) return 'cosmetics';
+            if (c.includes('flower') || c.includes('decor') || c.includes('vase') || c.includes('pot') || c.includes('plant')) return 'flowers';
+            return null;
+        }
+
+        // Format price nicely
+        function formatPrice(val) {
+            if (!val) return 'Rs. 0';
+            let str = String(val).trim();
+            if (!/^rs\.?/i.test(str)) {
+                str = 'Rs. ' + str;
+            }
+            return str;
+        }
+
+        // Escape HTML to prevent injection
+        function escapeHtml(str) {
+            return String(str || '')
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+
+        // Robust CSV Parser handling quotes and commas
+        function parseCSV(text) {
+            const lines = [];
+            let row = [];
+            let current = '';
+            let inQuotes = false;
+
+            for (let i = 0; i < text.length; i++) {
+                const char = text[i];
+                const nextChar = text[i + 1];
+
+                if (char === '"') {
+                    if (inQuotes && nextChar === '"') {
+                        current += '"';
+                        i++;
+                    } else {
+                        inQuotes = !inQuotes;
+                    }
+                } else if (char === ',' && !inQuotes) {
+                    row.push(current);
+                    current = '';
+                } else if ((char === '\r' || char === '\n') && !inQuotes) {
+                    if (char === '\r' && nextChar === '\n') {
+                        i++;
+                    }
+                    row.push(current);
+                    if (row.some(val => val.trim().length > 0)) {
+                        lines.push(row);
+                    }
+                    row = [];
+                    current = '';
+                } else {
+                    current += char;
+                }
+            }
+
+            if (current.length > 0 || row.length > 0) {
+                row.push(current);
+                if (row.some(val => val.trim().length > 0)) {
+                    lines.push(row);
+                }
+            }
+
+            return lines;
+        }
+
+        // Hide/Show navigation links corresponding to a category
+        function updateCategoryNavVisibility(categoryKey, isVisible) {
+            const selector = `a[href="#${categoryKey}-section"]`;
+            document.querySelectorAll(selector).forEach(link => {
+                const li = link.closest('li') || link;
+                if (!isVisible) {
+                    li.classList.add('dyn-nav-hidden');
+                } else {
+                    li.classList.remove('dyn-nav-hidden');
+                }
+            });
+        }
+
+        // Render dynamic cards into grid
+        function renderCategoryCards(gridEl, items) {
+            gridEl.innerHTML = '';
+            items.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+
+                const imgSrc = convertDriveImageUrl(item.image) || 'media/product_1.webp';
+                const title = item.name || 'Miracle Product';
+                const price = formatPrice(item.price);
+
+                card.innerHTML = `
+                    <div class="product-image">
+                        <img src="${escapeHtml(imgSrc)}" alt="${escapeHtml(title)}" loading="lazy" onerror="this.src='media/product_1.webp';">
+                    </div>
+                    <div class="product-info">
+                        <h4>${escapeHtml(title)}</h4>
+                        <p class="price">${escapeHtml(price)}</p>
+                        <button class="add-to-cart-btn" onclick="addToCart('${escapeHtml(title).replace(/'/g, "\\'")}', '${escapeHtml(price).replace(/'/g, "\\'")}', '${escapeHtml(imgSrc).replace(/'/g, "\\'")}')">Add to Cart</button>
+                    </div>
+                `;
+                gridEl.appendChild(card);
+            });
+        }
+
+        // Main loader function
+        async function loadGoogleSheetProducts() {
+            try {
+                // Fetch published CSV endpoint directly
+                const response = await fetch(GOOGLE_SHEET_CONFIG.csvUrl + '&_t=' + Date.now());
+                if (!response.ok) {
+                    throw new Error(`Google Sheet CSV fetch error: ${response.status}`);
+                }
+                const csvText = await response.text();
+                const parsedRows = parseCSV(csvText);
+
+                if (!parsedRows || parsedRows.length < 2) {
+                    console.log('No data rows found in Google Sheet CSV.');
+                    return;
+                }
+
+                // First row is the header
+                const headers = parsedRows[0].map(h => (h || '').trim().toLowerCase());
+                let nameIdx = -1, catIdx = -1, priceIdx = -1, imgIdx = -1;
+
+                headers.forEach((h, idx) => {
+                    if (h.includes('name') || h.includes('title') || h.includes('item') || h.includes('product')) {
+                        if (nameIdx === -1) nameIdx = idx;
+                    }
+                    if (h.includes('categor')) {
+                        catIdx = idx;
+                    }
+                    if (h.includes('price') || h.includes('cost') || h.includes('amount') || h.includes('rs')) {
+                        priceIdx = idx;
+                    }
+                    if (h.includes('image') || h.includes('photo') || h.includes('picture') || h.includes('drive') || h.includes('file') || h.includes('upload') || h.includes('attachment')) {
+                        imgIdx = idx;
+                    }
+                });
+
+                // Fallback column positions if header text is custom
+                if (nameIdx === -1) nameIdx = 1;
+                if (catIdx === -1) catIdx = 2;
+                if (priceIdx === -1) priceIdx = 3;
+                if (imgIdx === -1) imgIdx = 4;
+
+                const categorized = {
+                    watches: [],
+                    accessories: [],
+                    clothing: [],
+                    cosmetics: [],
+                    flowers: []
+                };
+
+                // Data rows (excluding header) reversed so newest rows come first
+                const dataRows = parsedRows.slice(1).reverse();
+
+                dataRows.forEach(row => {
+                    const rawCat = (row[catIdx] || '').trim();
+                    const bucket = normalizeCategory(rawCat);
+                    const name = (row[nameIdx] || '').trim();
+                    const price = (row[priceIdx] || '').trim();
+                    const img = (row[imgIdx] || '').trim();
+
+                    if (bucket && (name || img)) {
+                        categorized[bucket].push({
+                            name: name,
+                            price: price,
+                            image: img
+                        });
+                    }
+                });
+
+                // Apply to DOM for all 5 categories
+                const allCategories = ['watches', 'accessories', 'clothing', 'cosmetics', 'flowers'];
+
+                allCategories.forEach(catKey => {
+                    const sectionEl = document.getElementById(`${catKey}-section`);
+                    const gridEl = document.getElementById(`${catKey}-grid`);
+                    const items = categorized[catKey] || [];
+
+                    if (!sectionEl || !gridEl) return;
+
+                    if (items.length === 0) {
+                        // Agar is category ka koi product nahi hai to category ka product section aur about dono hide
+                        sectionEl.classList.remove('dyn-visible');
+                        updateCategoryNavVisibility(catKey, false);
+                    } else {
+                        // Maximum 4 newest products
+                        const topItems = items.slice(0, GOOGLE_SHEET_CONFIG.maxPerCategory);
+                        renderCategoryCards(gridEl, topItems);
+                        sectionEl.classList.add('dyn-visible');
+                        updateCategoryNavVisibility(catKey, true);
+                    }
+                });
+
+                console.log('✅ Google Sheets published CSV loaded successfully:', categorized);
+
+            } catch (err) {
+                console.warn('⚠️ Google Sheets loader failed:', err);
+            }
+        }
+
+        // Auto execute on page load
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', loadGoogleSheetProducts);
+        } else {
+            loadGoogleSheetProducts();
+        }
+    </script>
 </body>
+
 </html>
