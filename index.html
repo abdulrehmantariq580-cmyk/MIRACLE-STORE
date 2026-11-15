@@ -1,0 +1,1575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Miracle Store - Home</title>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* === CSS VARIABLES & RESET === */
+        :root {
+            --primary-teal: #12B3A6;
+            --primary-lime: #72D96F;
+            --black: #000000;
+            --white: #FFFFFF;
+            --light-grey: #f4f4f4;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--white);
+            overflow-x: hidden;
+        }
+
+        /* === ANNOUNCEMENT BAR === */
+        .announcement-bar {
+            background: linear-gradient(90deg, var(--primary-teal), var(--primary-lime));
+            color: var(--white);
+            text-align: center;
+            padding: 8px 15px;
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        /* === HEADER === */
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 5%;
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .menu-btn {
+            display: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: var(--black);
+            background: none;
+            border: none;
+        }
+
+        .logo-container img {
+            height: 45px; /* Adjust height as needed */
+            max-width: 100%;
+            object-fit: contain;
+        }
+
+        .desktop-nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        .desktop-nav a {
+            text-decoration: none;
+            color: var(--black);
+            font-weight: 600;
+            font-size: 15px;
+            transition: color 0.3s ease;
+        }
+
+        .desktop-nav a:hover, .desktop-nav a.active {
+            color: var(--primary-teal);
+        }
+
+        .header-icons {
+            display: flex;
+            gap: 18px;
+            font-size: 18px;
+        }
+
+        .header-icons i {
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .header-icons i:hover {
+            color: var(--primary-teal);
+        }
+
+        /* === SLIDING MOBILE MENU === */
+        .mobile-menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(0,0,0,0.5);
+            z-index: 1001;
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.3s ease;
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: -300px;
+            width: 280px;
+            height: 100vh;
+            background: var(--white);
+            z-index: 1002;
+            padding: 20px;
+            transition: 0.4s ease;
+            box-shadow: 2px 0 15px rgba(0,0,0,0.1);
+        }
+
+        .mobile-menu.active {
+            left: 0;
+        }
+
+        .mobile-menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .close-menu {
+            text-align: right;
+            font-size: 24px;
+            cursor: pointer;
+            margin-bottom: 30px;
+            color: var(--black);
+        }
+
+        .mobile-nav ul {
+            list-style: none;
+        }
+
+        .mobile-nav ul li {
+            margin-bottom: 20px;
+        }
+
+        .mobile-nav ul li a {
+            text-decoration: none;
+            color: var(--black);
+            font-size: 18px;
+            font-weight: 500;
+            display: block;
+        }
+
+        /* === HERO SECTION (16:9 Slider) === */
+        .hero-section {
+            width: 100%;
+            aspect-ratio: 16 / 9; /* Ensures strict 16:9 ratio on all devices */
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slider-track {
+            display: flex;
+            width: 300%; /* 3 banners = 300% */
+            height: 100%;
+            transition: transform 0.6s ease-in-out;
+        }
+
+        .slide {
+            width: 33.333%; /* 100% / 3 */
+            height: 100%;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Prevents stretching */
+        }
+
+        /* Slider Indicators (Dots) */
+        .slider-dots {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .dot.active {
+            background: var(--primary-teal);
+            box-shadow: 0 0 5px rgba(0,0,0,0.3);
+        }
+
+        /* === RESPONSIVE DESIGN (MOBILE) === */
+        @media (max-width: 768px) {
+            .desktop-nav {
+                display: none;
+            }
+            .menu-btn {
+                display: block;
+            }
+            .header-icons {
+                gap: 15px;
+            }
+            header {
+                padding: 15px 20px;
+            }
+            .logo-container img {
+                height: 35px; /* Smaller logo for mobile */
+            }
+            /* Hero slider dots adjusted for mobile */
+            .slider-dots {
+                bottom: 10px;
+            }
+            .dot {
+                width: 8px;
+                height: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ANNOUNCEMENT BAR -->
+    <div class="announcement-bar">
+        Free Shipping on all Watch Orders | Premium Quality
+    </div>
+
+    <!-- MAIN HEADER -->
+    <header>
+        <!-- Mobile Menu Button -->
+        <button class="menu-btn" onclick="toggleMenu()">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <!-- Logo Area (Image Only) -->
+        <div class="logo-container">
+            <a href="#">
+                <img src="media/logo.webp" fetchpriority="high" alt="Miracle Store Logo">
+            </a>
+        </div>
+
+        <!-- Desktop Navigation -->
+        <nav class="desktop-nav">
+            <ul>
+                <li><a href="#" class="active">Home</a></li>
+                <li><a href="#">Watches</a></li>
+                <li><a href="#">Mobile Accessories</a></li>
+                <li><a href="#">Clothing</a></li>
+            </ul>
+        </nav>
+
+        <!-- Header Icons -->
+        <div class="header-icons">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <i class="fa-regular fa-user"></i>
+            <i class="fa-solid fa-cart-shopping"></i>
+        </div>
+    </header>
+
+    <!-- SLIDING MOBILE MENU -->
+    <div class="mobile-menu-overlay" onclick="toggleMenu()"></div>
+    <div class="mobile-menu">
+        <div class="close-menu" onclick="toggleMenu()">
+            <i class="fa-solid fa-xmark"></i>
+        </div>
+        <nav class="mobile-nav">
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Watches</a></li>
+                <li><a href="#">Mobile Accessories</a></li>
+                <li><a href="#">Clothing</a></li>
+                <li><a href="#">Cosmetics</a></li>
+                <li><a href="#">Contact Us</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- HERO SECTION (16:9 Slider) -->
+    <section class="hero-section">
+        <div class="slider-track" id="sliderTrack">
+            <!-- Banner 1 -->
+            <div class="slide">
+                <img src="media/banner_1.webp" fetchpriority="high" alt="Premium Watches Banner 1">
+            </div>
+            <!-- Banner 2 -->
+            <div class="slide">
+                <img src="media/banner_2.webp" fetchpriority="high" alt="Luxury Watches Banner 2">
+            </div>
+            <!-- Banner 3 -->
+            <div class="slide">
+                <img src="media/banner_3.webp" fetchpriority="high" alt="Classic Watches Banner 3">
+            </div>
+        </div>
+        
+        <!-- Slider Navigation Dots -->
+        <div class="slider-dots">
+            <span class="dot active" onclick="goToSlide(0)"></span>
+            <span class="dot" onclick="goToSlide(1)"></span>
+            <span class="dot" onclick="goToSlide(2)"></span>
+        </div>
+    </section>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        // --- Mobile Sliding Menu Logic ---
+        function toggleMenu() {
+            const menu = document.querySelector('.mobile-menu');
+            const overlay = document.querySelector('.mobile-menu-overlay');
+            menu.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
+
+        // --- Hero Slider Logic ---
+        const track = document.getElementById('sliderTrack');
+        const dots = document.querySelectorAll('.dot');
+        let currentSlide = 0;
+        const totalSlides = 3;
+
+        function updateSlider() {
+            // Move track
+            track.style.transform = `translateX(-${currentSlide * 33.333}%)`;
+            
+            // Update dots
+            dots.forEach(dot => dot.classList.remove('active'));
+            dots[currentSlide].classList.add('active');
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateSlider();
+        }
+
+        // Manual dot click
+        function goToSlide(index) {
+            currentSlide = index;
+            updateSlider();
+            resetTimer(); // Reset auto-slide timer if user clicks manually
+        }
+
+        // Auto sliding every 4 seconds
+        let slideInterval = setInterval(nextSlide, 4000);
+
+        function resetTimer() {
+            clearInterval(slideInterval);
+            slideInterval = setInterval(nextSlide, 4000);
+        }
+    </script>
+    <!-- ==========================================
+     PART 2: SLIDING CART, CATEGORIES & PRODUCTS
+     (Paste this HTML directly below Part 1 Hero Section)
+     ========================================== -->
+
+<!-- SLIDING CART DRAWER -->
+<div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+<div class="sliding-cart" id="slidingCart">
+    <div class="cart-header">
+        <h3>Your Cart</h3>
+        <i class="fa-solid fa-xmark close-cart" onclick="toggleCart()"></i>
+    </div>
+    <div class="cart-items" id="cartItemsContainer">
+        <!-- Cart items will appear here -->
+        <p style="text-align: center; color: #777; margin-top: 20px;" id="emptyCartMsg">Your cart is currently empty.</p>
+    </div>
+    <div class="cart-footer">
+        <button class="checkout-btn">Proceed to Checkout</button>
+    </div>
+</div>
+
+<!-- SHOP BY CATEGORY (Looping Marquee) -->
+<section class="categories-section">
+    <h2 class="section-title">Shop By Category</h2>
+    <div class="marquee-container">
+        <div class="marquee-track">
+            <!-- Original Items -->
+            <div class="category-item">
+                <div class="cat-circle"><img src="media/cat_1.webp" fetchpriority="high" alt="Watches"></div>
+                <span>Watches</span>
+            </div>
+            <div class="category-item">
+                <div class="cat-circle"><img src="media/cat_2.webp" fetchpriority="high" alt="Mobile Accessories"></div>
+                <span>Accessories</span>
+            </div>
+            <div class="category-item">
+                <div class="cat-circle"><img src="media/cat_3.webp" fetchpriority="high" alt="Mens Clothing"></div>
+                <span>Clothing</span>
+            </div>
+            <div class="category-item">
+                <div class="cat-circle"><img src="media/cat_4.webp" fetchpriority="high" alt="Cosmetics"></div>
+                <span>Cosmetics</span>
+            </div>
+            <div class="category-item">
+                <div class="cat-circle"><img src="media/cat_5.webp" fetchpriority="high"></div>
+                <span>Flowers</span>
+            </div>
+            
+            <!-- Duplicated Items for Seamless Loop -->
+            <div class="category-item">
+                <div class="cat-circle"><img src="media/cat_1.webp" fetchpriority="high" alt="Watches"></div>
+                <span>Watches</span>
+            </div>
+            <div class="category-item">
+                <div class="cat-circle"><img src="media/cat_2.webp" fetchpriority="high" alt="Mobile Accessories"></div>
+                <span>Accessories</span>
+            </div>
+            <div class="category-item">
+                <div class="cat-circle"><img src="media/cat_3.webp" fetchpriority="high" alt="Mens Clothing"></div>
+                <span>Clothing</span>
+            </div>
+            <div class="category-item">
+                <div class="cat-circle"><img src="media/cat_4.webp" fetchpriority="high" alt="Cosmetics"></div>
+                <span>Cosmetics</span>
+            </div>
+            <div class="category-item">
+                <div class="cat-circle"><img src="media/cat_5.webp" fetchpriority="high" alt="Artificial Flowers"></div>
+                <span>Flowers</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FEATURED PRODUCTS -->
+<section class="featured-products">
+    <h2 class="section-title">Featured Watches</h2>
+    <div class="product-grid">
+        <!-- Product 1 -->
+        <div class="product-card">
+            <div class="product-image">
+                <img src="media/product_1.webp" alt="Classic White Watch">
+            </div>
+            <div class="product-info">
+                <h4>Miracle Classic White</h4>
+                <p class="price">Rs. 4,500</p>
+                <button class="add-to-cart-btn" onclick="addToCart('Miracle Classic White', 'Rs. 4,500', 'media/product_1.webp')">Add to Cart</button>
+            </div>
+        </div>
+        <!-- Product 2 -->
+        <div class="product-card">
+            <div class="product-image">
+                <img src="media/product_2.webp" alt="Executive Black">
+            </div>
+            <div class="product-info">
+                <h4>Executive Black</h4>
+                <p class="price">Rs. 6,200</p>
+                <button class="add-to-cart-btn" onclick="addToCart('Executive Black', 'Rs. 6,200', 'media/product_2.webp')">Add to Cart</button>
+            </div>
+        </div>
+        <!-- Product 3 -->
+        <div class="product-card">
+            <div class="product-image">
+                <img src="media/product_3.webp" alt="Sport Series">
+            </div>
+            <div class="product-info">
+                <h4>Sport Series V1</h4>
+                <p class="price">Rs. 3,800</p>
+                <button class="add-to-cart-btn" onclick="addToCart('Sport Series V1', 'Rs. 3,800', 'media/product_3.webp')">Add to Cart</button>
+            </div>
+        </div>
+        <!-- Product 4 -->
+        <div class="product-card">
+            <div class="product-image">
+                <img src="media/product_4.webp" alt="Luxury Gold Edition">
+            </div>
+            <div class="product-info">
+                <h4>Luxury Gold Edition</h4>
+                <p class="price">Rs. 8,500</p>
+                <button class="add-to-cart-btn" onclick="addToCart('Luxury Gold Edition', 'Rs. 8,500', 'media/product_4.webp')">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==========================================
+     PART 2 CSS (Add this inside your <style> tag)
+     ========================================== -->
+<style>
+    /* Section Titles */
+    .section-title {
+        text-align: center;
+        margin: 40px 0 20px;
+        font-size: 28px;
+        font-weight: 700;
+        color: var(--black);
+    }
+
+    /* SLIDING CART DRAWER */
+    .cart-overlay {
+        position: fixed;
+        top: 0; left: 0; width: 100%; height: 100vh;
+        background: rgba(0,0,0,0.5);
+        z-index: 1999;
+        opacity: 0; visibility: hidden;
+        transition: 0.3s ease;
+    }
+    .cart-overlay.active {
+        opacity: 1; visibility: visible;
+    }
+    .sliding-cart {
+        position: fixed;
+        top: 0; right: -350px;
+        width: 350px; height: 100vh;
+        background: var(--white);
+        z-index: 2000;
+        box-shadow: -2px 0 15px rgba(0,0,0,0.1);
+        transition: right 0.4s ease;
+        display: flex; flex-direction: column;
+    }
+    .sliding-cart.active {
+        right: 0;
+    }
+    .cart-header {
+        display: flex; justify-content: space-between; align-items: center;
+        padding: 20px; border-bottom: 1px solid #eee;
+    }
+    .close-cart {
+        font-size: 20px; cursor: pointer; color: var(--black);
+    }
+    .cart-items {
+        flex: 1; padding: 20px; overflow-y: auto;
+    }
+    .cart-footer {
+        padding: 20px; border-top: 1px solid #eee;
+    }
+    .checkout-btn {
+        width: 100%; padding: 12px;
+        background: linear-gradient(90deg, var(--primary-teal), var(--primary-lime));
+        color: var(--white); border: none; font-size: 16px;
+        font-weight: 600; cursor: pointer; border-radius: 5px;
+    }
+    /* Dynamic Cart Item styling */
+    .cart-item-row {
+        display: flex; align-items: center; gap: 15px;
+        margin-bottom: 15px; border-bottom: 1px solid #f4f4f4; padding-bottom: 10px;
+    }
+    .cart-item-img { width: 60px; height: 60px; object-fit: cover; border-radius: 5px; }
+    .cart-item-details h5 { font-size: 14px; margin-bottom: 5px; }
+    .cart-item-details p { font-size: 14px; font-weight: bold; color: var(--primary-teal); }
+
+    /* SHOP BY CATEGORY (Looping Marquee) */
+    .categories-section {
+        padding: 20px 0;
+        background-color: var(--light-grey);
+        overflow: hidden;
+    }
+    .marquee-container {
+        width: 100%;
+        overflow: hidden;
+        white-space: nowrap;
+        padding: 20px 0;
+    }
+    .marquee-track {
+        display: inline-flex;
+        gap: 40px;
+        animation: scrollMarquee 15s linear infinite;
+    }
+    .marquee-container:hover .marquee-track {
+        animation-play-state: paused;
+    }
+    .category-item {
+        display: flex; flex-direction: column; align-items: center; cursor: pointer;
+    }
+    .cat-circle {
+        width: 120px; height: 120px;
+        border-radius: 50%; overflow: hidden;
+        border: 3px solid var(--primary-teal);
+        padding: 3px; background: var(--white);
+        margin-bottom: 10px; transition: transform 0.3s;
+    }
+    .cat-circle img {
+        width: 100%; height: 100%;
+        object-fit: cover; border-radius: 50%;
+    }
+    .category-item:hover .cat-circle {
+        transform: scale(1.05);
+    }
+    .category-item span {
+        font-weight: 600; font-size: 15px; color: var(--black);
+    }
+    @keyframes scrollMarquee {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-50%); } /* Scrolls exactly half to loop perfectly */
+    }
+
+    /* FEATURED PRODUCTS (4 on PC, 2 on Mobile) */
+    .featured-products {
+        padding: 30px 5%;
+    }
+    .product-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+    }
+    .product-card {
+        background: var(--white);
+        border: 1px solid #eee;
+        border-radius: 8px;
+        overflow: hidden;
+        transition: box-shadow 0.3s ease;
+    }
+    .product-card:hover {
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    .product-image {
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        overflow: hidden;
+    }
+    .product-image img {
+        width: 100%; height: 100%;
+        object-fit: cover; transition: transform 0.5s ease;
+    }
+    .product-card:hover .product-image img {
+        transform: scale(1.08);
+    }
+    .product-info {
+        padding: 15px; text-align: center;
+    }
+    .product-info h4 {
+        font-size: 16px; margin-bottom: 8px; color: var(--black);
+    }
+    .product-info .price {
+        color: var(--primary-teal); font-weight: bold; margin-bottom: 15px;
+    }
+    .add-to-cart-btn {
+        width: 100%; padding: 10px;
+        background: linear-gradient(90deg, var(--primary-teal), var(--primary-lime));
+        color: var(--white); border: none;
+        border-radius: 5px; font-weight: 600;
+        cursor: pointer; transition: opacity 0.3s;
+    }
+    .add-to-cart-btn:hover {
+        opacity: 0.9;
+    }
+
+    /* RESPONSIVE (MOBILE ADJUSTMENTS) */
+    @media (max-width: 768px) {
+        .product-grid {
+            grid-template-columns: repeat(2, 1fr); /* 2 in a row for mobile */
+            gap: 10px;
+        }
+        .cat-circle {
+            width: 80px; height: 80px;
+        }
+        .category-item span {
+            font-size: 13px;
+        }
+        .sliding-cart {
+            width: 300px; right: -300px;
+        }
+        .product-info h4 {
+            font-size: 14px;
+        }
+        .add-to-cart-btn {
+            font-size: 13px; padding: 8px;
+        }
+    }
+</style>
+
+<!-- ==========================================
+     PART 2 JAVASCRIPT (Add this inside your <script> tag)
+     ========================================== -->
+<script>
+    // --- Sliding Cart Logic ---
+    const cart = document.getElementById('slidingCart');
+    const cartOverlay = document.getElementById('cartOverlay');
+    const cartItemsContainer = document.getElementById('cartItemsContainer');
+    const emptyCartMsg = document.getElementById('emptyCartMsg');
+
+    function toggleCart() {
+        cart.classList.toggle('active');
+        cartOverlay.classList.toggle('active');
+    }
+
+    // Link Header Cart Icon to open Sliding Cart
+    // (Make sure to add onclick="toggleCart()" to your cart icon in Part 1 header)
+    document.querySelector('.fa-cart-shopping').addEventListener('click', toggleCart);
+
+    // --- Add to Cart Logic ---
+    function addToCart(title, price, imgUrl) {
+        // Remove empty message if it exists
+        if (emptyCartMsg) {
+            emptyCartMsg.style.display = 'none';
+        }
+
+        // Create new item row
+        const itemRow = document.createElement('div');
+        itemRow.classList.add('cart-item-row');
+        
+        itemRow.innerHTML = `
+            <img src="${imgUrl}" class="cart-item-img" alt="${title}">
+            <div class="cart-item-details">
+                <h5>${title}</h5>
+                <p>${price}</p>
+            </div>
+        `;
+        
+        // Add to cart container
+        cartItemsContainer.appendChild(itemRow);
+
+        // Open cart drawer automatically
+        if (!cart.classList.contains('active')) {
+            toggleCart();
+        }
+    }
+</script>
+<!-- ==========================================
+     PART 3: PROMO SPLIT SECTION & NEW ARRIVALS
+     (Paste this HTML directly below Part 2)
+     ========================================== -->
+
+<!-- 50/50 PROMO SPLIT SECTION -->
+<section class="promo-split">
+    <div class="promo-image">
+        <img src="media/promo.webp" alt="Premium Watch Promo">
+    </div>
+    <div class="promo-content">
+        <span>Limited Edition</span>
+        <h2>Elevate Your Style with Miracle Store</h2>
+        <p>Discover our exclusive collection of premium timepieces designed for the modern gentleman. Experience unmatched elegance and precision.</p>
+        <button class="shop-now-btn">Shop The Collection</button>
+    </div>
+</section>
+
+<!-- NEW ARRIVALS CAROUSEL -->
+<section class="new-arrivals">
+    <div class="carousel-header">
+        <h2 class="section-title" style="margin: 0;">New Arrivals</h2>
+        <div class="carousel-controls">
+            <button class="carousel-btn prev-btn" onclick="scrollCarousel(-1)"><i class="fa-solid fa-chevron-left"></i></button>
+            <button class="carousel-btn next-btn" onclick="scrollCarousel(1)"><i class="fa-solid fa-chevron-right"></i></button>
+        </div>
+    </div>
+
+    <div class="carousel-container" id="newArrivalsTrack">
+        <!-- Arrival Product 1 -->
+        <div class="arrival-card">
+            <div class="arrival-image">
+                <img src="media/product_5.webp" alt="Sapphire Elite">
+            </div>
+            <div class="arrival-info">
+                <h4>Sapphire Elite</h4>
+                <p class="price">Rs. 5,500</p>
+                <button class="add-to-cart-btn" onclick="addToCart('Sapphire Elite', 'Rs. 5,500', 'media/product_5.webp')">Add to Cart</button>
+            </div>
+        </div>
+        <!-- Arrival Product 2 -->
+        <div class="arrival-card">
+            <div class="arrival-image">
+                <img src="media/product_6.webp" alt="Midnight Chrono">
+            </div>
+            <div class="arrival-info">
+                <h4>Midnight Chrono</h4>
+                <p class="price">Rs. 7,100</p>
+                <button class="add-to-cart-btn" onclick="addToCart('Midnight Chrono', 'Rs. 7,100', 'media/product_6.webp')">Add to Cart</button>
+            </div>
+        </div>
+        <!-- Arrival Product 3 -->
+        <div class="arrival-card">
+            <div class="arrival-image">
+                <img src="media/product_7.webp" alt="Ocean Blue Dial">
+            </div>
+            <div class="arrival-info">
+                <h4>Ocean Blue Dial</h4>
+                <p class="price">Rs. 4,900</p>
+                <button class="add-to-cart-btn" onclick="addToCart('Ocean Blue Dial', 'Rs. 4,900', 'media/product_7.webp')">Add to Cart</button>
+            </div>
+        </div>
+        <!-- Arrival Product 4 -->
+        <div class="arrival-card">
+            <div class="arrival-image">
+                <img src="media/product_8.webp" alt="Minimalist Silver">
+            </div>
+            <div class="arrival-info">
+                <h4>Minimalist Silver</h4>
+                <p class="price">Rs. 3,500</p>
+                <button class="add-to-cart-btn" onclick="addToCart('Minimalist Silver', 'Rs. 3,500', 'media/product_8.webp')">Add to Cart</button>
+            </div>
+        </div>
+        <!-- Arrival Product 5 -->
+        <div class="arrival-card">
+            <div class="arrival-image">
+                <img src="media/product_9.webp" alt="Urban Tracker">
+            </div>
+            <div class="arrival-info">
+                <h4>Urban Tracker</h4>
+                <p class="price">Rs. 4,200</p>
+                <button class="add-to-cart-btn" onclick="addToCart('Urban Tracker', 'Rs. 4,200', 'media/product_9.webp')">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==========================================
+     PART 3 CSS (Add this inside your <style> tag)
+     ========================================== -->
+<style>
+    /* 50/50 PROMO SPLIT SECTION */
+    .promo-split {
+        display: flex;
+        align-items: center;
+        background-color: var(--light-grey);
+        margin: 50px 0;
+    }
+    .promo-image {
+        flex: 1;
+        width: 50%;
+    }
+    .promo-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        min-height: 400px;
+    }
+    .promo-content {
+        flex: 1;
+        padding: 50px 8%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .promo-content span {
+        color: var(--primary-teal);
+        font-weight: 700;
+        font-size: 14px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 10px;
+    }
+    .promo-content h2 {
+        font-size: 32px;
+        color: var(--black);
+        margin-bottom: 20px;
+        line-height: 1.2;
+    }
+    .promo-content p {
+        color: #555;
+        font-size: 16px;
+        line-height: 1.6;
+        margin-bottom: 30px;
+    }
+    .shop-now-btn {
+        align-self: flex-start;
+        padding: 12px 30px;
+        background: linear-gradient(90deg, var(--primary-teal), var(--primary-lime));
+        color: var(--white);
+        border: none;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .shop-now-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(18, 179, 166, 0.4);
+    }
+
+    /* NEW ARRIVALS CAROUSEL */
+    .new-arrivals {
+        padding: 40px 5%;
+        background-color: var(--white);
+    }
+    .carousel-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+    }
+    .carousel-controls {
+        display: flex;
+        gap: 10px;
+    }
+    .carousel-btn {
+        background: var(--white);
+        border: 2px solid var(--primary-teal);
+        color: var(--primary-teal);
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: 0.3s ease;
+    }
+    .carousel-btn:hover {
+        background: var(--primary-teal);
+        color: var(--white);
+    }
+    .carousel-container {
+        display: flex;
+        gap: 20px;
+        overflow-x: auto;
+        scroll-behavior: smooth;
+        padding-bottom: 15px; /* for scrollbar spacing */
+        scroll-snap-type: x mandatory;
+    }
+    /* Hide scrollbar for cleaner look */
+    .carousel-container::-webkit-scrollbar {
+        height: 6px;
+    }
+    .carousel-container::-webkit-scrollbar-thumb {
+        background-color: #ddd;
+        border-radius: 10px;
+    }
+    .arrival-card {
+        flex: 0 0 calc(25% - 15px); /* 4 items per row on PC */
+        background: var(--white);
+        border: 1px solid #eee;
+        border-radius: 8px;
+        overflow: hidden;
+        scroll-snap-align: start;
+    }
+    .arrival-card:hover {
+        box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    }
+    .arrival-image {
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        overflow: hidden;
+    }
+    .arrival-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+    .arrival-card:hover .arrival-image img {
+        transform: scale(1.08);
+    }
+    .arrival-info {
+        padding: 15px;
+        text-align: center;
+    }
+    .arrival-info h4 {
+        font-size: 16px;
+        margin-bottom: 8px;
+        color: var(--black);
+    }
+    .arrival-info .price {
+        color: var(--primary-teal);
+        font-weight: bold;
+        margin-bottom: 15px;
+    }
+
+    /* RESPONSIVE (MOBILE ADJUSTMENTS) */
+    @media (max-width: 900px) {
+        .promo-split {
+            flex-direction: column;
+        }
+        .promo-image {
+            width: 100%;
+        }
+        .promo-image img {
+            min-height: 250px;
+        }
+        .promo-content {
+            padding: 30px 5%;
+            text-align: center;
+            align-items: center;
+        }
+        .arrival-card {
+            flex: 0 0 calc(50% - 10px); /* 2 items per row on Mobile */
+        }
+        .carousel-btn {
+            width: 35px;
+            height: 35px;
+        }
+    }
+</style>
+
+<!-- ==========================================
+     PART 3 JAVASCRIPT (Add this inside your <script> tag)
+     ========================================== -->
+<script>
+    // --- New Arrivals Carousel Scroll Logic ---
+    function scrollCarousel(direction) {
+        const track = document.getElementById('newArrivalsTrack');
+        const cardWidth = track.querySelector('.arrival-card').offsetWidth;
+        const gap = 20; // Matches CSS gap
+        
+        // Scroll amount: 1 card + gap
+        const scrollAmount = (cardWidth + gap) * direction;
+        track.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    }
+</script>
+<!-- ==========================================
+     PART 4: TRUST BADGES & BRAND MARQUEE
+     (Paste this HTML directly below Part 3)
+     ========================================== -->
+
+<!-- TRUST BADGES SECTION -->
+<section class="trust-badges">
+    <div class="badge-container">
+        <!-- Badge 1 -->
+        <div class="badge-item">
+            <div class="badge-icon">
+                <i class="fa-solid fa-truck-fast"></i>
+            </div>
+            <h4>Free Shipping</h4>
+            <p>On all orders above Rs. 2,000</p>
+        </div>
+        <!-- Badge 2 -->
+        <div class="badge-item">
+            <div class="badge-icon">
+                <i class="fa-solid fa-headset"></i>
+            </div>
+            <h4>24/7 Support</h4>
+            <p>Dedicated customer service</p>
+        </div>
+        <!-- Badge 3 -->
+        <div class="badge-item">
+            <div class="badge-icon">
+                <i class="fa-solid fa-shield-halved"></i>
+            </div>
+            <h4>Secure Payments</h4>
+            <p>100% safe & encrypted checkouts</p>
+        </div>
+        <!-- Badge 4 -->
+        <div class="badge-item">
+            <div class="badge-icon">
+                <i class="fa-solid fa-certificate"></i>
+            </div>
+            <h4>Authentic Products</h4>
+            <p>Guaranteed premium quality</p>
+        </div>
+    </div>
+</section>
+
+<!-- BRAND LOGOS MARQUEE (UPDATED) -->
+<section class="brand-marquee-section">
+    <h2 class="section-title" style="margin-top: 0;">Top Brands We Carry</h2>
+    <div class="brands-marquee-container">
+        <div class="brands-track">
+            <!-- Text-based logos for a sharp, premium demo look -->
+            <div class="brand-logo"><h3>ROLEX</h3></div>
+            <div class="brand-logo"><h3 style="font-family: 'Times New Roman', serif;">CASIO</h3></div>
+            <div class="brand-logo"><h3 style="letter-spacing: 4px;">TISSOT</h3></div>
+            <div class="brand-logo"><h3 style="font-style: italic;">SEIKO</h3></div>
+            <div class="brand-logo"><h3>OMEGA</h3></div>
+            <div class="brand-logo"><h3 style="font-weight: 900;">FOSSIL</h3></div>
+            
+            <!-- Duplicated for Infinite Loop -->
+            <div class="brand-logo"><h3>ROLEX</h3></div>
+            <div class="brand-logo"><h3 style="font-family: 'Times New Roman', serif;">CASIO</h3></div>
+            <div class="brand-logo"><h3 style="letter-spacing: 4px;">TISSOT</h3></div>
+            <div class="brand-logo"><h3 style="font-style: italic;">SEIKO</h3></div>
+            <div class="brand-logo"><h3>OMEGA</h3></div>
+            <div class="brand-logo"><h3 style="font-weight: 900;">FOSSIL</h3></div>
+        </div>
+    </div>
+</section>
+
+<!-- ==========================================
+     PART 4 CSS (Add this inside your <style> tag)
+     ========================================== -->
+<style>
+    /* TRUST BADGES SECTION */
+    .trust-badges {
+        padding: 40px 5%;
+        background-color: var(--white);
+        border-top: 1px solid #eee;
+        border-bottom: 1px solid #eee;
+        margin-bottom: 50px;
+    }
+    .badge-container {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+        text-align: center;
+    }
+    .badge-item {
+        padding: 20px;
+        transition: transform 0.3s ease;
+    }
+    .badge-item:hover {
+        transform: translateY(-5px);
+    }
+    .badge-icon {
+        font-size: 35px;
+        background: linear-gradient(90deg, var(--primary-teal), var(--primary-lime));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 15px;
+    }
+    .badge-item h4 {
+        font-size: 16px;
+        color: var(--black);
+        margin-bottom: 8px;
+    }
+    .badge-item p {
+        font-size: 13px;
+        color: #777;
+    }
+
+   /* BRAND LOGOS MARQUEE CSS (UPDATED) */
+.brand-marquee-section {
+    padding: 0 0 50px 0;
+    background-color: var(--white);
+    overflow: hidden;
+}
+.brands-marquee-container {
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 30px 0;
+    background: var(--white); /* Changed to pure white for max contrast */
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+}
+.brands-track {
+    display: inline-flex;
+    gap: 80px;
+    align-items: center;
+    animation: scrollBrands 20s linear infinite;
+}
+.brands-marquee-container:hover .brands-track {
+    animation-play-state: paused;
+}
+.brand-logo {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.brand-logo h3 {
+    font-size: 26px;
+    color: var(--black); /* Solid black for sharp look */
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    margin: 0;
+    transition: color 0.3s ease, transform 0.3s ease;
+    cursor: pointer;
+}
+.brand-logo:hover h3 {
+    color: var(--primary-teal); /* Highlights in theme color on hover */
+    transform: scale(1.1);
+}
+
+@keyframes scrollBrands {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); } 
+}
+
+/* Mobile Adjustment for Marquee */
+@media (max-width: 500px) {
+    .brand-logo h3 {
+        font-size: 20px;
+    }
+    .brands-track {
+        gap: 50px;
+    }
+}
+    /* RESPONSIVE (MOBILE ADJUSTMENTS) */
+    @media (max-width: 900px) {
+        .badge-container {
+            grid-template-columns: repeat(2, 1fr); /* 2 items per row on tablet/large phones */
+            gap: 15px;
+        }
+    }
+    @media (max-width: 500px) {
+        .badge-icon {
+            font-size: 28px;
+        }
+        .badge-item h4 {
+            font-size: 14px;
+        }
+        .brand-logo {
+            height: 35px; /* Smaller logos on mobile */
+        }
+        .brands-track {
+            gap: 40px;
+        }
+    }
+</style>
+<!-- ==========================================
+     PART 5: CONTACT, NEWSLETTER & FOOTER
+     (Paste this HTML directly below Part 4)
+     ========================================== -->
+
+<!-- CONTACT US SECTION -->
+<section class="contact-section">
+    <div class="contact-container">
+        <div class="contact-info">
+            <h2>Get In Touch</h2>
+            <p>Have a question about our watches or future categories? Our support team is here to help you 24/7.</p>
+            <div class="info-item">
+                <i class="fa-solid fa-location-dot"></i>
+                <span>123 Miracle Street, Commercial Area, Pakistan</span>
+            </div>
+            <div class="info-item">
+                <i class="fa-solid fa-phone"></i>
+                <span>+92 300 0000000</span>
+            </div>
+            <div class="info-item">
+                <i class="fa-solid fa-envelope"></i>
+                <span>support@miraclestore.com</span>
+            </div>
+        </div>
+        <div class="contact-form-container">
+            <form id="contactForm" onsubmit="submitForm(event)">
+                <div class="form-row">
+                    <input type="text" placeholder="Your Name" required>
+                    <input type="email" placeholder="Your Email" required>
+                </div>
+                <input type="text" placeholder="Subject" required>
+                <textarea rows="4" placeholder="Your Message" required></textarea>
+                <button type="submit" class="submit-btn">Send Message</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<!-- NEWSLETTER SECTION -->
+<section class="newsletter-section">
+    <div class="newsletter-content">
+        <h2>Subscribe to Our Newsletter</h2>
+        <p>Get the latest updates on new watch collections, upcoming mobile accessories, clothing, and exclusive discounts!</p>
+        <form class="newsletter-form" onsubmit="submitNewsletter(event)">
+            <input type="email" placeholder="Enter your email address" required>
+            <button type="submit">Subscribe</button>
+        </form>
+    </div>
+</section>
+
+<!-- FOOTER SECTION -->
+<footer class="main-footer">
+    <div class="footer-container">
+        <!-- Footer Column 1: Brand Info -->
+        <div class="footer-col">
+            <!-- Using H2 for demo, you can replace with your white logo PNG -->
+            <h2 class="footer-logo"><span style="color: var(--primary-teal);">MIRACLE</span> STORE</h2>
+            <p class="powered-by">POWERED BY AL RASHEED GROUP</p>
+            <p class="footer-desc">Your ultimate destination for premium watches. Expanding soon to fashion, tech, and lifestyle accessories to elevate your everyday look.</p>
+            <div class="social-icons">
+                <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+                <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+            </div>
+        </div>
+
+        <!-- Footer Column 2: Quick Links -->
+        <div class="footer-col">
+            <h3>Quick Links</h3>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Shop Watches</a></li>
+                <li><a href="#">Mobile Accessories (Soon)</a></li>
+                <li><a href="#">Clothing (Soon)</a></li>
+                <li><a href="#">About Us</a></li>
+            </ul>
+        </div>
+
+        <!-- Footer Column 3: Customer Care -->
+        <div class="footer-col">
+            <h3>Customer Care</h3>
+            <ul>
+                <li><a href="#">Contact Us</a></li>
+                <li><a href="#">Shipping Policy</a></li>
+                <li><a href="#">Return & Exchange</a></li>
+                <li><a href="#">FAQs</a></li>
+                <li><a href="#">Track Order</a></li>
+            </ul>
+        </div>
+
+        <!-- Footer Column 4: Payment Methods -->
+        <div class="footer-col">
+            <h3>Secure Payments</h3>
+            <p style="color: #bbb; font-size: 14px; margin-bottom: 15px;">We accept all major credit cards and digital wallets.</p>
+            <div class="payment-icons">
+                <i class="fa-brands fa-cc-visa"></i>
+                <i class="fa-brands fa-cc-mastercard"></i>
+                <i class="fa-brands fa-paypal"></i>
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer-bottom">
+        <p>&copy; 2026 Miracle Store. All Rights Reserved. Powered by Al Rasheed Group.</p>
+    </div>
+</footer>
+
+<!-- ==========================================
+     PART 5 CSS (Add this inside your <style> tag)
+     ========================================== -->
+<style>
+    /* CONTACT US SECTION */
+    .contact-section {
+        padding: 60px 5%;
+        background-color: var(--white);
+    }
+    .contact-container {
+        display: flex;
+        gap: 50px;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    .contact-info {
+        flex: 1;
+    }
+    .contact-info h2 {
+        font-size: 32px;
+        margin-bottom: 15px;
+        color: var(--black);
+    }
+    .contact-info p {
+        color: #666;
+        line-height: 1.6;
+        margin-bottom: 30px;
+    }
+    .info-item {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 20px;
+    }
+    .info-item i {
+        width: 40px; height: 40px;
+        background: var(--light-grey);
+        color: var(--primary-teal);
+        border-radius: 50%;
+        display: flex; justify-content: center; align-items: center;
+        font-size: 16px;
+    }
+    .info-item span {
+        font-weight: 500;
+        color: var(--black);
+    }
+    
+    .contact-form-container {
+        flex: 1.5;
+        background: var(--light-grey);
+        padding: 40px;
+        border-radius: 10px;
+    }
+    .contact-form-container form {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+    .form-row {
+        display: flex;
+        gap: 20px;
+    }
+    .contact-form-container input, .contact-form-container textarea {
+        width: 100%;
+        padding: 15px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 15px;
+        outline: none;
+        transition: border 0.3s;
+    }
+    .contact-form-container input:focus, .contact-form-container textarea:focus {
+        border-color: var(--primary-teal);
+    }
+    .submit-btn {
+        padding: 15px;
+        background: linear-gradient(90deg, var(--primary-teal), var(--primary-lime));
+        color: var(--white);
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: opacity 0.3s;
+    }
+    .submit-btn:hover {
+        opacity: 0.9;
+    }
+
+    /* NEWSLETTER SECTION */
+    .newsletter-section {
+        background: linear-gradient(90deg, var(--primary-teal), var(--primary-lime));
+        padding: 60px 5%;
+        text-align: center;
+        color: var(--white);
+    }
+    .newsletter-content {
+        max-width: 700px;
+        margin: 0 auto;
+    }
+    .newsletter-content h2 {
+        font-size: 30px;
+        margin-bottom: 15px;
+    }
+    .newsletter-content p {
+        font-size: 16px;
+        margin-bottom: 30px;
+        opacity: 0.9;
+    }
+    .newsletter-form {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+    }
+    .newsletter-form input {
+        flex: 1;
+        max-width: 400px;
+        padding: 15px 20px;
+        border: none;
+        border-radius: 5px;
+        font-size: 15px;
+        outline: none;
+    }
+    .newsletter-form button {
+        padding: 15px 30px;
+        background: var(--black);
+        color: var(--white);
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background 0.3s;
+    }
+    .newsletter-form button:hover {
+        background: #333;
+    }
+
+    /* FOOTER SECTION */
+    .main-footer {
+        background-color: var(--black);
+        color: var(--white);
+        padding-top: 60px;
+    }
+    .footer-container {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr 1fr;
+        gap: 40px;
+        padding: 0 5% 50px;
+    }
+    .footer-logo {
+        font-size: 28px;
+        margin-bottom: 5px;
+    }
+    .powered-by {
+        font-size: 12px;
+        letter-spacing: 2px;
+        color: var(--primary-lime);
+        margin-bottom: 20px;
+        font-weight: bold;
+    }
+    .footer-desc {
+        color: #bbb;
+        line-height: 1.6;
+        margin-bottom: 25px;
+    }
+    .social-icons {
+        display: flex;
+        gap: 15px;
+    }
+    .social-icons a {
+        width: 35px; height: 35px;
+        background: #222;
+        color: var(--white);
+        display: flex; justify-content: center; align-items: center;
+        border-radius: 50%;
+        text-decoration: none;
+        transition: 0.3s;
+    }
+    .social-icons a:hover {
+        background: var(--primary-teal);
+    }
+    
+    .footer-col h3 {
+        font-size: 18px;
+        margin-bottom: 25px;
+        position: relative;
+        padding-bottom: 10px;
+    }
+    .footer-col h3::after {
+        content: '';
+        position: absolute;
+        left: 0; bottom: 0;
+        width: 40px; height: 2px;
+        background: var(--primary-teal);
+    }
+    .footer-col ul {
+        list-style: none;
+    }
+    .footer-col ul li {
+        margin-bottom: 15px;
+    }
+    .footer-col ul li a {
+        color: #bbb;
+        text-decoration: none;
+        transition: 0.3s;
+    }
+    .footer-col ul li a:hover {
+        color: var(--primary-lime);
+        padding-left: 5px;
+    }
+    
+    .payment-icons {
+        display: flex;
+        gap: 15px;
+        font-size: 35px;
+        color: #fff;
+    }
+
+    .footer-bottom {
+        background: #111;
+        text-align: center;
+        padding: 20px 5%;
+        color: #777;
+        font-size: 14px;
+    }
+
+    /* RESPONSIVE (MOBILE ADJUSTMENTS) */
+    @media (max-width: 900px) {
+        .contact-container {
+            flex-direction: column;
+        }
+        .form-row {
+            flex-direction: column;
+            gap: 20px;
+        }
+        .footer-container {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+    @media (max-width: 600px) {
+        .newsletter-form {
+            flex-direction: column;
+        }
+        .newsletter-form input {
+            max-width: 100%;
+        }
+        .footer-container {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+<!-- ==========================================
+     PART 5 JAVASCRIPT (Add this inside your <script> tag)
+     ========================================== -->
+<script>
+    // Demo function for Contact Form
+    function submitForm(event) {
+        event.preventDefault();
+        alert("Thank you! Your message has been sent to Miracle Store.");
+        document.getElementById('contactForm').reset();
+    }
+
+    // Demo function for Newsletter Subscription
+    function submitNewsletter(event) {
+        event.preventDefault();
+        alert("Subscribed successfully! Welcome to Miracle Store.");
+        event.target.reset();
+    }
+</script>
+</body>
+</html>
