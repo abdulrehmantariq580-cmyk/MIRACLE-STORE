@@ -11,7 +11,8 @@
     <link rel="stylesheet" href="shared.css">
 
     <style>
-        html, body {
+        html,
+        body {
             overflow-x: hidden;
             max-width: 100%;
             width: 100%;
@@ -418,37 +419,46 @@
             .checkout-wrapper {
                 padding: 20px 12px 50px;
             }
+
             .checkout-title-area h1 {
                 font-size: 22px;
             }
+
             .checkout-grid {
                 grid-template-columns: 1fr;
                 gap: 20px;
             }
+
             .checkout-card {
                 padding: 18px 14px;
             }
+
             .order-summary-card {
                 position: static;
                 padding: 18px 14px;
             }
+
             .form-row-2 {
                 grid-template-columns: 1fr;
                 gap: 0;
             }
+
             .payment-method-box {
                 flex-direction: column;
                 align-items: flex-start;
                 gap: 10px;
                 padding: 12px;
             }
+
             .payment-badge {
                 align-self: flex-start;
             }
+
             .btn-whatsapp-order {
                 font-size: 14px;
                 padding: 14px;
             }
+
             .checkout-item-title {
                 white-space: normal;
                 word-break: break-word;
@@ -572,13 +582,15 @@
                 <form id="checkoutForm" onsubmit="handleCheckoutSubmit(event)">
                     <div class="form-group">
                         <label for="custName">Full Name <span class="req">*</span></label>
-                        <input type="text" id="custName" class="form-control" placeholder="Enter your full name (e.g. Ayesha Khan)" required>
+                        <input type="text" id="custName" class="form-control"
+                            placeholder="Enter your full name (e.g. Ayesha Khan)" required>
                     </div>
 
                     <div class="form-row-2">
                         <div class="form-group">
                             <label for="custPhone">WhatsApp / Mobile Number <span class="req">*</span></label>
-                            <input type="tel" id="custPhone" class="form-control" placeholder="e.g. 0300 1234567" required>
+                            <input type="tel" id="custPhone" class="form-control" placeholder="e.g. 0300 1234567"
+                                required>
                         </div>
                         <div class="form-group">
                             <label for="custAltPhone">Alternative Phone (Optional)</label>
@@ -587,14 +599,17 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="custAddress">Full Street Address / House / Flat No. <span class="req">*</span></label>
-                        <input type="text" id="custAddress" class="form-control" placeholder="House #, Street name, Sector / Block, Landmark" required>
+                        <label for="custAddress">Full Street Address / House / Flat No. <span
+                                class="req">*</span></label>
+                        <input type="text" id="custAddress" class="form-control"
+                            placeholder="House #, Street name, Sector / Block, Landmark" required>
                     </div>
 
                     <div class="form-row-2">
                         <div class="form-group">
                             <label for="custCity">City <span class="req">*</span></label>
-                            <input type="text" id="custCity" class="form-control" placeholder="e.g. Lahore, Karachi, Islamabad..." required>
+                            <input type="text" id="custCity" class="form-control"
+                                placeholder="e.g. Lahore, Karachi, Islamabad..." required>
                         </div>
                         <div class="form-group">
                             <label for="custProvince">Province / Region <span class="req">*</span></label>
@@ -612,7 +627,8 @@
 
                     <div class="form-group">
                         <label for="custNotes">Special Delivery Instructions (Optional)</label>
-                        <textarea id="custNotes" class="form-control" placeholder="Any special instructions for the courier rider (e.g., please deliver between 2 PM - 6 PM)"></textarea>
+                        <textarea id="custNotes" class="form-control"
+                            placeholder="Any special instructions for the courier rider (e.g., please deliver between 2 PM - 6 PM)"></textarea>
                     </div>
 
                     <h3 style="margin-top: 30px;"><i class="fa-solid fa-money-bill-wave"></i> 2. Payment Method</h3>
@@ -631,13 +647,15 @@
                         <i class="fa-brands fa-whatsapp" style="font-size: 22px;"></i>
                         <span>Confirm Order via WhatsApp</span>
                     </button>
-                    <p class="whatsapp-note">Clicking will open WhatsApp with your order summary, details, and product image links.</p>
+                    <p class="whatsapp-note">Clicking will open WhatsApp with your order summary, details, and product
+                        image links.</p>
                 </form>
             </div>
 
             <!-- Right Column: Order Items Summary -->
             <div class="order-summary-card">
-                <h3 style="font-size: 18px; font-weight: 700; color: var(--black); margin-bottom: 16px; border-bottom: 1px solid var(--border-color); padding-bottom: 12px;">
+                <h3
+                    style="font-size: 18px; font-weight: 700; color: var(--black); margin-bottom: 16px; border-bottom: 1px solid var(--border-color); padding-bottom: 12px;">
                     <i class="fa-solid fa-bag-shopping" style="color: var(--primary-teal); margin-right: 8px;"></i>
                     Order Summary
                 </h3>
@@ -658,6 +676,17 @@
                     <span>Grand Total:</span>
                     <span id="summaryGrandTotal">Rs. 300</span>
                 </div>
+
+                <div class="store-helpline-box"
+                    style="margin-top: 18px; padding: 12px 14px; background: #f0fdf4; border-radius: 8px; border: 1px solid #bbf7d0; font-size: 13px; color: #166534;">
+                    <div style="font-weight: 700; margin-bottom: 4px; display: flex; align-items: center; gap: 6px;">
+                        <i class="fa-brands fa-whatsapp" style="color: #25D366; font-size: 16px;"></i>
+                        <span>Need Help Ordering?</span>
+                    </div>
+                    <div>Call / WhatsApp: <a href="https://wa.me/923221595269" target="_blank"
+                            style="color: #15803d; font-weight: 700; text-decoration: underline;">0322 1595269</a></div>
+                    <div>Location: <strong>Gujar Khan, Rawalpindi</strong></div>
+                </div>
             </div>
         </div>
 
@@ -677,7 +706,8 @@
                 <i class="fa-solid fa-check"></i>
             </div>
             <h3>Order Dispatched to WhatsApp!</h3>
-            <p>Your order details and product images have been prepared. Please click Send on WhatsApp to confirm with Miracle Store.</p>
+            <p>Your order details and product images have been prepared. Please click Send on WhatsApp to confirm with
+                Miracle Store.</p>
             <div class="order-ref-box" id="modalOrderRef">ORDER-MS-0000</div>
             <a href="index.html" class="modal-btn" onclick="finishOrder()">Return to Home Page</a>
         </div>
@@ -688,13 +718,16 @@
         <div class="footer-container">
             <div class="footer-col">
                 <h2 class="footer-logo"><span style="color: var(--primary-teal);">MIRACLE</span> STORE</h2>
-                <p class="powered-by">POWERED BY AL RASHEED GROUP</p>
-                <p class="footer-desc">Your ultimate destination for premium watches, mobile tech accessories, women's fashion, beauty cosmetics, and artisanal home decor.</p>
+                <p class="powered-by">POWERED BY AL RASHEED EMPIRE</p>
+                <p class="footer-desc">Your ultimate destination for premium watches, mobile tech accessories, women's
+                    fashion, beauty cosmetics, and artisanal home decor.</p>
                 <div class="social-icons">
-                    <a href="https://wa.me/923000000000" target="_blank" title="WhatsApp Support"><i class="fa-brands fa-whatsapp"></i></a>
-                    <a href="#" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
-                    <a href="#" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="#" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+                    <a href="https://wa.me/923221595269" target="_blank" title="WhatsApp Support"><i
+                            class="fa-brands fa-whatsapp"></i></a>
+                    <a href="https://www.instagram.com/miracle_store2007/" target="_blank" title="Instagram"><i
+                            class="fa-brands fa-instagram"></i></a>
+                    <a href="https://www.tiktok.com/@miracle_store2007" target="_blank" title="TikTok"><i
+                            class="fa-brands fa-tiktok"></i></a>
                 </div>
             </div>
 
@@ -715,10 +748,12 @@
             <div class="footer-col">
                 <h3>Contact Details</h3>
                 <ul class="footer-contact-list">
-                    <li><i class="fa-solid fa-location-dot"></i> <span>123 Miracle Street, Commercial Area, Pakistan</span></li>
-                    <li><i class="fa-brands fa-whatsapp"></i> <a href="https://wa.me/923000000000" target="_blank">+92 300 0000000</a></li>
-                    <li><i class="fa-solid fa-phone"></i> <a href="tel:+923000000000">+92 300 0000000</a></li>
-                    <li><i class="fa-solid fa-envelope"></i> <a href="mailto:support@miraclestore.com">support@miraclestore.com</a></li>
+                    <li><i class="fa-solid fa-location-dot"></i> <span>Gujar Khan, Rawalpindi, Pakistan</span></li>
+                    <li><i class="fa-brands fa-whatsapp"></i> <a href="https://wa.me/923221595269" target="_blank">+92
+                            322 1595269</a></li>
+                    <li><i class="fa-solid fa-phone"></i> <a href="tel:+923221595269">0322 1595269</a></li>
+                    <li><i class="fa-solid fa-envelope"></i> <a
+                            href="mailto:miracle.store.2007@gmail.com">miracle.store.2007@gmail.com</a></li>
                     <li><i class="fa-solid fa-clock"></i> <span>24/7 Online Customer Support</span></li>
                 </ul>
             </div>
@@ -734,12 +769,12 @@
     <script src="sheet-sync.js"></script>
 
     <script>
-        // CONFIGURATION: Miracle Store Official WhatsApp Number (without + or 0, e.g. 923000000000)
-        const MIRACLE_STORE_WHATSAPP = '923000000000';
+        // CONFIGURATION: Miracle Store Official WhatsApp Number (without + or 0, e.g. 923221595269)
+        const MIRACLE_STORE_WHATSAPP = '923221595269';
 
         document.addEventListener('DOMContentLoaded', () => {
             if (typeof fetchProductsFromSheet === 'function') {
-                fetchProductsFromSheet().catch(() => {});
+                fetchProductsFromSheet().catch(() => { });
             }
         });
 
@@ -869,4 +904,3 @@
 </body>
 
 </html>
-

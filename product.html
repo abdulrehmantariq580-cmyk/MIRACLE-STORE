@@ -11,7 +11,8 @@
     <link rel="stylesheet" href="shared.css">
 
     <style>
-        html, body {
+        html,
+        body {
             overflow-x: hidden;
             max-width: 100%;
             width: 100%;
@@ -361,7 +362,9 @@
         }
 
         @keyframes spin {
-            100% { transform: rotate(360deg); }
+            100% {
+                transform: rotate(360deg);
+            }
         }
 
         @media (max-width: 900px) {
@@ -369,6 +372,7 @@
                 grid-template-columns: 1fr;
                 gap: 30px;
             }
+
             .related-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
@@ -378,18 +382,23 @@
             .product-page-wrapper {
                 padding: 16px 12px 40px;
             }
+
             .product-main-title {
                 font-size: 22px;
             }
+
             .product-price-amount {
                 font-size: 24px;
             }
+
             .action-buttons-group {
                 flex-direction: column;
             }
+
             .perks-list {
                 grid-template-columns: 1fr;
             }
+
             .related-grid {
                 grid-template-columns: repeat(2, 1fr) !important;
                 gap: 8px;
@@ -508,7 +517,8 @@
                 </div>
             </div>
             <h3 class="miracle-loader-title">Loading Product Details</h3>
-            <p class="miracle-loader-desc">Fetching specifications, high-res photos, and live pricing from Miracle Store...</p>
+            <p class="miracle-loader-desc">Fetching specifications, high-res photos, and live pricing from Miracle
+                Store...</p>
             <div class="miracle-loader-bar">
                 <div class="miracle-loader-bar-fill"></div>
             </div>
@@ -531,7 +541,8 @@
                 <!-- Gallery Box -->
                 <div class="product-gallery-box">
                     <div id="productStatusBadgeContainer"></div>
-                    <img id="detailProductImage" src="media/product_1.webp" alt="Product Image" class="main-product-image">
+                    <img id="detailProductImage" src="media/product_1.webp" alt="Product Image"
+                        class="main-product-image">
                 </div>
 
                 <!-- Info Panel -->
@@ -542,8 +553,10 @@
                     <div class="product-price-row">
                         <div style="display:flex; align-items:baseline; gap:12px; flex-wrap:wrap;">
                             <span class="product-price-amount" id="detailProductPrice">Rs. 0</span>
-                            <del class="product-price-cut-large" id="detailProductCutPrice" style="display:none; text-decoration:line-through; color:#9ca3af; font-size:18px; font-weight:600;"></del>
-                            <span class="detail-discount-pill" id="detailDiscountPill" style="display:none; background:#fee2e2; color:#ef4444; font-size:13px; font-weight:700; padding:4px 9px; border-radius:6px;"></span>
+                            <del class="product-price-cut-large" id="detailProductCutPrice"
+                                style="display:none; text-decoration:line-through; color:#9ca3af; font-size:18px; font-weight:600;"></del>
+                            <span class="detail-discount-pill" id="detailDiscountPill"
+                                style="display:none; background:#fee2e2; color:#ef4444; font-size:13px; font-weight:700; padding:4px 9px; border-radius:6px;"></span>
                         </div>
                         <div id="detailStockIndicator"></div>
                     </div>
@@ -586,10 +599,11 @@
                                 <i class="fa-solid fa-shield-halved"></i>
                                 <span>100% Quality Guaranteed</span>
                             </div>
-                            <div class="perk-item">
-                                <i class="fa-solid fa-phone"></i>
-                                <span>Instant WhatsApp Support</span>
-                            </div>
+                            <a href="https://wa.me/923221595269" target="_blank" class="perk-item"
+                                style="color:inherit; text-decoration:none;">
+                                <i class="fa-brands fa-whatsapp" style="color:#25D366;"></i>
+                                <span>WhatsApp: 0322 1595269</span>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -608,13 +622,16 @@
         <div class="footer-container">
             <div class="footer-col">
                 <h2 class="footer-logo"><span style="color: var(--primary-teal);">MIRACLE</span> STORE</h2>
-                <p class="powered-by">POWERED BY AL RASHEED GROUP</p>
-                <p class="footer-desc">Your ultimate destination for premium watches, mobile tech accessories, women's fashion, beauty cosmetics, and artisanal home decor.</p>
+                <p class="powered-by">POWERED BY AL RASHEED EMPIRE</p>
+                <p class="footer-desc">Your ultimate destination for premium watches, mobile tech accessories, women's
+                    fashion, beauty cosmetics, and artisanal home decor.</p>
                 <div class="social-icons">
-                    <a href="https://wa.me/923000000000" target="_blank" title="WhatsApp Support"><i class="fa-brands fa-whatsapp"></i></a>
-                    <a href="#" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
-                    <a href="#" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="#" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+                    <a href="https://wa.me/923221595269" target="_blank" title="WhatsApp Support"><i
+                            class="fa-brands fa-whatsapp"></i></a>
+                    <a href="https://www.instagram.com/miracle_store2007/" target="_blank" title="Instagram"><i
+                            class="fa-brands fa-instagram"></i></a>
+                    <a href="https://www.tiktok.com/@miracle_store2007" target="_blank" title="TikTok"><i
+                            class="fa-brands fa-tiktok"></i></a>
                 </div>
             </div>
 
@@ -635,10 +652,12 @@
             <div class="footer-col">
                 <h3>Contact Details</h3>
                 <ul class="footer-contact-list">
-                    <li><i class="fa-solid fa-location-dot"></i> <span>123 Miracle Street, Commercial Area, Pakistan</span></li>
-                    <li><i class="fa-brands fa-whatsapp"></i> <a href="https://wa.me/923000000000" target="_blank">+92 300 0000000</a></li>
-                    <li><i class="fa-solid fa-phone"></i> <a href="tel:+923000000000">+92 300 0000000</a></li>
-                    <li><i class="fa-solid fa-envelope"></i> <a href="mailto:support@miraclestore.com">support@miraclestore.com</a></li>
+                    <li><i class="fa-solid fa-location-dot"></i> <span>Gujar Khan, Rawalpindi, Pakistan</span></li>
+                    <li><i class="fa-brands fa-whatsapp"></i> <a href="https://wa.me/923221595269" target="_blank">+92
+                            322 1595269</a></li>
+                    <li><i class="fa-solid fa-phone"></i> <a href="tel:+923221595269">0322 1595269</a></li>
+                    <li><i class="fa-solid fa-envelope"></i> <a
+                            href="mailto:miracle.store.2007@gmail.com">miracle.store.2007@gmail.com</a></li>
                     <li><i class="fa-solid fa-clock"></i> <span>24/7 Online Customer Support</span></li>
                 </ul>
             </div>
@@ -790,4 +809,3 @@
 </body>
 
 </html>
-
