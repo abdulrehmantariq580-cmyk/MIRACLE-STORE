@@ -461,7 +461,7 @@
 
     <!-- ANNOUNCEMENT BAR -->
     <div class="announcement-bar">
-        Free Shipping on Orders Over Rs. 2,000 | Flat Rs. 300 Nationwide Delivery
+        Fast Nationwide Delivery across Pakistan | Flat Rs. 300 Delivery
     </div>
 
     <!-- MAIN HEADER -->
@@ -691,10 +691,10 @@
                 <p class="powered-by">POWERED BY AL RASHEED GROUP</p>
                 <p class="footer-desc">Your ultimate destination for premium watches, mobile tech accessories, women's fashion, beauty cosmetics, and artisanal home decor.</p>
                 <div class="social-icons">
-                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
-                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="#"><i class="fa-brands fa-tiktok"></i></a>
-                    <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+                    <a href="https://wa.me/923000000000" target="_blank" title="WhatsApp Support"><i class="fa-brands fa-whatsapp"></i></a>
+                    <a href="#" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
                 </div>
             </div>
 
@@ -703,34 +703,24 @@
                 <ul>
                     <li><a href="index.html">Home</a></li>
                     <li><a href="catalog.html">All Products</a></li>
-                    <li><a href="catalog.html?category=watches">Watches</a></li>
-                    <li><a href="catalog.html?category=accessories">Accessories</a></li>
-                    <li><a href="catalog.html?category=clothing">Clothing</a></li>
-                    <li><a href="catalog.html?category=bangles">Bangles & Jewellery</a></li>
-                    <li><a href="catalog.html?category=cosmetics">Cosmetics</a></li>
-                    <li><a href="catalog.html?category=flowers">Flowers & Decor</a></li>
+                    <li class="dyn-nav-hidden"><a href="catalog.html?category=watches">Watches</a></li>
+                    <li class="dyn-nav-hidden"><a href="catalog.html?category=accessories">Mobile Accessories</a></li>
+                    <li class="dyn-nav-hidden"><a href="catalog.html?category=clothing">Women's Clothing</a></li>
+                    <li class="dyn-nav-hidden"><a href="catalog.html?category=bangles">Bangles & Jewellery</a></li>
+                    <li class="dyn-nav-hidden"><a href="catalog.html?category=cosmetics">Cosmetics</a></li>
+                    <li class="dyn-nav-hidden"><a href="catalog.html?category=flowers">Flowers & Decor</a></li>
                 </ul>
             </div>
 
             <div class="footer-col">
-                <h3>Customer Care</h3>
-                <ul>
-                    <li><a href="index.html#contact">Contact Us</a></li>
-                    <li><a href="#">Shipping Policy</a></li>
-                    <li><a href="#">Return & Exchange</a></li>
-                    <li><a href="#">FAQs</a></li>
-                    <li><a href="#">Track Order</a></li>
+                <h3>Contact Details</h3>
+                <ul class="footer-contact-list">
+                    <li><i class="fa-solid fa-location-dot"></i> <span>123 Miracle Street, Commercial Area, Pakistan</span></li>
+                    <li><i class="fa-brands fa-whatsapp"></i> <a href="https://wa.me/923000000000" target="_blank">+92 300 0000000</a></li>
+                    <li><i class="fa-solid fa-phone"></i> <a href="tel:+923000000000">+92 300 0000000</a></li>
+                    <li><i class="fa-solid fa-envelope"></i> <a href="mailto:support@miraclestore.com">support@miraclestore.com</a></li>
+                    <li><i class="fa-solid fa-clock"></i> <span>24/7 Online Customer Support</span></li>
                 </ul>
-            </div>
-
-            <div class="footer-col">
-                <h3>Secure Payments</h3>
-                <p style="color: #bbb; font-size: 14px; margin-bottom: 15px;">Cash on Delivery (COD) available across Pakistan.</p>
-                <div class="payment-icons">
-                    <i class="fa-brands fa-cc-visa"></i>
-                    <i class="fa-brands fa-cc-mastercard"></i>
-                    <i class="fa-brands fa-paypal"></i>
-                </div>
             </div>
         </div>
 
@@ -741,10 +731,17 @@
 
     <!-- Scripts -->
     <script src="cart.js"></script>
+    <script src="sheet-sync.js"></script>
 
     <script>
         // CONFIGURATION: Miracle Store Official WhatsApp Number (without + or 0, e.g. 923000000000)
         const MIRACLE_STORE_WHATSAPP = '923000000000';
+
+        document.addEventListener('DOMContentLoaded', () => {
+            if (typeof fetchProductsFromSheet === 'function') {
+                fetchProductsFromSheet().catch(() => {});
+            }
+        });
 
         function renderCheckoutPage() {
             const { cart, subtotal, delivery, grandTotal } = getMiracleCartTotals();

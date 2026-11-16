@@ -4,13 +4,18 @@
 
 const GOOGLE_SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTLpK648W8ufKmKP-8QRidY_nG8K7qDECjyHn3aDCyyTgYz1zKIFS32dA8BLiTbvo4oXBcjjzZn5dRc/pub?output=csv';
 
-// Convert Google Drive view/open link to direct CDN preview URL
-function convertDriveToCdn(url) {
+// Convert Google Drive view/open link to high-speed compressed direct CDN preview URL
+function convertDriveToCdn(url, size = 600) {
     if (!url) return 'media/product_1.webp';
     const trimmed = String(url).trim();
     const match = trimmed.match(/[-\w]{25,}/);
     if (trimmed.includes('drive.google.com') && match) {
-        return `https://lh3.googleusercontent.com/d/${match[0]}`;
+        const fileId = match[0];
+        if (size === 0 || size === 'original') {
+            return `https://lh3.googleusercontent.com/d/${fileId}`;
+        }
+        // w${size}-rw: Dynamic Google CDN downscaling + WebP compression for blazing fast loading
+        return `https://lh3.googleusercontent.com/d/${fileId}=w${size}-rw`;
     }
     return trimmed;
 }
@@ -228,7 +233,9 @@ async function fetchProductsFromSheet(forceRefresh = false) {
 
             const priceInfo = parseDualPrices(rawPrice, rawRegPrice);
             const categoryKey = normalizeCategoryKey(rawCat);
-            const directImg = convertDriveToCdn(rawImg);
+            // Ultra-fast compressed WebP 600px image for catalog and mobile
+            const directImg = convertDriveToCdn(rawImg, 600);
+            const fullResImg = convertDriveToCdn(rawImg, 'original');
             const uniqueId = 'prod_' + (dataRows.length - rowIndex) + '_' + rawName.toLowerCase().replace(/[^a-z0-9]+/g, '-').slice(0, 30);
 
             // Stock calculation
@@ -261,6 +268,7 @@ async function fetchProductsFromSheet(forceRefresh = false) {
                 hasDiscount: priceInfo.hasDiscount,
                 discountPercent: priceInfo.discountPercent,
                 image: directImg,
+                fullImage: fullResImg,
                 originalImage: rawImg || directImg,
                 description: rawDesc || 'Premium authentic product from Miracle Store. Crafted with exceptional attention to detail, premium materials, and timeless elegance.',
                 inStock: inStock,
@@ -277,6 +285,7 @@ async function fetchProductsFromSheet(forceRefresh = false) {
         }
 
         window.miracleProducts = products;
+        syncCategoryNavLinks(products);
         return products;
 
     } catch (err) {
@@ -325,7 +334,7 @@ function createProductCardHtml(p) {
             <div class="product-image-wrap" onclick="navigateToProduct('${safeId}')">
                 ${stockBadge}
                 ${discountBadge}
-                <img src="${safeDirectImg}" alt="${safeTitle}" loading="lazy" onerror="this.src='media/product_1.webp';">
+                <img src="${safeDirectImg}" alt="${safeTitle}" loading="lazy" decoding="async" onerror="if(!this.dataset.fallback){this.dataset.fallback='1';this.src='${safeOriginalImg}';}else{this.src='media/product_1.webp';}">
             </div>
             <div class="product-info">
                 <span class="product-category-label">${escapeCartHtml(p.categoryLabel)}</span>
@@ -342,4 +351,29 @@ function createProductCardHtml(p) {
 // Open product details page
 function navigateToProduct(id) {
     window.location.href = `product.html?id=${encodeURIComponent(id)}`;
+}
+
+// Auto-synchronize navigation links and category circles across all pages
+function syncCategoryNavLinks(products) {
+    if (!Array.isArray(products)) return;
+    const allCategories = ['watches', 'accessories', 'clothing', 'bangles', 'cosmetics', 'flowers'];
+    allCategories.forEach(catKey => {
+        const hasProducts = products.some(p => p.category === catKey);
+        const selector = `a[href="#${catKey}-section"], a[href*="category=${catKey}"]`;
+        document.querySelectorAll(selector).forEach(link => {
+            const li = link.closest('li') || link;
+            if (!hasProducts) {
+                li.classList.add('dyn-nav-hidden');
+            } else {
+                li.classList.remove('dyn-nav-hidden');
+            }
+        });
+        document.querySelectorAll(`.category-item[data-category="${catKey}"]`).forEach(circle => {
+            if (!hasProducts) {
+                circle.classList.add('dyn-circle-hidden');
+            } else {
+                circle.classList.remove('dyn-circle-hidden');
+            }
+        });
+    });
 }

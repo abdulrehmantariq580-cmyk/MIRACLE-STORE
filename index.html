@@ -290,7 +290,7 @@
 
     <!-- ANNOUNCEMENT BAR -->
     <div class="announcement-bar">
-        Free Shipping on all Watch Orders | Premium Quality
+        Fast Nationwide Delivery across Pakistan | Flat Rs. 300 Delivery
     </div>
 
     <!-- MAIN HEADER -->
@@ -474,35 +474,35 @@
             <div class="marquee-track">
                 <!-- Original Items -->
                 <div class="category-item dyn-circle-hidden" data-category="watches"
-                    onclick="document.getElementById('watches-section').scrollIntoView({behavior: 'smooth'})">
+                    onclick="window.location.href='catalog.html?category=watches'">
                     <div class="cat-circle"><img src="media/cat_1.webp" fetchpriority="high" alt="Watches"></div>
                     <span>Watches</span>
                 </div>
                 <div class="category-item dyn-circle-hidden" data-category="accessories"
-                    onclick="document.getElementById('accessories-section').scrollIntoView({behavior: 'smooth'})">
+                    onclick="window.location.href='catalog.html?category=accessories'">
                     <div class="cat-circle"><img src="media/cat_2.webp" fetchpriority="high" alt="Mobile Accessories">
                     </div>
                     <span>Accessories</span>
                 </div>
                 <div class="category-item dyn-circle-hidden" data-category="clothing"
-                    onclick="document.getElementById('clothing-section').scrollIntoView({behavior: 'smooth'})">
+                    onclick="window.location.href='catalog.html?category=clothing'">
                     <div class="cat-circle"><img src="media/cat_3.webp" fetchpriority="high" alt="Women's Clothing">
                     </div>
                     <span>Clothing</span>
                 </div>
                 <div class="category-item dyn-circle-hidden" data-category="bangles"
-                    onclick="document.getElementById('bangles-section').scrollIntoView({behavior: 'smooth'})">
+                    onclick="window.location.href='catalog.html?category=bangles'">
                     <div class="cat-circle"><img src="media/cat_6.webp" fetchpriority="high" alt="Bangles & Jewellery">
                     </div>
                     <span>Bangles</span>
                 </div>
                 <div class="category-item dyn-circle-hidden" data-category="cosmetics"
-                    onclick="document.getElementById('cosmetics-section').scrollIntoView({behavior: 'smooth'})">
+                    onclick="window.location.href='catalog.html?category=cosmetics'">
                     <div class="cat-circle"><img src="media/cat_4.webp" fetchpriority="high" alt="Cosmetics"></div>
                     <span>Cosmetics</span>
                 </div>
                 <div class="category-item dyn-circle-hidden" data-category="flowers"
-                    onclick="document.getElementById('flowers-section').scrollIntoView({behavior: 'smooth'})">
+                    onclick="window.location.href='catalog.html?category=flowers'">
                     <div class="cat-circle"><img src="media/cat_5.webp" fetchpriority="high" alt="Artificial Flowers">
                     </div>
                     <span>Flowers</span>
@@ -510,35 +510,35 @@
 
                 <!-- Duplicated Items for Seamless Loop -->
                 <div class="category-item dyn-circle-hidden" data-category="watches"
-                    onclick="document.getElementById('watches-section').scrollIntoView({behavior: 'smooth'})">
+                    onclick="window.location.href='catalog.html?category=watches'">
                     <div class="cat-circle"><img src="media/cat_1.webp" fetchpriority="high" alt="Watches"></div>
                     <span>Watches</span>
                 </div>
                 <div class="category-item dyn-circle-hidden" data-category="accessories"
-                    onclick="document.getElementById('accessories-section').scrollIntoView({behavior: 'smooth'})">
+                    onclick="window.location.href='catalog.html?category=accessories'">
                     <div class="cat-circle"><img src="media/cat_2.webp" fetchpriority="high" alt="Mobile Accessories">
                     </div>
                     <span>Accessories</span>
                 </div>
                 <div class="category-item dyn-circle-hidden" data-category="clothing"
-                    onclick="document.getElementById('clothing-section').scrollIntoView({behavior: 'smooth'})">
+                    onclick="window.location.href='catalog.html?category=clothing'">
                     <div class="cat-circle"><img src="media/cat_3.webp" fetchpriority="high" alt="Women's Clothing">
                     </div>
                     <span>Clothing</span>
                 </div>
                 <div class="category-item dyn-circle-hidden" data-category="bangles"
-                    onclick="document.getElementById('bangles-section').scrollIntoView({behavior: 'smooth'})">
+                    onclick="window.location.href='catalog.html?category=bangles'">
                     <div class="cat-circle"><img src="media/cat_6.webp" fetchpriority="high" alt="Bangles & Jewellery">
                     </div>
                     <span>Bangles</span>
                 </div>
                 <div class="category-item dyn-circle-hidden" data-category="cosmetics"
-                    onclick="document.getElementById('cosmetics-section').scrollIntoView({behavior: 'smooth'})">
+                    onclick="window.location.href='catalog.html?category=cosmetics'">
                     <div class="cat-circle"><img src="media/cat_4.webp" fetchpriority="high" alt="Cosmetics"></div>
                     <span>Cosmetics</span>
                 </div>
                 <div class="category-item dyn-circle-hidden" data-category="flowers"
-                    onclick="document.getElementById('flowers-section').scrollIntoView({behavior: 'smooth'})">
+                    onclick="window.location.href='catalog.html?category=flowers'">
                     <div class="cat-circle"><img src="media/cat_5.webp" fetchpriority="high" alt="Artificial Flowers">
                     </div>
                     <span>Flowers</span>
@@ -1088,12 +1088,13 @@
         }
 
         .product-info h4 {
-            font-size: 15px;
-            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 6px;
             color: var(--black);
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
+            white-space: normal;
+            word-break: break-word;
+            line-height: 1.35;
         }
 
         .product-info .price {
@@ -1337,8 +1338,8 @@
                 <div class="badge-icon">
                     <i class="fa-solid fa-truck-fast"></i>
                 </div>
-                <h4>Free Shipping</h4>
-                <p>On all orders above Rs. 2,000</p>
+                <h4>Fast Delivery</h4>
+                <p>Fast & reliable nationwide delivery</p>
             </div>
             <!-- Badge 2 -->
             <div class="badge-item">
@@ -1363,54 +1364,6 @@
                 </div>
                 <h4>Authentic Products</h4>
                 <p>Guaranteed premium quality</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- BRAND LOGOS MARQUEE (UPDATED) -->
-    <section class="brand-marquee-section">
-        <h2 class="section-title" style="margin-top: 0;">Top Brands We Carry</h2>
-        <div class="brands-marquee-container">
-            <div class="brands-track">
-                <!-- Text-based logos for a sharp, premium demo look -->
-                <div class="brand-logo">
-                    <h3>ROLEX</h3>
-                </div>
-                <div class="brand-logo">
-                    <h3 style="font-family: 'Times New Roman', serif;">CASIO</h3>
-                </div>
-                <div class="brand-logo">
-                    <h3 style="letter-spacing: 4px;">TISSOT</h3>
-                </div>
-                <div class="brand-logo">
-                    <h3 style="font-style: italic;">SEIKO</h3>
-                </div>
-                <div class="brand-logo">
-                    <h3>OMEGA</h3>
-                </div>
-                <div class="brand-logo">
-                    <h3 style="font-weight: 900;">FOSSIL</h3>
-                </div>
-
-                <!-- Duplicated for Infinite Loop -->
-                <div class="brand-logo">
-                    <h3>ROLEX</h3>
-                </div>
-                <div class="brand-logo">
-                    <h3 style="font-family: 'Times New Roman', serif;">CASIO</h3>
-                </div>
-                <div class="brand-logo">
-                    <h3 style="letter-spacing: 4px;">TISSOT</h3>
-                </div>
-                <div class="brand-logo">
-                    <h3 style="font-style: italic;">SEIKO</h3>
-                </div>
-                <div class="brand-logo">
-                    <h3>OMEGA</h3>
-                </div>
-                <div class="brand-logo">
-                    <h3 style="font-weight: 900;">FOSSIL</h3>
-                </div>
             </div>
         </div>
     </section>
@@ -1463,80 +1416,6 @@
             color: #777;
         }
 
-        /* BRAND LOGOS MARQUEE CSS (UPDATED) */
-        .brand-marquee-section {
-            padding: 0 0 50px 0;
-            background-color: var(--white);
-            overflow: hidden;
-        }
-
-        .brands-marquee-container {
-            width: 100%;
-            overflow: hidden;
-            white-space: nowrap;
-            padding: 30px 0;
-            background: var(--white);
-            /* Changed to pure white for max contrast */
-            border-top: 1px solid #eee;
-            border-bottom: 1px solid #eee;
-        }
-
-        .brands-track {
-            display: inline-flex;
-            gap: 80px;
-            align-items: center;
-            animation: scrollBrands 20s linear infinite;
-        }
-
-        .brands-marquee-container:hover .brands-track {
-            animation-play-state: paused;
-        }
-
-        .brand-logo {
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .brand-logo h3 {
-            font-size: 26px;
-            color: var(--black);
-            /* Solid black for sharp look */
-            font-weight: 800;
-            letter-spacing: 1.5px;
-            margin: 0;
-            transition: color 0.3s ease, transform 0.3s ease;
-            cursor: pointer;
-        }
-
-        .brand-logo:hover h3 {
-            color: var(--primary-teal);
-            /* Highlights in theme color on hover */
-            transform: scale(1.1);
-        }
-
-        @keyframes scrollBrands {
-            0% {
-                transform: translateX(0);
-            }
-
-            100% {
-                transform: translateX(-50%);
-            }
-        }
-
-        /* Mobile Adjustment for Marquee */
-        @media (max-width: 500px) {
-            .brand-logo h3 {
-                font-size: 20px;
-            }
-
-            .brands-track {
-                gap: 50px;
-            }
-        }
-
         /* RESPONSIVE (MOBILE ADJUSTMENTS) */
         @media (max-width: 900px) {
             .badge-container {
@@ -1553,15 +1432,6 @@
 
             .badge-item h4 {
                 font-size: 14px;
-            }
-
-            .brand-logo {
-                height: 35px;
-                /* Smaller logos on mobile */
-            }
-
-            .brands-track {
-                gap: 40px;
             }
         }
     </style>
@@ -1590,29 +1460,18 @@
                 </div>
             </div>
             <div class="contact-form-container">
-                <form id="contactForm" onsubmit="submitForm(event)">
+                <form id="contactForm" onsubmit="submitContactToWhatsApp(event)">
                     <div class="form-row">
-                        <input type="text" placeholder="Your Name" required>
-                        <input type="email" placeholder="Your Email" required>
+                        <input type="text" id="contactName" placeholder="Your Name" required>
+                        <input type="tel" id="contactPhone" placeholder="Your WhatsApp / Phone" required>
                     </div>
-                    <input type="text" placeholder="Subject" required>
-                    <textarea rows="4" placeholder="Your Message" required></textarea>
-                    <button type="submit" class="submit-btn">Send Message</button>
+                    <input type="text" id="contactSubject" placeholder="Subject / Inquiry" required>
+                    <textarea id="contactMessage" rows="4" placeholder="Your Message" required></textarea>
+                    <button type="submit" class="submit-btn" style="display:inline-flex; align-items:center; justify-content:center; gap:8px;">
+                        <i class="fa-brands fa-whatsapp"></i> Send Message on WhatsApp
+                    </button>
                 </form>
             </div>
-        </div>
-    </section>
-
-    <!-- NEWSLETTER SECTION -->
-    <section class="newsletter-section">
-        <div class="newsletter-content">
-            <h2>Subscribe to Our Newsletter</h2>
-            <p>Get the latest updates on new watch collections, upcoming mobile accessories, clothing, cosmetics, and
-                exclusive discounts!</p>
-            <form class="newsletter-form" onsubmit="submitNewsletter(event)">
-                <input type="email" placeholder="Enter your email address" required>
-                <button type="submit">Subscribe</button>
-            </form>
         </div>
     </section>
 
@@ -1621,16 +1480,14 @@
         <div class="footer-container">
             <!-- Footer Column 1: Brand Info -->
             <div class="footer-col">
-                <!-- Using H2 for demo, you can replace with your white logo PNG -->
                 <h2 class="footer-logo"><span style="color: var(--primary-teal);">MIRACLE</span> STORE</h2>
                 <p class="powered-by">POWERED BY AL RASHEED GROUP</p>
-                <p class="footer-desc">Your ultimate destination for premium watches, mobile tech accessories, modern
-                    apparel, beauty cosmetics, and artisanal home florals.</p>
+                <p class="footer-desc">Your ultimate destination for premium watches, mobile tech accessories, women's fashion, beauty cosmetics, and artisanal home decor.</p>
                 <div class="social-icons">
-                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
-                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="#"><i class="fa-brands fa-tiktok"></i></a>
-                    <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+                    <a href="https://wa.me/923000000000" target="_blank" title="WhatsApp Support"><i class="fa-brands fa-whatsapp"></i></a>
+                    <a href="#" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
                 </div>
             </div>
 
@@ -1640,37 +1497,25 @@
                 <ul>
                     <li><a href="index.html">Home</a></li>
                     <li><a href="catalog.html">All Products</a></li>
-                    <li class="dyn-nav-hidden"><a href="#watches-section">Watches</a></li>
-                    <li class="dyn-nav-hidden"><a href="#accessories-section">Mobile Accessories</a></li>
-                    <li class="dyn-nav-hidden"><a href="#clothing-section">Clothing</a></li>
-                    <li class="dyn-nav-hidden"><a href="#bangles-section">Bangles & Jewellery</a></li>
-                    <li class="dyn-nav-hidden"><a href="#cosmetics-section">Cosmetics</a></li>
-                    <li class="dyn-nav-hidden"><a href="#flowers-section">Flowers & Decor</a></li>
+                    <li class="dyn-nav-hidden"><a href="catalog.html?category=watches">Watches</a></li>
+                    <li class="dyn-nav-hidden"><a href="catalog.html?category=accessories">Mobile Accessories</a></li>
+                    <li class="dyn-nav-hidden"><a href="catalog.html?category=clothing">Women's Clothing</a></li>
+                    <li class="dyn-nav-hidden"><a href="catalog.html?category=bangles">Bangles & Jewellery</a></li>
+                    <li class="dyn-nav-hidden"><a href="catalog.html?category=cosmetics">Cosmetics</a></li>
+                    <li class="dyn-nav-hidden"><a href="catalog.html?category=flowers">Flowers & Decor</a></li>
                 </ul>
             </div>
 
-            <!-- Footer Column 3: Customer Care -->
+            <!-- Footer Column 3: Contact Details -->
             <div class="footer-col">
-                <h3>Customer Care</h3>
-                <ul>
-                    <li><a href="#">Contact Us</a></li>
-                    <li><a href="#">Shipping Policy</a></li>
-                    <li><a href="#">Return & Exchange</a></li>
-                    <li><a href="#">FAQs</a></li>
-                    <li><a href="#">Track Order</a></li>
+                <h3>Contact Details</h3>
+                <ul class="footer-contact-list">
+                    <li><i class="fa-solid fa-location-dot"></i> <span>123 Miracle Street, Commercial Area, Pakistan</span></li>
+                    <li><i class="fa-brands fa-whatsapp"></i> <a href="https://wa.me/923000000000" target="_blank">+92 300 0000000</a></li>
+                    <li><i class="fa-solid fa-phone"></i> <a href="tel:+923000000000">+92 300 0000000</a></li>
+                    <li><i class="fa-solid fa-envelope"></i> <a href="mailto:support@miraclestore.com">support@miraclestore.com</a></li>
+                    <li><i class="fa-solid fa-clock"></i> <span>24/7 Online Customer Support</span></li>
                 </ul>
-            </div>
-
-            <!-- Footer Column 4: Payment Methods -->
-            <div class="footer-col">
-                <h3>Secure Payments</h3>
-                <p style="color: #bbb; font-size: 14px; margin-bottom: 15px;">We accept all major credit cards and
-                    digital wallets.</p>
-                <div class="payment-icons">
-                    <i class="fa-brands fa-cc-visa"></i>
-                    <i class="fa-brands fa-cc-mastercard"></i>
-                    <i class="fa-brands fa-paypal"></i>
-                </div>
             </div>
         </div>
 
@@ -1786,62 +1631,6 @@
             opacity: 0.9;
         }
 
-        /* NEWSLETTER SECTION */
-        .newsletter-section {
-            background: linear-gradient(90deg, var(--primary-teal), var(--primary-lime));
-            padding: 60px 5%;
-            text-align: center;
-            color: var(--white);
-        }
-
-        .newsletter-content {
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        .newsletter-content h2 {
-            font-size: 30px;
-            margin-bottom: 15px;
-        }
-
-        .newsletter-content p {
-            font-size: 16px;
-            margin-bottom: 30px;
-            opacity: 0.9;
-        }
-
-        .newsletter-form {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        .newsletter-form input {
-            flex: 1;
-            max-width: 400px;
-            padding: 15px 20px;
-            border: none;
-            border-radius: 5px;
-            font-size: 15px;
-            outline: none;
-        }
-
-        .newsletter-form button {
-            padding: 15px 30px;
-            background: var(--black);
-            color: var(--white);
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-
-        .newsletter-form button:hover {
-            background: #333;
-        }
-
         /* FOOTER SECTION */
         .main-footer {
             background-color: var(--black);
@@ -1851,7 +1640,7 @@
 
         .footer-container {
             display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
+            grid-template-columns: 1.8fr 1.2fr 1.5fr;
             gap: 40px;
             padding: 0 5% 50px;
         }
@@ -1933,13 +1722,6 @@
             padding-left: 5px;
         }
 
-        .payment-icons {
-            display: flex;
-            gap: 15px;
-            font-size: 35px;
-            color: #fff;
-        }
-
         .footer-bottom {
             background: #111;
             text-align: center;
@@ -1965,14 +1747,6 @@
         }
 
         @media (max-width: 600px) {
-            .newsletter-form {
-                flex-direction: column;
-            }
-
-            .newsletter-form input {
-                max-width: 100%;
-            }
-
             .footer-container {
                 grid-template-columns: 1fr;
             }
@@ -1984,18 +1758,25 @@
     <script src="sheet-sync.js"></script>
 
     <script>
-        // Contact Form
-        function submitForm(event) {
+        // Contact Form to WhatsApp
+        function submitContactToWhatsApp(event) {
             event.preventDefault();
-            alert("Thank you! Your message has been sent to Miracle Store.");
-            document.getElementById('contactForm').reset();
-        }
+            const name = document.getElementById('contactName')?.value.trim() || '';
+            const phone = document.getElementById('contactPhone')?.value.trim() || '';
+            const subject = document.getElementById('contactSubject')?.value.trim() || '';
+            const message = document.getElementById('contactMessage')?.value.trim() || '';
 
-        // Newsletter Subscription
-        function submitNewsletter(event) {
-            event.preventDefault();
-            alert("Subscribed successfully! Welcome to Miracle Store.");
-            event.target.reset();
+            let text = `*New Customer Inquiry - Miracle Store*\n\n`;
+            text += `👤 *Customer Name:* ${name}\n`;
+            if (phone) text += `📞 *Phone / WhatsApp:* ${phone}\n`;
+            if (subject) text += `📌 *Subject:* ${subject}\n`;
+            text += `💬 *Message:*\n${message}\n\n`;
+            text += `Sent from Miracle Store Website Contact Form.`;
+
+            const waNum = '923000000000';
+            const waUrl = `https://wa.me/${waNum}?text=${encodeURIComponent(text)}`;
+            window.open(waUrl, '_blank');
+            document.getElementById('contactForm').reset();
         }
 
         // Hide/Show navigation links and marquee category circles corresponding to a category

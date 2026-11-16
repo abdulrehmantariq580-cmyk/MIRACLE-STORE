@@ -687,10 +687,12 @@ header.main-header {
     cursor: pointer;
     transition: var(--transition);
     display: -webkit-box;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
-    height: 38px;
+    min-height: 38px;
+    height: auto;
+    word-break: break-word;
 }
 
 .product-info h4:hover {
@@ -802,7 +804,7 @@ footer.main-footer {
 
 .footer-container {
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr;
+    grid-template-columns: 1.8fr 1.2fr 1.5fr;
     gap: 40px;
     margin-bottom: 40px;
     max-width: 1300px;
@@ -890,6 +892,40 @@ footer.main-footer {
     padding-left: 4px;
 }
 
+.footer-contact-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-contact-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 14px !important;
+    font-size: 14px;
+    color: #bbb;
+    line-height: 1.4;
+}
+
+.footer-contact-list li i {
+    color: var(--primary-teal);
+    font-size: 15px;
+    margin-top: 3px;
+    flex-shrink: 0;
+}
+
+.footer-contact-list li a {
+    color: #bbb;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.footer-contact-list li a:hover {
+    color: var(--primary-lime) !important;
+    padding-left: 3px;
+}
+
 .payment-icons {
     display: flex;
     gap: 15px;
@@ -960,7 +996,10 @@ footer.main-footer {
 
     .product-info h4 {
         font-size: 12px;
-        height: 32px;
+        min-height: 32px;
+        height: auto;
+        -webkit-line-clamp: 3;
+        word-break: break-word;
         margin-bottom: 4px;
     }
 
