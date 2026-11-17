@@ -131,50 +131,6 @@
             min-height: 80px;
         }
 
-        /* Payment Method Pill */
-        .payment-method-box {
-            background: #f0fdfa;
-            border: 1.5px solid var(--primary-teal);
-            border-radius: 8px;
-            padding: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-top: 10px;
-        }
-
-        .payment-info-left {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .payment-info-left i {
-            font-size: 24px;
-            color: var(--primary-teal);
-        }
-
-        .payment-info-left h4 {
-            font-size: 14px;
-            font-weight: 700;
-            color: var(--black);
-            margin-bottom: 2px;
-        }
-
-        .payment-info-left p {
-            font-size: 12px;
-            color: #4b5563;
-        }
-
-        .payment-badge {
-            background: var(--primary-teal);
-            color: var(--white);
-            font-size: 11px;
-            font-weight: 700;
-            padding: 4px 10px;
-            border-radius: 20px;
-        }
-
         /* Order Summary Items */
         .order-summary-card {
             background: #fafafa;
@@ -443,17 +399,6 @@
                 gap: 0;
             }
 
-            .payment-method-box {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 10px;
-                padding: 12px;
-            }
-
-            .payment-badge {
-                align-self: flex-start;
-            }
-
             .btn-whatsapp-order {
                 font-size: 14px;
                 padding: 14px;
@@ -471,7 +416,7 @@
 
     <!-- ANNOUNCEMENT BAR -->
     <div class="announcement-bar">
-        Fast Nationwide Delivery across Pakistan | Flat Rs. 300 Delivery
+        Fast Nationwide Delivery across Pakistan | Free Delivery
     </div>
 
     <!-- MAIN HEADER -->
@@ -496,6 +441,7 @@
                 <li><a href="catalog.html?category=bangles">Bangles</a></li>
                 <li><a href="catalog.html?category=cosmetics">Cosmetics</a></li>
                 <li><a href="catalog.html?category=flowers">Flowers</a></li>
+                <li><a href="catalog.html?category=fiber">Fiber Optic</a></li>
                 <li><a href="index.html#contact">Contact</a></li>
             </ul>
         </nav>
@@ -526,6 +472,7 @@
                 <li><a href="catalog.html?category=bangles" onclick="toggleMenu()">Bangles & Jewellery</a></li>
                 <li><a href="catalog.html?category=cosmetics" onclick="toggleMenu()">Cosmetics</a></li>
                 <li><a href="catalog.html?category=flowers" onclick="toggleMenu()">Flowers & Decor</a></li>
+                <li><a href="catalog.html?category=fiber" onclick="toggleMenu()">Fiber Optic</a></li>
                 <li><a href="index.html#contact" onclick="toggleMenu()">Contact Us</a></li>
             </ul>
         </nav>
@@ -553,11 +500,11 @@
                 </div>
                 <div class="cart-summary-row">
                     <span>Delivery Charges:</span>
-                    <span id="cartDelivery">Rs. 300</span>
+                    <span id="cartDelivery">Free</span>
                 </div>
                 <div class="cart-summary-row cart-grand-total">
                     <span>Grand Total:</span>
-                    <strong id="cartGrandTotal">Rs. 300</strong>
+                    <strong id="cartGrandTotal">Rs. 0</strong>
                 </div>
             </div>
             <a href="checkout.html" class="checkout-btn" id="cartCheckoutBtn">
@@ -632,15 +579,27 @@
                     </div>
 
                     <h3 style="margin-top: 30px;"><i class="fa-solid fa-money-bill-wave"></i> 2. Payment Method</h3>
-                    <div class="payment-method-box">
-                        <div class="payment-info-left">
-                            <i class="fa-solid fa-hand-holding-dollar"></i>
-                            <div>
-                                <h4>Cash on Delivery (COD)</h4>
-                                <p>Pay safely in cash to the rider when receiving your parcel at your doorstep.</p>
+                    <div class="payment-methods-container">
+                        <label class="payment-method-box selected" id="codBox">
+                            <input type="radio" name="payment_method" value="COD" checked onchange="updatePaymentSelection()">
+                            <div class="payment-info-left">
+                                <i class="fa-solid fa-hand-holding-dollar"></i>
+                                <div>
+                                    <h4>Cash on Delivery (COD)</h4>
+                                    <p>Pay safely in cash to the rider when receiving your parcel.</p>
+                                </div>
                             </div>
-                        </div>
-                        <span class="payment-badge"><i class="fa-solid fa-check"></i> Selected</span>
+                        </label>
+                        <label class="payment-method-box" id="advBox">
+                            <input type="radio" name="payment_method" value="Advance Payment" onchange="updatePaymentSelection()">
+                            <div class="payment-info-left">
+                                <i class="fa-solid fa-building-columns"></i>
+                                <div>
+                                    <h4>Advance Payment</h4>
+                                    <p>Pay via Bank Transfer, EasyPaisa, or JazzCash.</p>
+                                </div>
+                            </div>
+                        </label>
                     </div>
 
                     <button type="submit" class="btn-whatsapp-order" id="submitOrderBtn">
@@ -670,11 +629,11 @@
                 </div>
                 <div class="breakdown-row">
                     <span>Delivery Charges:</span>
-                    <span id="summaryDelivery">Rs. 300</span>
+                    <span id="summaryDelivery">Free</span>
                 </div>
                 <div class="breakdown-row total">
                     <span>Grand Total:</span>
-                    <span id="summaryGrandTotal">Rs. 300</span>
+                    <span id="summaryGrandTotal">Rs. 0</span>
                 </div>
 
                 <div class="store-helpline-box"
@@ -736,12 +695,13 @@
                 <ul>
                     <li><a href="index.html">Home</a></li>
                     <li><a href="catalog.html">All Products</a></li>
-                    <li class="dyn-nav-hidden"><a href="catalog.html?category=watches">Watches</a></li>
-                    <li class="dyn-nav-hidden"><a href="catalog.html?category=accessories">Mobile Accessories</a></li>
-                    <li class="dyn-nav-hidden"><a href="catalog.html?category=clothing">Women's Clothing</a></li>
-                    <li class="dyn-nav-hidden"><a href="catalog.html?category=bangles">Bangles & Jewellery</a></li>
-                    <li class="dyn-nav-hidden"><a href="catalog.html?category=cosmetics">Cosmetics</a></li>
-                    <li class="dyn-nav-hidden"><a href="catalog.html?category=flowers">Flowers & Decor</a></li>
+                    <li><a href="catalog.html?category=watches">Watches</a></li>
+                    <li><a href="catalog.html?category=accessories">Mobile Accessories</a></li>
+                    <li><a href="catalog.html?category=clothing">Women's Clothing</a></li>
+                    <li><a href="catalog.html?category=bangles">Bangles & Jewellery</a></li>
+                    <li><a href="catalog.html?category=cosmetics">Cosmetics</a></li>
+                    <li><a href="catalog.html?category=flowers">Flowers & Decor</a></li>
+                    <li><a href="catalog.html?category=fiber">Fiber Optic & Internet</a></li>
                 </ul>
             </div>
 
@@ -769,7 +729,7 @@
     <script src="sheet-sync.js"></script>
 
     <script>
-        // CONFIGURATION: Miracle Store Official WhatsApp Number (without + or 0, e.g. 923221595269)
+        // CONFIGURATION: Miracle Store Official WhatsApp Number
         const MIRACLE_STORE_WHATSAPP = '923221595269';
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -777,6 +737,19 @@
                 fetchProductsFromSheet().catch(() => { });
             }
         });
+
+        function updatePaymentSelection() {
+            const codBox = document.getElementById('codBox');
+            const advBox = document.getElementById('advBox');
+            const isCOD = document.querySelector('input[name="payment_method"]:checked').value === 'COD';
+            if(isCOD) {
+                codBox.classList.add('selected');
+                advBox.classList.remove('selected');
+            } else {
+                advBox.classList.add('selected');
+                codBox.classList.remove('selected');
+            }
+        }
 
         function renderCheckoutPage() {
             const { cart, subtotal, delivery, grandTotal } = getMiracleCartTotals();
@@ -812,7 +785,7 @@
 
             // Render Totals
             document.getElementById('summarySubtotal').textContent = formatPKR(subtotal);
-            document.getElementById('summaryDelivery').textContent = formatPKR(delivery);
+            document.getElementById('summaryDelivery').textContent = delivery === 0 ? 'Free' : formatPKR(delivery);
             document.getElementById('summaryGrandTotal').textContent = formatPKR(grandTotal);
         }
 
@@ -833,6 +806,7 @@
             const city = document.getElementById('custCity').value.trim();
             const province = document.getElementById('custProvince').value;
             const notes = document.getElementById('custNotes').value.trim();
+            const paymentMethod = document.querySelector('input[name="payment_method"]:checked').value;
 
             if (!name || !phone || !address || !city) {
                 alert('Please fill out all required fields marked with *');
@@ -868,7 +842,6 @@
                 msg += `${idx + 1}. *${item.title}*\n`;
                 msg += `   ▫️ *Qty:* ${item.quantity}\n`;
                 msg += `   ▫️ *Price:* ${formatPKR(itemTotal)} (${formatPKR(item.price)} each)\n`;
-                // Include Drive link so store owner can open and view exact product image!
                 if (item.originalImage) {
                     msg += `   ▫️ 🖼️ *Product Image:* ${item.originalImage}\n`;
                 }
@@ -877,17 +850,15 @@
 
             msg += `━━━━━━━━━━━━━━━━━━━━\n`;
             msg += `💰 *Subtotal:* ${formatPKR(subtotal)}\n`;
-            msg += `🚚 *Delivery Charges:* ${formatPKR(delivery)} (Flat Rate)\n`;
-            msg += `💵 *GRAND TOTAL (COD):* ${formatPKR(grandTotal)}\n`;
-            msg += `💳 *Payment Method:* Cash on Delivery\n`;
+            msg += `🚚 *Delivery Charges:* Free (100% Discount)\n`;
+            msg += `💵 *GRAND TOTAL:* ${formatPKR(grandTotal)}\n`;
+            msg += `💳 *Payment Method:* ${paymentMethod === 'COD' ? 'Cash on Delivery' : 'Advance Payment'}\n`;
             msg += `━━━━━━━━━━━━━━━━━━━━\n`;
             msg += `Please confirm my order and inform me regarding the delivery tracking. Thank you!`;
 
-            // Open WhatsApp with encoded message
             const waUrl = `https://wa.me/${MIRACLE_STORE_WHATSAPP}?text=${encodeURIComponent(msg)}`;
             window.open(waUrl, '_blank');
 
-            // Show Success Modal
             document.getElementById('modalOrderRef').textContent = `ORDER #${orderRef}`;
             document.getElementById('orderSuccessModal').classList.add('active');
         }
@@ -897,7 +868,6 @@
             window.location.href = 'index.html';
         }
 
-        // Listen for cart changes
         window.addEventListener('miracleCartUpdated', renderCheckoutPage);
         document.addEventListener('DOMContentLoaded', renderCheckoutPage);
     </script>

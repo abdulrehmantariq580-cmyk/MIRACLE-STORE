@@ -184,7 +184,7 @@ header.main-header {
     box-shadow: 0 2px 5px rgba(18, 179, 166, 0.4);
 }
 
-/* === MOBILE SLIDING MENU (ZERO OVERFLOW via transform + visibility) === */
+/* === MOBILE SLIDING MENU === */
 .mobile-menu-overlay {
     position: fixed;
     top: 0;
@@ -274,7 +274,7 @@ header.main-header {
     color: var(--primary-teal);
 }
 
-/* === SLIDING CART DRAWER (ZERO OVERFLOW via transform + visibility) === */
+/* === SLIDING CART DRAWER === */
 .cart-overlay {
     position: fixed;
     top: 0;
@@ -404,7 +404,6 @@ header.main-header {
     background: var(--primary-teal-dark);
 }
 
-/* Cart Item Row */
 .cart-item-row {
     display: flex;
     align-items: center;
@@ -510,7 +509,6 @@ header.main-header {
     color: var(--danger-red);
 }
 
-/* Cart Footer */
 .cart-footer {
     padding: 16px 20px;
     border-top: 1px solid var(--border-color);
@@ -610,7 +608,7 @@ header.main-header {
 
 .product-image-wrap {
     width: 100%;
-    padding-top: 100%; /* 1:1 Aspect Ratio */
+    padding-top: 100%;
     position: relative;
     background: #f9f9f9;
     overflow: hidden;
@@ -699,7 +697,6 @@ header.main-header {
     color: var(--primary-teal);
 }
 
-/* Dual Price Styling */
 .product-price-box {
     display: flex;
     align-items: center;
@@ -726,7 +723,6 @@ header.main-header {
     width: 100%;
 }
 
-/* Full Width Add to Cart Button (No Eye Icon) */
 .add-to-cart-btn {
     width: 100%;
     padding: 11px 14px;
@@ -758,7 +754,6 @@ header.main-header {
     transform: none;
 }
 
-/* === TOAST NOTIFICATION === */
 .miracle-toast {
     position: fixed;
     bottom: 25px;
@@ -941,7 +936,6 @@ footer.main-footer {
     color: #888;
 }
 
-/* === UNIVERSAL MOBILE RESPONSIVE RULES === */
 @media (max-width: 992px) {
     .footer-container {
         grid-template-columns: 1fr 1fr;
@@ -985,7 +979,6 @@ footer.main-footer {
         gap: 30px;
     }
 
-    /* Product card mobile sizing (2 per row compact) */
     .product-info {
         padding: 10px 8px;
     }
@@ -1028,9 +1021,6 @@ footer.main-footer {
     }
 }
 
-/* =========================================================
-   UNIVERSAL BRANDED LOADING ANIMATION & SKELETON STATES
-   ========================================================= */
 .miracle-loader-box {
     display: flex;
     flex-direction: column;
@@ -1137,172 +1127,138 @@ footer.main-footer {
 }
 
 /* =========================================================
-   EXPLORE ALL PRODUCTS HERO BANNER (Used below categories)
+   TOP BRANDS SHOWCASE (Mobile Menu & Product Details)
    ========================================================= */
-.explore-all-banner-section {
-    padding: 10px 20px 30px;
-    max-width: 1200px;
-    margin: 0 auto;
+.menu-brands-section {
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px dashed var(--border-color);
 }
 
-.explore-all-card {
-    background: linear-gradient(135deg, #092027 0%, #203A43 50%, #2C5364 100%);
-    border-radius: 16px;
-    padding: 35px 30px;
-    color: #ffffff;
-    box-shadow: 0 10px 30px rgba(2, 170, 176, 0.15);
-    position: relative;
-    overflow: hidden;
+.menu-brands-section h5 {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--dark-grey);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 12px;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-}
-
-.explore-all-card::before {
-    content: '';
-    position: absolute;
-    top: -50px;
-    right: -50px;
-    width: 200px;
-    height: 200px;
-    background: radial-gradient(circle, rgba(0, 205, 172, 0.25) 0%, transparent 70%);
-    border-radius: 50%;
-    pointer-events: none;
-}
-
-.explore-all-card::after {
-    content: '';
-    position: absolute;
-    bottom: -60px;
-    left: -60px;
-    width: 220px;
-    height: 220px;
-    background: radial-gradient(circle, rgba(2, 170, 176, 0.2) 0%, transparent 70%);
-    border-radius: 50%;
-    pointer-events: none;
-}
-
-.explore-badge {
-    display: inline-flex;
     align-items: center;
     gap: 7px;
-    background: rgba(0, 205, 172, 0.18);
-    color: #2dd4bf;
-    border: 1px solid rgba(45, 212, 191, 0.35);
-    font-size: 12px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.8px;
-    padding: 5px 14px;
-    border-radius: 20px;
-    margin-bottom: 14px;
 }
 
-.explore-title {
-    font-size: 26px;
-    font-weight: 800;
-    margin-bottom: 10px;
-    letter-spacing: -0.3px;
-    line-height: 1.25;
-    color: #ffffff;
-}
-
-.explore-subtitle {
+.menu-brands-section h5 i {
+    color: var(--primary-teal);
     font-size: 14px;
-    color: #cbd5e1;
-    max-width: 680px;
-    line-height: 1.6;
-    margin: 0 auto 20px;
 }
 
-.explore-features-row {
+.menu-brand-badges {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
-    gap: 12px;
-    margin-bottom: 24px;
+    gap: 8px;
 }
 
-.explore-feature-pill {
+.menu-brand-badge {
+    background: #f1f5f9;
+    color: var(--dark-grey);
+    font-size: 12px;
+    font-weight: 700;
+    padding: 6px 12px;
+    border-radius: 20px;
+    border: 1px solid #e2e8f0;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    transition: var(--transition);
+}
+
+.menu-brand-badge::before {
+    content: '•';
+    color: var(--primary-teal);
+    font-size: 16px;
+    line-height: 0;
+}
+
+/* Top Brands Box on Product Detail Page */
+.top-brands-box {
+    margin-top: 20px;
+    padding: 16px 18px;
+    background: linear-gradient(135deg, #f0fdfa 0%, #ecfdf5 100%);
+    border: 1px solid #99f6e4;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(13, 148, 136, 0.05);
+}
+
+.top-brands-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #0f766e;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.top-brands-header i {
+    font-size: 15px;
+    color: #0d9488;
+}
+
+.top-brands-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.top-brand-pill {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    font-size: 12px;
-    font-weight: 600;
-    color: #e2e8f0;
-    background: rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(4px);
-    padding: 6px 14px;
-    border-radius: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.12);
-}
-
-.explore-feature-pill i {
-    color: #00cdac;
-}
-
-.explore-cta-wrap {
-    margin-top: 5px;
-}
-
-.explore-main-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    background: linear-gradient(90deg, #02aab0, #00cdac);
-    color: #ffffff !important;
-    font-size: 15px;
+    background: #ffffff;
+    color: #134e4a;
+    font-size: 13px;
     font-weight: 700;
-    padding: 13px 32px;
-    border-radius: 30px;
-    text-decoration: none;
-    box-shadow: 0 4px 20px rgba(0, 205, 172, 0.35);
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    padding: 7px 14px;
+    border-radius: 8px;
+    border: 1px solid #ccfbf1;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
-.explore-main-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(0, 205, 172, 0.5);
-    color: #ffffff;
+.top-brand-pill i {
+    color: #14b8a6;
+    font-size: 13px;
 }
 
-.explore-main-btn i {
-    transition: transform 0.2s ease;
+/* Payment Method Selection (Checkout) */
+.payment-methods-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 15px;
 }
-
-.explore-main-btn:hover i {
-    transform: translateX(4px);
+.payment-method-box {
+    background: #fafafa;
+    border: 1.5px solid var(--border-color);
+    border-radius: 8px;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    cursor: pointer;
+    transition: var(--transition);
 }
-
-@media (max-width: 768px) {
-    .explore-all-banner-section {
-        padding: 5px 12px 20px;
-    }
-    .explore-all-card {
-        padding: 24px 16px;
-        border-radius: 14px;
-    }
-    .explore-title {
-        font-size: 20px;
-    }
-    .explore-subtitle {
-        font-size: 13px;
-        margin-bottom: 16px;
-    }
-    .explore-features-row {
-        gap: 8px;
-        margin-bottom: 18px;
-    }
-    .explore-feature-pill {
-        font-size: 11px;
-        padding: 5px 10px;
-    }
-    .explore-main-btn {
-        font-size: 14px;
-        padding: 11px 24px;
-        width: 100%;
-        justify-content: center;
-    }
+.payment-method-box:hover {
+    border-color: var(--primary-teal);
+    background: #f0fdfa;
 }
-
+.payment-method-box input[type="radio"] {
+    transform: scale(1.3);
+    accent-color: var(--primary-teal);
+    cursor: pointer;
+}
+.payment-method-box.selected {
+    background: #f0fdfa;
+    border-color: var(--primary-teal);
+}

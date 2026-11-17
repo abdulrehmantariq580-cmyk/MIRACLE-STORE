@@ -411,7 +411,7 @@
 
     <!-- ANNOUNCEMENT BAR -->
     <div class="announcement-bar">
-        Fast Nationwide Delivery across Pakistan | Flat Rs. 300 Delivery
+        Fast Nationwide Delivery across Pakistan | Free Delivery
     </div>
 
     <!-- MAIN HEADER -->
@@ -436,6 +436,7 @@
                 <li><a href="catalog.html?category=bangles">Bangles</a></li>
                 <li><a href="catalog.html?category=cosmetics">Cosmetics</a></li>
                 <li><a href="catalog.html?category=flowers">Flowers</a></li>
+                <li><a href="catalog.html?category=fiber">Fiber Optic</a></li>
                 <li><a href="index.html#contact">Contact</a></li>
             </ul>
         </nav>
@@ -466,6 +467,7 @@
                 <li><a href="catalog.html?category=bangles" onclick="toggleMenu()">Bangles & Jewellery</a></li>
                 <li><a href="catalog.html?category=cosmetics" onclick="toggleMenu()">Cosmetics</a></li>
                 <li><a href="catalog.html?category=flowers" onclick="toggleMenu()">Flowers & Decor</a></li>
+                <li><a href="catalog.html?category=fiber" onclick="toggleMenu()">Fiber Optic</a></li>
                 <li><a href="index.html#contact" onclick="toggleMenu()">Contact Us</a></li>
             </ul>
         </nav>
@@ -493,11 +495,11 @@
                 </div>
                 <div class="cart-summary-row">
                     <span>Delivery Charges:</span>
-                    <span id="cartDelivery">Rs. 300</span>
+                    <span id="cartDelivery">Free</span>
                 </div>
                 <div class="cart-summary-row cart-grand-total">
                     <span>Grand Total:</span>
-                    <strong id="cartGrandTotal">Rs. 300</strong>
+                    <strong id="cartGrandTotal">Rs. 0</strong>
                 </div>
             </div>
             <a href="checkout.html" class="checkout-btn" id="cartCheckoutBtn">
@@ -566,6 +568,18 @@
                         <p id="detailProductDescription">Loading description...</p>
                     </div>
 
+                    <!-- Top Brands Box -->
+                    <div id="detailTopBrands" class="top-brands-box" style="display: none; margin-bottom: 25px;">
+                        <div class="top-brands-header">
+                            <i class="fa-solid fa-award"></i> Top Brands In This Category
+                        </div>
+                        <div class="top-brands-pills">
+                            <span class="top-brand-pill">UniCom</span>
+                            <span class="top-brand-pill">Huawei</span>
+                            <span class="top-brand-pill">Tenda</span>
+                        </div>
+                    </div>
+
                     <!-- Purchase Box -->
                     <div class="product-purchase-box">
                         <div class="quantity-select-row" id="qtySelectRow">
@@ -589,7 +603,7 @@
                         <div class="perks-list">
                             <div class="perk-item">
                                 <i class="fa-solid fa-truck-fast"></i>
-                                <span>Flat Rs. 300 Delivery</span>
+                                <span>Free Delivery (100% Discount)</span>
                             </div>
                             <div class="perk-item">
                                 <i class="fa-solid fa-hand-holding-dollar"></i>
@@ -640,12 +654,13 @@
                 <ul>
                     <li><a href="index.html">Home</a></li>
                     <li><a href="catalog.html">All Products</a></li>
-                    <li class="dyn-nav-hidden"><a href="catalog.html?category=watches">Watches</a></li>
-                    <li class="dyn-nav-hidden"><a href="catalog.html?category=accessories">Mobile Accessories</a></li>
-                    <li class="dyn-nav-hidden"><a href="catalog.html?category=clothing">Women's Clothing</a></li>
-                    <li class="dyn-nav-hidden"><a href="catalog.html?category=bangles">Bangles & Jewellery</a></li>
-                    <li class="dyn-nav-hidden"><a href="catalog.html?category=cosmetics">Cosmetics</a></li>
-                    <li class="dyn-nav-hidden"><a href="catalog.html?category=flowers">Flowers & Decor</a></li>
+                    <li><a href="catalog.html?category=watches">Watches</a></li>
+                    <li><a href="catalog.html?category=accessories">Mobile Accessories</a></li>
+                    <li><a href="catalog.html?category=clothing">Women's Clothing</a></li>
+                    <li><a href="catalog.html?category=bangles">Bangles & Jewellery</a></li>
+                    <li><a href="catalog.html?category=cosmetics">Cosmetics</a></li>
+                    <li><a href="catalog.html?category=flowers">Flowers & Decor</a></li>
+                    <li><a href="catalog.html?category=fiber">Fiber Optic & Internet</a></li>
                 </ul>
             </div>
 
@@ -747,6 +762,14 @@
                 buyBtn.disabled = true;
                 buyBtn.classList.add('btn-disabled-large');
                 qtyRow.style.display = 'none';
+            }
+
+            // Top Brands Visibility
+            const brandsBox = document.getElementById('detailTopBrands');
+            if (currentProduct.category === 'accessories' || currentProduct.category === 'fiber') {
+                brandsBox.style.display = 'block';
+            } else {
+                brandsBox.style.display = 'none';
             }
 
             // Text Info & Dual Price

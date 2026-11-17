@@ -347,7 +347,7 @@
 
     <!-- ANNOUNCEMENT BAR -->
     <div class="announcement-bar">
-        Fast Nationwide Delivery across Pakistan | Flat Rs. 300 Delivery
+        Fast Nationwide Delivery across Pakistan | Free Delivery
     </div>
 
     <!-- MAIN HEADER -->
@@ -372,6 +372,7 @@
                 <li><a href="catalog.html?category=bangles">Bangles</a></li>
                 <li><a href="catalog.html?category=cosmetics">Cosmetics</a></li>
                 <li><a href="catalog.html?category=flowers">Flowers</a></li>
+                <li><a href="catalog.html?category=fiber">Fiber Optic</a></li>
                 <li><a href="index.html#contact">Contact</a></li>
             </ul>
         </nav>
@@ -402,9 +403,19 @@
                 <li><a href="catalog.html?category=bangles" onclick="toggleMenu()">Bangles & Jewellery</a></li>
                 <li><a href="catalog.html?category=cosmetics" onclick="toggleMenu()">Cosmetics</a></li>
                 <li><a href="catalog.html?category=flowers" onclick="toggleMenu()">Flowers & Decor</a></li>
+                <li><a href="catalog.html?category=fiber" onclick="toggleMenu()">Fiber Optic & Internet</a></li>
                 <li><a href="index.html#contact" onclick="toggleMenu()">Contact Us</a></li>
             </ul>
         </nav>
+
+        <div class="menu-brands-section">
+            <h5><i class="fa-solid fa-award"></i> Top Accessories & Internet Brands</h5>
+            <div class="menu-brand-badges">
+                <span class="menu-brand-badge">UniCom</span>
+                <span class="menu-brand-badge">Huawei</span>
+                <span class="menu-brand-badge">Tenda</span>
+            </div>
+        </div>
     </div>
 
     <!-- SLIDING CART DRAWER -->
@@ -419,7 +430,6 @@
             <i class="fa-solid fa-xmark close-cart" onclick="toggleCart()"></i>
         </div>
         <div class="cart-items" id="cartItemsContainer">
-            <!-- Populated via cart.js -->
         </div>
         <div class="cart-footer" id="cartFooter">
             <div class="cart-summary-box">
@@ -429,11 +439,11 @@
                 </div>
                 <div class="cart-summary-row">
                     <span>Delivery Charges:</span>
-                    <span id="cartDelivery">Rs. 300</span>
+                    <span id="cartDelivery">Free</span>
                 </div>
                 <div class="cart-summary-row cart-grand-total">
                     <span>Grand Total:</span>
-                    <strong id="cartGrandTotal">Rs. 300</strong>
+                    <strong id="cartGrandTotal">Rs. 0</strong>
                 </div>
             </div>
             <a href="checkout.html" class="checkout-btn" id="cartCheckoutBtn">
@@ -506,16 +516,18 @@
                     <span>Flowers & Decor</span>
                     <span class="filter-tab-count" id="count-flowers">0</span>
                 </button>
+                <button type="button" class="filter-tab-btn" data-category="fiber">
+                    <span>Fiber Optic</span>
+                    <span class="filter-tab-count" id="count-fiber">0</span>
+                </button>
             </div>
         </div>
 
-        <!-- Results Status -->
         <div class="results-status-bar">
             <span class="results-count" id="resultsCount">Loading products...</span>
             <span id="activeFilterBadge" style="display:none; color: var(--primary-teal); font-weight: 600;"></span>
         </div>
 
-        <!-- Product Grid -->
         <div class="catalog-grid" id="catalogGrid">
             <div class="miracle-loader-box" style="grid-column: 1 / -1;">
                 <div class="miracle-spinner-ring">
@@ -555,12 +567,13 @@
                 <ul>
                     <li><a href="index.html">Home</a></li>
                     <li><a href="catalog.html">All Products</a></li>
-                    <li class="dyn-nav-hidden"><a href="catalog.html?category=watches">Watches</a></li>
-                    <li class="dyn-nav-hidden"><a href="catalog.html?category=accessories">Mobile Accessories</a></li>
-                    <li class="dyn-nav-hidden"><a href="catalog.html?category=clothing">Women's Clothing</a></li>
-                    <li class="dyn-nav-hidden"><a href="catalog.html?category=bangles">Bangles & Jewellery</a></li>
-                    <li class="dyn-nav-hidden"><a href="catalog.html?category=cosmetics">Cosmetics</a></li>
-                    <li class="dyn-nav-hidden"><a href="catalog.html?category=flowers">Flowers & Decor</a></li>
+                    <li><a href="catalog.html?category=watches">Watches</a></li>
+                    <li><a href="catalog.html?category=accessories">Mobile Accessories</a></li>
+                    <li><a href="catalog.html?category=clothing">Women's Clothing</a></li>
+                    <li><a href="catalog.html?category=bangles">Bangles & Jewellery</a></li>
+                    <li><a href="catalog.html?category=cosmetics">Cosmetics</a></li>
+                    <li><a href="catalog.html?category=flowers">Flowers & Decor</a></li>
+                    <li><a href="catalog.html?category=fiber">Fiber Optic & Internet</a></li>
                 </ul>
             </div>
 
@@ -594,31 +607,23 @@
         let currentSort = 'newest';
 
         async function initCatalogPage() {
-            // Read URL category filter
             const params = new URLSearchParams(window.location.search);
             const catParam = params.get('category');
             if (catParam) {
                 currentCategory = catParam.toLowerCase().trim();
             }
 
-            // Sync category tab active state
             syncCategoryTabsUI();
 
-            // Fetch products
             allCatalogProducts = await fetchProductsFromSheet();
 
-            // Update tab count badges
             updateTabCounts();
-
-            // Initial render
             applyFiltersAndRender();
-
-            // Event Listeners
             setupCatalogEventListeners();
         }
 
         function updateTabCounts() {
-            const counts = { all: allCatalogProducts.length, watches: 0, accessories: 0, clothing: 0, bangles: 0, cosmetics: 0, flowers: 0 };
+            const counts = { all: allCatalogProducts.length, watches: 0, accessories: 0, clothing: 0, bangles: 0, cosmetics: 0, flowers: 0, fiber: 0 };
             allCatalogProducts.forEach(p => {
                 if (counts[p.category] !== undefined) {
                     counts[p.category]++;
@@ -644,7 +649,6 @@
         }
 
         function setupCatalogEventListeners() {
-            // Search Input (Real-time live typing)
             const searchInput = document.getElementById('catalogSearchInput');
             const clearBtn = document.getElementById('clearSearchBtn');
 
@@ -661,13 +665,11 @@
                 applyFiltersAndRender();
             });
 
-            // Category Filter Tabs
             document.querySelectorAll('.filter-tab-btn').forEach(btn => {
                 btn.addEventListener('click', () => {
                     currentCategory = btn.getAttribute('data-category');
                     syncCategoryTabsUI();
 
-                    // Update URL without reloading
                     const url = new URL(window.location);
                     if (currentCategory === 'all') {
                         url.searchParams.delete('category');
@@ -680,7 +682,6 @@
                 });
             });
 
-            // Sort Dropdown
             document.getElementById('catalogSortSelect').addEventListener('change', (e) => {
                 currentSort = e.target.value;
                 applyFiltersAndRender();
@@ -703,13 +704,11 @@
                 return;
             }
 
-            // 1. Category Filtering
             let filtered = allCatalogProducts.filter(p => {
                 if (currentCategory === 'all') return true;
                 return p.category === currentCategory;
             });
 
-            // 2. Search Query Filtering
             if (searchQuery) {
                 filtered = filtered.filter(p => {
                     const titleMatch = (p.title || '').toLowerCase().includes(searchQuery);
@@ -719,7 +718,6 @@
                 });
             }
 
-            // 3. Sorting
             filtered.sort((a, b) => {
                 if (currentSort === 'price-low') {
                     return a.price - b.price;
@@ -730,15 +728,12 @@
                 } else if (currentSort === 'name-desc') {
                     return b.title.localeCompare(a.title);
                 }
-                // Default: newest first (already in reverse sheet order)
                 return 0;
             });
 
-            // 4. Update status count
             const categoryText = currentCategory === 'all' ? 'All Collections' : getCategoryLabel(currentCategory);
             statusEl.innerHTML = `Showing <strong>${filtered.length}</strong> products in <em>${categoryText}</em>${searchQuery ? ` matching "${escapeCartHtml(searchQuery)}"` : ''}`;
 
-            // 5. Render Grid
             if (filtered.length === 0) {
                 grid.innerHTML = `
                     <div class="catalog-empty-state">

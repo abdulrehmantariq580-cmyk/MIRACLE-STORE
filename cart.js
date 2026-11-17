@@ -3,7 +3,7 @@
    ========================================================= */
 
 const MIRACLE_CART_KEY = 'miracle_store_cart_v1';
-const MIRACLE_FLAT_DELIVERY = 300; // Flat delivery charges Rs. 300 across Pakistan
+const MIRACLE_FLAT_DELIVERY = 0; // Flat delivery charges Free
 
 // Clean price string into numeric value (e.g. "Rs. 4,400" -> 4400)
 function parsePriceToNumber(priceVal) {
@@ -162,7 +162,7 @@ function renderSlidingCartUI() {
     const footerEl = document.getElementById('cartFooter');
 
     if (subtotalEl) subtotalEl.textContent = formatPKR(subtotal);
-    if (deliveryEl) deliveryEl.textContent = subtotal > 0 ? formatPKR(delivery) : 'Rs. 0';
+    if (deliveryEl) deliveryEl.textContent = subtotal > 0 ? (delivery === 0 ? 'Free' : formatPKR(delivery)) : 'Rs. 0';
     if (grandTotalEl) grandTotalEl.textContent = formatPKR(grandTotal);
 
     if (cart.length === 0) {
@@ -296,4 +296,3 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
-
