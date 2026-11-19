@@ -4,6 +4,7 @@
 
 const GOOGLE_SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTLpK648W8ufKmKP-8QRidY_nG8K7qDECjyHn3aDCyyTgYz1zKIFS32dA8BLiTbvo4oXBcjjzZn5dRc/pub?output=csv';
 
+// Convert Google Drive view/open link to high-speed compressed direct CDN preview URL
 function convertDriveToCdn(url, size = 600) {
     if (!url) return 'media/product_1.webp';
     const trimmed = String(url).trim();
@@ -13,11 +14,13 @@ function convertDriveToCdn(url, size = 600) {
         if (size === 0 || size === 'original') {
             return `https://lh3.googleusercontent.com/d/${fileId}`;
         }
+        // w${size}-rw: Dynamic Google CDN downscaling + WebP compression for blazing fast loading
         return `https://lh3.googleusercontent.com/d/${fileId}=w${size}-rw`;
     }
     return trimmed;
 }
 
+// Normalize category into core keys
 function normalizeCategoryKey(raw) {
     if (!raw) return 'other';
     const c = String(raw).toLowerCase().trim();
@@ -31,6 +34,7 @@ function normalizeCategoryKey(raw) {
     return 'other';
 }
 
+// Clean category label for display
 function getCategoryLabel(key) {
     switch (key) {
         case 'watches': return 'Luxury Watches';
@@ -44,6 +48,7 @@ function getCategoryLabel(key) {
     }
 }
 
+// Clean price into number
 function cleanNumericPrice(val) {
     if (typeof val === 'number') return val;
     if (!val) return 0;
@@ -52,18 +57,20 @@ function cleanNumericPrice(val) {
     return isNaN(num) ? 0 : num;
 }
 
+// Intelligent dual price parser: handles single column or two columns
 function parseDualPrices(primaryPriceVal, secondaryPriceVal = '') {
     let p1 = cleanNumericPrice(primaryPriceVal);
     let p2 = cleanNumericPrice(secondaryPriceVal);
 
+    // If only one column was provided but it has two numbers (e.g. "5000 / 4400" or "Rs. 5,000 - 4,400")
     if (primaryPriceVal && (!p2 || p1 === p2)) {
         const matches = String(primaryPriceVal).match(/\d[\d,.]*/g);
         if (matches && matches.length >= 2) {
             const num1 = cleanNumericPrice(matches[0]);
             const num2 = cleanNumericPrice(matches[1]);
             if (num1 > 0 && num2 > 0 && num1 !== num2) {
-                p1 = Math.max(num1, num2);
-                p2 = Math.min(num1, num2);
+                p1 = Math.max(num1, num2); // higher is regular
+                p2 = Math.min(num1, num2); // lower is sale
             }
         }
     }
@@ -92,6 +99,7 @@ function parseDualPrices(primaryPriceVal, secondaryPriceVal = '') {
     };
 }
 
+// Full RFC-compliant CSV Parser handling quotes, commas, multiline
 function parseCsvFull(text) {
     const rows = [];
     let currentRow = [];
@@ -137,10 +145,11 @@ function parseCsvFull(text) {
     return rows;
 }
 
+// Fetch and parse all products from Google Sheets
 async function fetchProductsFromSheet(forceRefresh = false) {
     const CACHE_KEY = 'miracle_products_cache_v3';
     const CACHE_TIME_KEY = 'miracle_products_cache_time';
-    const CACHE_DURATION = 45 * 1000; 
+    const CACHE_DURATION = 45 * 1000; // 45 seconds fresh cache
 
     if (!forceRefresh) {
         try {
@@ -182,6 +191,7 @@ async function fetchProductsFromSheet(forceRefresh = false) {
             if (h.includes('categor') || h.includes('type') || h.includes('section')) {
                 catIdx = idx;
             }
+            // Check for regular/original/cut price column
             if (h.includes('regular') || h.includes('original') || h.includes('old') || h.includes('cut') || h.includes('mrp') || h.includes('compare')) {
                 regPriceIdx = idx;
             } else if (h.includes('price') || h.includes('cost') || h.includes('amount') || h.includes('rate') || h.includes('rs') || h.includes('sale') || h.includes('keemat')) {
@@ -198,13 +208,17 @@ async function fetchProductsFromSheet(forceRefresh = false) {
             }
         });
 
+        // Fallback positions based on standard form creation
         if (nameIdx === -1) nameIdx = 1;
         if (catIdx === -1) catIdx = 2;
         if (priceIdx === -1) priceIdx = 3;
         if (imgIdx === -1) imgIdx = 4;
         if (descIdx === -1 && headers.length > 5) descIdx = 5;
 
+        // Data rows excluding header
+        // Reverse so that the NEWEST entries submitted via Form come FIRST
         const dataRows = parsedRows.slice(1).reverse();
+
         const products = [];
 
         dataRows.forEach((row, rowIndex) => {
@@ -216,14 +230,17 @@ async function fetchProductsFromSheet(forceRefresh = false) {
             const rawDesc = descIdx > -1 ? (row[descIdx] || '').trim() : '';
             const rawStock = stockIdx > -1 ? (row[stockIdx] || '').trim() : '';
 
+            // Ignore totally empty rows
             if (!rawName && !rawImg) return;
 
             const priceInfo = parseDualPrices(rawPrice, rawRegPrice);
             const categoryKey = normalizeCategoryKey(rawCat);
+            // Ultra-fast compressed WebP 600px image for catalog and mobile
             const directImg = convertDriveToCdn(rawImg, 600);
             const fullResImg = convertDriveToCdn(rawImg, 'original');
             const uniqueId = 'prod_' + (dataRows.length - rowIndex) + '_' + rawName.toLowerCase().replace(/[^a-z0-9]+/g, '-').slice(0, 30);
 
+            // Stock calculation
             let inStock = true;
             let stockCount = 10;
             if (rawStock) {
@@ -279,6 +296,7 @@ async function fetchProductsFromSheet(forceRefresh = false) {
     }
 }
 
+// Render universal product card HTML (Without Eye Icon, With Full Width Button & Dual Prices)
 function createProductCardHtml(p) {
     const safeTitle = escapeCartHtml(p.title);
     const safePriceFormatted = escapeCartHtml(p.priceFormatted);
@@ -294,6 +312,7 @@ function createProductCardHtml(p) {
         ? `<span class="product-badge-tag discount-tag">-${p.discountPercent}%</span>`
         : '';
 
+    // Price Display (Single price or Cut price + Sale price)
     const priceDisplayHtml = p.hasDiscount
         ? `<div class="product-price-box">
              <span class="price-sale">${safePriceFormatted}</span>
@@ -303,6 +322,7 @@ function createProductCardHtml(p) {
              <span class="price-sale">${safePriceFormatted}</span>
            </div>`;
 
+    // Full Width Add to Cart Button (No Eye Icon)
     const buttonHtml = p.inStock
         ? `<button type="button" class="add-to-cart-btn" onclick="addToCart('${safeTitle.replace(/'/g, "\\'")}', ${p.price}, '${safeDirectImg.replace(/'/g, "\\'")}', '${safeOriginalImg.replace(/'/g, "\\'")}')">
              <i class="fa-solid fa-cart-plus"></i> Add to Cart
@@ -330,10 +350,12 @@ function createProductCardHtml(p) {
     `;
 }
 
+// Open product details page
 function navigateToProduct(id) {
     window.location.href = `product.html?id=${encodeURIComponent(id)}`;
 }
 
+// Auto-synchronize category circles on Home page (Nav & footer links remain permanently visible)
 function syncCategoryNavLinks(products) {
     if (!Array.isArray(products)) return;
     const allCategories = ['watches', 'accessories', 'clothing', 'bangles', 'cosmetics', 'flowers', 'fiber'];

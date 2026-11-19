@@ -70,6 +70,7 @@
 
         .logo-container img {
             height: 45px;
+            /* Adjust height as needed */
             max-width: 100%;
             object-fit: contain;
         }
@@ -96,10 +97,15 @@
         /* Dynamic Google Sheet Loader Styles */
         .category-section {
             display: none;
+            /* Initially hide all category sections until products exist in Google Sheet */
         }
 
         .category-section.dyn-visible {
             display: block !important;
+        }
+
+        .dyn-nav-hidden {
+            display: none !important;
         }
 
         .dyn-circle-hidden {
@@ -167,11 +173,37 @@
         }
 
         .close-menu {
-            text-align: right;
-            font-size: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .menu-logo-link {
+            display: inline-flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .menu-logo-img {
+            height: 38px;
+            max-width: 160px;
+            width: auto;
+            object-fit: contain;
+            display: block;
+        }
+
+        .close-menu i {
+            font-size: 22px;
             cursor: pointer;
-            margin-bottom: 30px;
             color: var(--black);
+            transition: color 0.2s ease;
+        }
+
+        .close-menu i:hover {
+            color: var(--primary-teal);
         }
 
         .mobile-nav ul {
@@ -194,6 +226,7 @@
         .hero-section {
             width: 100%;
             aspect-ratio: 16 / 9;
+            /* Ensures strict 16:9 ratio on all devices */
             position: relative;
             overflow: hidden;
         }
@@ -201,12 +234,14 @@
         .slider-track {
             display: flex;
             width: 300%;
+            /* 3 banners = 300% */
             height: 100%;
             transition: transform 0.6s ease-in-out;
         }
 
         .slide {
             width: 33.333%;
+            /* 100% / 3 */
             height: 100%;
         }
 
@@ -214,8 +249,10 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            /* Prevents stretching */
         }
 
+        /* Slider Indicators (Dots) */
         .slider-dots {
             position: absolute;
             bottom: 20px;
@@ -239,6 +276,7 @@
             box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
         }
 
+        /* === RESPONSIVE DESIGN (MOBILE) === */
         @media (max-width: 768px) {
             .desktop-nav {
                 display: none;
@@ -258,8 +296,10 @@
 
             .logo-container img {
                 height: 35px;
+                /* Smaller logo for mobile */
             }
 
+            /* Hero slider dots adjusted for mobile */
             .slider-dots {
                 bottom: 10px;
             }
@@ -274,22 +314,26 @@
 
 <body>
 
+    <!-- ANNOUNCEMENT BAR -->
     <div class="announcement-bar">
-        Fast Nationwide Delivery across Pakistan | Free Delivery
+        Fast Nationwide Delivery across Pakistan | Flat Rs. 300 Delivery
     </div>
 
     <!-- MAIN HEADER -->
     <header>
+        <!-- Mobile Menu Button -->
         <button class="menu-btn" onclick="toggleMenu()">
             <i class="fa-solid fa-bars"></i>
         </button>
 
+        <!-- Logo Area (Image Only) -->
         <div class="logo-container">
             <a href="index.html">
                 <img src="media/logo.webp" fetchpriority="high" alt="Miracle Store Logo">
             </a>
         </div>
 
+        <!-- Desktop Navigation -->
         <nav class="desktop-nav">
             <ul>
                 <li><a href="index.html" class="active">Home</a></li>
@@ -305,6 +349,7 @@
             </ul>
         </nav>
 
+        <!-- Header Icons -->
         <div class="header-icons">
             <a href="catalog.html" title="Search Catalog"><i class="fa-solid fa-magnifying-glass"></i></a>
             <div class="header-cart-wrap" onclick="toggleCart()" title="Shopping Cart">
@@ -317,9 +362,11 @@
     <!-- SLIDING MOBILE MENU -->
     <div class="mobile-menu-overlay" onclick="toggleMenu()"></div>
     <div class="mobile-menu">
-        <div class="close-menu" onclick="toggleMenu()">
-            <h4>Miracle Store</h4>
-            <i class="fa-solid fa-xmark"></i>
+        <div class="close-menu">
+            <a href="index.html" class="menu-logo-link">
+                <img src="media/logo.webp" alt="Miracle Store Logo" class="menu-logo-img">
+            </a>
+            <i class="fa-solid fa-xmark" onclick="toggleMenu()"></i>
         </div>
         <nav class="mobile-nav">
             <ul>
@@ -335,31 +382,26 @@
                 <li><a href="#contact" onclick="toggleMenu()">Contact Us</a></li>
             </ul>
         </nav>
-
-        <div class="menu-brands-section">
-            <h5><i class="fa-solid fa-award"></i> Top Accessories & Internet Brands</h5>
-            <div class="menu-brand-badges">
-                <span class="menu-brand-badge">UniCom</span>
-                <span class="menu-brand-badge">Huawei</span>
-                <span class="menu-brand-badge">Tenda</span>
-            </div>
-        </div>
     </div>
 
-    <!-- HERO SECTION -->
+    <!-- HERO SECTION (16:9 Slider) -->
     <section class="hero-section">
         <div class="slider-track" id="sliderTrack">
+            <!-- Banner 1 -->
             <div class="slide">
                 <img src="media/banner_1.webp" fetchpriority="high" alt="Premium Watches Banner 1">
             </div>
+            <!-- Banner 2 -->
             <div class="slide">
                 <img src="media/banner_2.webp" fetchpriority="high" alt="Luxury Watches Banner 2">
             </div>
+            <!-- Banner 3 -->
             <div class="slide">
                 <img src="media/banner_3.webp" fetchpriority="high" alt="Classic Watches Banner 3">
             </div>
         </div>
 
+        <!-- Slider Navigation Dots -->
         <div class="slider-dots">
             <span class="dot active" onclick="goToSlide(0)"></span>
             <span class="dot" onclick="goToSlide(1)"></span>
@@ -369,6 +411,7 @@
 
     <!-- JAVASCRIPT -->
     <script>
+        // --- Mobile Sliding Menu Logic ---
         function toggleMenu() {
             const menu = document.querySelector('.mobile-menu');
             const overlay = document.querySelector('.mobile-menu-overlay');
@@ -376,13 +419,17 @@
             overlay.classList.toggle('active');
         }
 
+        // --- Hero Slider Logic ---
         const track = document.getElementById('sliderTrack');
         const dots = document.querySelectorAll('.dot');
         let currentSlide = 0;
         const totalSlides = 3;
 
         function updateSlider() {
+            // Move track
             track.style.transform = `translateX(-${currentSlide * 33.333}%)`;
+
+            // Update dots
             dots.forEach(dot => dot.classList.remove('active'));
             dots[currentSlide].classList.add('active');
         }
@@ -392,12 +439,14 @@
             updateSlider();
         }
 
+        // Manual dot click
         function goToSlide(index) {
             currentSlide = index;
             updateSlider();
-            resetTimer(); 
+            resetTimer(); // Reset auto-slide timer if user clicks manually
         }
 
+        // Auto sliding every 4 seconds
         let slideInterval = setInterval(nextSlide, 4000);
 
         function resetTimer() {
@@ -405,6 +454,10 @@
             slideInterval = setInterval(nextSlide, 4000);
         }
     </script>
+    <!-- ==========================================
+     PART 2: SLIDING CART, CATEGORIES & PRODUCTS
+     (Paste this HTML directly below Part 1 Hero Section)
+     ========================================== -->
 
     <!-- SLIDING CART DRAWER -->
     <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
@@ -418,6 +471,7 @@
             <i class="fa-solid fa-xmark close-cart" onclick="toggleCart()"></i>
         </div>
         <div class="cart-items" id="cartItemsContainer">
+            <!-- Rendered dynamically via cart.js -->
         </div>
         <div class="cart-footer" id="cartFooter">
             <div class="cart-summary-box">
@@ -427,11 +481,11 @@
                 </div>
                 <div class="cart-summary-row">
                     <span>Delivery Charges:</span>
-                    <span id="cartDelivery">Free</span>
+                    <span id="cartDelivery">Rs. 300</span>
                 </div>
                 <div class="cart-summary-row cart-grand-total">
                     <span>Grand Total:</span>
-                    <strong id="cartGrandTotal">Rs. 0</strong>
+                    <strong id="cartGrandTotal">Rs. 300</strong>
                 </div>
             </div>
             <a href="checkout.html" class="checkout-btn" id="cartCheckoutBtn">
@@ -534,6 +588,8 @@
         </div>
     </section>
 
+
+
     <!-- LIVE SHEET PRODUCTS LOADING STATE -->
     <div class="miracle-loader-box" id="homePageLoader">
         <div class="miracle-spinner-ring">
@@ -549,15 +605,20 @@
         </div>
     </div>
 
-    <!-- CATEGORIES SECTIONS (Loaded dynamically) -->
+    <!-- ==========================================
+     CATEGORY 1: WATCHES (NEW WATCHES ARRIVAL)
+     ========================================== -->
     <section class="category-section" id="watches-section" data-category="watches">
         <div class="category-header">
             <h2 class="section-title">New Watches Arrival</h2>
             <p class="section-subtitle">Discover our handpicked collection of masterfully engineered luxury timepieces.
             </p>
         </div>
-        <div class="product-grid" id="watches-grid"></div>
+        <div class="product-grid" id="watches-grid">
+            <!-- Dynamic products loaded from Google Sheet -->
+        </div>
 
+        <!-- View All Watches Button -->
         <div class="category-view-all">
             <a href="catalog.html?category=watches" class="view-all-btn">
                 <span>View All Watches</span>
@@ -565,6 +626,7 @@
             </a>
         </div>
 
+        <!-- 50/50 ABOUT / PROMO SECTION - WATCHES -->
         <div class="promo-split">
             <div class="promo-image">
                 <img src="media/promo.webp" alt="Elevate Your Style - Miracle Watches" loading="lazy">
@@ -574,7 +636,8 @@
                 <h2>Elevate Your Style with Miracle Watches</h2>
                 <p>Discover our exclusive collection of luxury timepieces engineered for the modern gentleman. Built
                     with high-precision Japanese quartz movements, surgical 316L stainless steel, and scratch-resistant
-                    sapphire mineral crystal, each watch seamlessly merges classic heritage with enduring distinction.</p>
+                    sapphire mineral crystal, each watch seamlessly merges classic heritage with enduring distinction.
+                </p>
                 <button class="shop-now-btn"
                     onclick="document.getElementById('watches-section').scrollIntoView({behavior: 'smooth'})">Shop The
                     Watch Collection</button>
@@ -582,14 +645,20 @@
         </div>
     </section>
 
+    <!-- ==========================================
+     CATEGORY 2: ACCESSORIES (NEW ACCESSORIES ARRIVAL)
+     ========================================== -->
     <section class="category-section" id="accessories-section" data-category="accessories">
         <div class="category-header">
             <h2 class="section-title">New Accessories Arrival</h2>
             <p class="section-subtitle">Smart charging solutions, military-grade protection, and audio essentials for
                 daily performance.</p>
         </div>
-        <div class="product-grid" id="accessories-grid"></div>
+        <div class="product-grid" id="accessories-grid">
+            <!-- Dynamic products loaded from Google Sheet -->
+        </div>
 
+        <!-- View All Accessories Button -->
         <div class="category-view-all">
             <a href="catalog.html?category=accessories" class="view-all-btn">
                 <span>View All Accessories</span>
@@ -597,6 +666,7 @@
             </a>
         </div>
 
+        <!-- 50/50 ABOUT / PROMO SECTION - ACCESSORIES -->
         <div class="promo-split reverse">
             <div class="promo-image">
                 <img src="media/about_2.webp" onerror="this.onerror=null; this.src='media/cat_2.webp';"
@@ -616,14 +686,20 @@
         </div>
     </section>
 
+    <!-- ==========================================
+     CATEGORY 3: CLOTHING (NEW CLOTHING ARRIVAL)
+     ========================================== -->
     <section class="category-section" id="clothing-section" data-category="clothing">
         <div class="category-header">
             <h2 class="section-title">New Clothing Arrival</h2>
             <p class="section-subtitle">Luxury embroidered 3-piece unstitched collections, pure silk dupattas, and
                 timeless eastern elegance.</p>
         </div>
-        <div class="product-grid" id="clothing-grid"></div>
+        <div class="product-grid" id="clothing-grid">
+            <!-- Dynamic products loaded from Google Sheet -->
+        </div>
 
+        <!-- View All Clothing Button -->
         <div class="category-view-all">
             <a href="catalog.html?category=clothing" class="view-all-btn">
                 <span>View All Clothing</span>
@@ -631,6 +707,7 @@
             </a>
         </div>
 
+        <!-- 50/50 ABOUT / PROMO SECTION - CLOTHING -->
         <div class="promo-split">
             <div class="promo-image">
                 <img src="media/about_3.webp" alt="Luxury Women's Eastern Wear" loading="lazy">
@@ -649,14 +726,20 @@
         </div>
     </section>
 
+    <!-- ==========================================
+     CATEGORY: BANGLES & JEWELLERY (NEW BANGLES ARRIVAL)
+     ========================================== -->
     <section class="category-section" id="bangles-section" data-category="bangles">
         <div class="category-header">
             <h2 class="section-title">New Bangles & Jewellery Arrival</h2>
             <p class="section-subtitle">Exquisite handcrafted crystal bangles, royal beaded kadas, and artisanal
                 traditional jewellery embellishments.</p>
         </div>
-        <div class="product-grid" id="bangles-grid"></div>
+        <div class="product-grid" id="bangles-grid">
+            <!-- Dynamic products loaded from Google Sheet -->
+        </div>
 
+        <!-- View All Bangles Button -->
         <div class="category-view-all">
             <a href="catalog.html?category=bangles" class="view-all-btn">
                 <span>View All Bangles & Jewellery</span>
@@ -664,6 +747,7 @@
             </a>
         </div>
 
+        <!-- 50/50 ABOUT / PROMO SECTION - BANGLES -->
         <div class="promo-split reverse">
             <div class="promo-image">
                 <img src="media/about_6.webp" onerror="this.onerror=null; this.src='media/cat_6.jpg';"
@@ -683,14 +767,20 @@
         </div>
     </section>
 
+    <!-- ==========================================
+     CATEGORY 4: COSMETICS (NEW COSMETICS ARRIVAL)
+     ========================================== -->
     <section class="category-section" id="cosmetics-section" data-category="cosmetics">
         <div class="category-header">
             <h2 class="section-title">New Cosmetics Arrival</h2>
             <p class="section-subtitle">Dermatologically tested formulations, active botanical serums, and radiant
                 beauty essentials.</p>
         </div>
-        <div class="product-grid" id="cosmetics-grid"></div>
+        <div class="product-grid" id="cosmetics-grid">
+            <!-- Dynamic products loaded from Google Sheet -->
+        </div>
 
+        <!-- View All Cosmetics Button -->
         <div class="category-view-all">
             <a href="catalog.html?category=cosmetics" class="view-all-btn">
                 <span>View All Cosmetics</span>
@@ -698,6 +788,7 @@
             </a>
         </div>
 
+        <!-- 50/50 ABOUT / PROMO SECTION - COSMETICS -->
         <div class="promo-split reverse">
             <div class="promo-image">
                 <img src="media/about_4.webp" onerror="this.onerror=null; this.src='media/cat_4.webp';"
@@ -716,14 +807,20 @@
         </div>
     </section>
 
+    <!-- ==========================================
+     CATEGORY 5: FLOWERS & DECOR (NEW FLOWERS ARRIVAL)
+     ========================================== -->
     <section class="category-section" id="flowers-section" data-category="flowers">
         <div class="category-header">
             <h2 class="section-title">New Flowers & Decor Arrival</h2>
             <p class="section-subtitle">Everlasting real-touch artificial floral arrangements and handcrafted artisanal
                 home decor.</p>
         </div>
-        <div class="product-grid" id="flowers-grid"></div>
+        <div class="product-grid" id="flowers-grid">
+            <!-- Dynamic products loaded from Google Sheet -->
+        </div>
 
+        <!-- View All Flowers Button -->
         <div class="category-view-all">
             <a href="catalog.html?category=flowers" class="view-all-btn">
                 <span>View All Flowers</span>
@@ -731,6 +828,7 @@
             </a>
         </div>
 
+        <!-- 50/50 ABOUT / PROMO SECTION - FLOWERS & DECOR -->
         <div class="promo-split">
             <div class="promo-image">
                 <img src="media/about_5.jpg" onerror="this.onerror=null; this.src='media/cat_5.webp';"
@@ -750,13 +848,19 @@
         </div>
     </section>
 
+    <!-- ==========================================
+     CATEGORY 6: FIBER OPTIC & INTERNET PRODUCTS
+     ========================================== -->
     <section class="category-section" id="fiber-section" data-category="fiber">
         <div class="category-header">
             <h2 class="section-title">Fiber Optic & Internet Solutions</h2>
             <p class="section-subtitle">High-speed FTTH optical equipment, fiber drop cables, patch cords, fast connectors, and high-performance routers.</p>
         </div>
-        <div class="product-grid" id="fiber-grid"></div>
+        <div class="product-grid" id="fiber-grid">
+            <!-- Dynamic products loaded from Google Sheet -->
+        </div>
 
+        <!-- View All Fiber Optic Button -->
         <div class="category-view-all">
             <a href="catalog.html?category=fiber" class="view-all-btn">
                 <span>View All Fiber Optic Products</span>
@@ -764,6 +868,7 @@
             </a>
         </div>
 
+        <!-- 50/50 ABOUT / PROMO SECTION - FIBER OPTIC -->
         <div class="promo-split reverse">
             <div class="promo-image">
                 <img src="media/about_7.webp" onerror="this.onerror=null; this.src='media/promo.webp';"
@@ -779,7 +884,11 @@
         </div>
     </section>
 
+    <!-- ==========================================
+     PART 2 CSS (Add this inside your <style> tag)
+     ========================================== -->
     <style>
+        /* Section Titles */
         .section-title {
             text-align: center;
             margin: 40px 0 20px;
@@ -788,6 +897,7 @@
             color: var(--black);
         }
 
+        /* SLIDING CART DRAWER */
         .cart-overlay {
             position: fixed;
             top: 0;
@@ -869,6 +979,7 @@
             border-radius: 5px;
         }
 
+        /* Dynamic Cart Item styling */
         .cart-item-row {
             display: flex;
             align-items: center;
@@ -896,6 +1007,7 @@
             color: var(--primary-teal);
         }
 
+        /* SHOP BY CATEGORY (Looping Marquee) */
         .categories-section {
             padding: 20px 0;
             background-color: var(--light-grey);
@@ -959,11 +1071,15 @@
             0% {
                 transform: translateX(0);
             }
+
             100% {
                 transform: translateX(-50%);
             }
+
+            /* Scrolls exactly half to loop perfectly */
         }
 
+        /* CATEGORY SHOWCASE & PRODUCT GRID (4 on PC, 2 on Mobile) */
         .category-section,
         .featured-products {
             padding: 45px 5% 15px;
@@ -1081,6 +1197,7 @@
             opacity: 0.9;
         }
 
+        /* VIEW ALL CATEGORY BUTTON */
         .category-view-all {
             display: flex;
             justify-content: center;
@@ -1120,6 +1237,7 @@
             transform: translateX(4px);
         }
 
+        /* 50/50 PROMO SPLIT SECTION (ABOUT FOR CATEGORIES) */
         .promo-split {
             display: flex;
             align-items: stretch;
@@ -1210,6 +1328,7 @@
             box-shadow: 0 5px 15px rgba(18, 179, 166, 0.4);
         }
 
+        /* RESPONSIVE (MOBILE ADJUSTMENTS) */
         @media (max-width: 900px) {
 
             .promo-split,
@@ -1246,6 +1365,7 @@
         @media (max-width: 768px) {
             .product-grid {
                 grid-template-columns: repeat(2, 1fr);
+                /* 2 in a row for mobile */
                 gap: 10px;
             }
 
@@ -1282,9 +1402,15 @@
         }
     </style>
 
+    <!-- ==========================================
+     PART 4: TRUST BADGES & BRAND MARQUEE
+     (Paste this HTML directly below Part 3)
+     ========================================== -->
+
     <!-- TRUST BADGES SECTION -->
     <section class="trust-badges">
         <div class="badge-container">
+            <!-- Badge 1 -->
             <div class="badge-item">
                 <div class="badge-icon">
                     <i class="fa-solid fa-truck-fast"></i>
@@ -1292,6 +1418,7 @@
                 <h4>Fast Delivery</h4>
                 <p>Fast & reliable nationwide delivery</p>
             </div>
+            <!-- Badge 2 -->
             <div class="badge-item">
                 <div class="badge-icon">
                     <i class="fa-solid fa-headset"></i>
@@ -1299,6 +1426,7 @@
                 <h4>24/7 Support</h4>
                 <p>Dedicated customer service</p>
             </div>
+            <!-- Badge 3 -->
             <div class="badge-item">
                 <div class="badge-icon">
                     <i class="fa-solid fa-shield-halved"></i>
@@ -1306,6 +1434,7 @@
                 <h4>Secure Payments</h4>
                 <p>100% safe & encrypted checkouts</p>
             </div>
+            <!-- Badge 4 -->
             <div class="badge-item">
                 <div class="badge-icon">
                     <i class="fa-solid fa-certificate"></i>
@@ -1316,7 +1445,11 @@
         </div>
     </section>
 
+    <!-- ==========================================
+     PART 4 CSS (Add this inside your <style> tag)
+     ========================================== -->
     <style>
+        /* TRUST BADGES SECTION */
         .trust-badges {
             padding: 40px 5%;
             background-color: var(--white);
@@ -1360,9 +1493,11 @@
             color: #777;
         }
 
+        /* RESPONSIVE (MOBILE ADJUSTMENTS) */
         @media (max-width: 900px) {
             .badge-container {
                 grid-template-columns: repeat(2, 1fr);
+                /* 2 items per row on tablet/large phones */
                 gap: 15px;
             }
         }
@@ -1377,6 +1512,10 @@
             }
         }
     </style>
+    <!-- ==========================================
+     PART 5: CONTACT, NEWSLETTER & FOOTER
+     (Paste this HTML directly below Part 4)
+     ========================================== -->
 
     <!-- CONTACT US SECTION -->
     <section class="contact-section" id="contact">
@@ -1423,9 +1562,10 @@
     <!-- FOOTER SECTION -->
     <footer class="main-footer">
         <div class="footer-container">
+            <!-- Footer Column 1: Brand Info -->
             <div class="footer-col">
                 <h2 class="footer-logo"><span style="color: var(--primary-teal);">MIRACLE</span> STORE</h2>
-                <p class="powered-by">POWERED BY AL RASHEED EMPIRE</p>
+                <p class="powered-by">POWERED BY AL RASHEED GROUP</p>
                 <p class="footer-desc">Your ultimate destination for premium watches, mobile tech accessories, women's
                     fashion, beauty cosmetics, and artisanal home decor.</p>
                 <div class="social-icons">
@@ -1438,6 +1578,7 @@
                 </div>
             </div>
 
+            <!-- Footer Column 2: Quick Links -->
             <div class="footer-col">
                 <h3>Quick Links</h3>
                 <ul>
@@ -1453,6 +1594,7 @@
                 </ul>
             </div>
 
+            <!-- Footer Column 3: Contact Details -->
             <div class="footer-col">
                 <h3>Contact Details</h3>
                 <ul class="footer-contact-list">
@@ -1472,7 +1614,11 @@
         </div>
     </footer>
 
+    <!-- ==========================================
+     PART 5 CSS (Add this inside your <style> tag)
+     ========================================== -->
     <style>
+        /* CONTACT US SECTION */
         .contact-section {
             padding: 60px 5%;
             background-color: var(--white);
@@ -1575,6 +1721,7 @@
             opacity: 0.9;
         }
 
+        /* FOOTER SECTION */
         .main-footer {
             background-color: var(--black);
             color: var(--white);
@@ -1673,6 +1820,7 @@
             font-size: 14px;
         }
 
+        /* RESPONSIVE (MOBILE ADJUSTMENTS) */
         @media (max-width: 900px) {
             .contact-container {
                 flex-direction: column;
@@ -1700,6 +1848,7 @@
     <script src="sheet-sync.js"></script>
 
     <script>
+        // Contact Form to WhatsApp
         function submitContactToWhatsApp(event) {
             event.preventDefault();
             const name = document.getElementById('contactName')?.value.trim() || '';
@@ -1720,6 +1869,7 @@
             document.getElementById('contactForm').reset();
         }
 
+        // Hide/Show marquee category circles corresponding to a category (Nav & footer links remain visible)
         function updateCategoryNavVisibility(categoryKey, isVisible) {
             document.querySelectorAll(`.category-item[data-category="${categoryKey}"]`).forEach(circle => {
                 if (!isVisible) {
@@ -1730,6 +1880,7 @@
             });
         }
 
+        // Load Products into Home Page Grids
         async function loadHomePageProducts() {
             const loaderEl = document.getElementById('homePageLoader');
             try {
@@ -1745,9 +1896,11 @@
                     const catItems = products.filter(p => p.category === catKey);
 
                     if (catItems.length === 0) {
+                        // Agar is category ka koi product Google Sheet mein nahi hai to pura section & about hide ho jaye
                         sectionEl.classList.remove('dyn-visible');
                         updateCategoryNavVisibility(catKey, false);
                     } else {
+                        // Sirf top 4 newest products display hon
                         const top4 = catItems.slice(0, 4);
                         gridEl.innerHTML = top4.map(p => createProductCardHtml(p)).join('');
                         sectionEl.classList.add('dyn-visible');
@@ -1755,9 +1908,12 @@
                     }
                 });
 
+                console.log('✅ Miracle Store Home Page products loaded:', products.length);
+
             } catch (err) {
                 console.warn('⚠️ Miracle Store Home Page product loader error:', err);
             } finally {
+                // Smoothly fade out loading animation
                 if (loaderEl) {
                     loaderEl.style.opacity = '0';
                     loaderEl.style.transform = 'scale(0.96)';

@@ -347,7 +347,7 @@
 
     <!-- ANNOUNCEMENT BAR -->
     <div class="announcement-bar">
-        Fast Nationwide Delivery across Pakistan | Free Delivery
+        Fast Nationwide Delivery across Pakistan | Flat Rs. 300 Delivery
     </div>
 
     <!-- MAIN HEADER -->
@@ -390,7 +390,9 @@
     <div class="mobile-menu-overlay" onclick="toggleMenu()"></div>
     <div class="mobile-menu">
         <div class="close-menu">
-            <h4>Miracle Store</h4>
+            <a href="index.html" class="menu-logo-link">
+                <img src="media/logo.webp" alt="Miracle Store Logo" class="menu-logo-img">
+            </a>
             <i class="fa-solid fa-xmark" onclick="toggleMenu()"></i>
         </div>
         <nav class="mobile-nav">
@@ -407,15 +409,6 @@
                 <li><a href="index.html#contact" onclick="toggleMenu()">Contact Us</a></li>
             </ul>
         </nav>
-
-        <div class="menu-brands-section">
-            <h5><i class="fa-solid fa-award"></i> Top Accessories & Internet Brands</h5>
-            <div class="menu-brand-badges">
-                <span class="menu-brand-badge">UniCom</span>
-                <span class="menu-brand-badge">Huawei</span>
-                <span class="menu-brand-badge">Tenda</span>
-            </div>
-        </div>
     </div>
 
     <!-- SLIDING CART DRAWER -->
@@ -430,6 +423,7 @@
             <i class="fa-solid fa-xmark close-cart" onclick="toggleCart()"></i>
         </div>
         <div class="cart-items" id="cartItemsContainer">
+            <!-- Populated via cart.js -->
         </div>
         <div class="cart-footer" id="cartFooter">
             <div class="cart-summary-box">
@@ -439,11 +433,11 @@
                 </div>
                 <div class="cart-summary-row">
                     <span>Delivery Charges:</span>
-                    <span id="cartDelivery">Free</span>
+                    <span id="cartDelivery">Rs. 300</span>
                 </div>
                 <div class="cart-summary-row cart-grand-total">
                     <span>Grand Total:</span>
-                    <strong id="cartGrandTotal">Rs. 0</strong>
+                    <strong id="cartGrandTotal">Rs. 300</strong>
                 </div>
             </div>
             <a href="checkout.html" class="checkout-btn" id="cartCheckoutBtn">
@@ -523,11 +517,29 @@
             </div>
         </div>
 
+        <!-- Category Top Brands Showcase (Accessories & Fiber Optic) -->
+        <div class="catalog-brands-wrapper" id="catalogBrandsSection" style="display: none;">
+            <div class="catalog-brands-header">
+                <div class="catalog-brands-header-row">
+                    <div class="catalog-brands-title-wrap">
+                        <i class="fa-solid fa-award"></i>
+                        <h4 id="catalogBrandsTitle">Top Brands</h4>
+                    </div>
+                    <span class="brands-filter-hint" id="catalogBrandsHint">Click brand logo to filter products</span>
+                </div>
+            </div>
+            <div class="catalog-brands-grid" id="catalogBrandsGrid">
+                <!-- Dynamically populated based on active category -->
+            </div>
+        </div>
+
+        <!-- Results Status -->
         <div class="results-status-bar">
             <span class="results-count" id="resultsCount">Loading products...</span>
             <span id="activeFilterBadge" style="display:none; color: var(--primary-teal); font-weight: 600;"></span>
         </div>
 
+        <!-- Product Grid -->
         <div class="catalog-grid" id="catalogGrid">
             <div class="miracle-loader-box" style="grid-column: 1 / -1;">
                 <div class="miracle-spinner-ring">
@@ -549,7 +561,7 @@
         <div class="footer-container">
             <div class="footer-col">
                 <h2 class="footer-logo"><span style="color: var(--primary-teal);">MIRACLE</span> STORE</h2>
-                <p class="powered-by">POWERED BY AL RASHEED EMPIRE</p>
+                <p class="powered-by">POWERED BY AL RASHEED GROUP</p>
                 <p class="footer-desc">Your ultimate destination for premium watches, mobile tech accessories, women's
                     fashion, beauty cosmetics, and artisanal home decor.</p>
                 <div class="social-icons">
@@ -605,21 +617,89 @@
         let currentCategory = 'all';
         let searchQuery = '';
         let currentSort = 'newest';
+        let selectedBrandFilter = null;
+
+        const CATEGORY_BRANDS = {
+            accessories: [
+                { id: 'samsung', name: 'Samsung', logo: 'media/brands/samsung.svg' },
+                { id: 'apple', name: 'Apple', logo: 'media/brands/apple.svg' },
+                { id: 'google', name: 'Google', logo: 'media/brands/google.svg' }
+            ],
+            fiber: [
+                { id: 'unicom', name: 'UniCom', logo: 'media/brands/unicom.svg' },
+                { id: 'huawei', name: 'Huawei', logo: 'media/brands/huawei.svg' },
+                { id: 'tenda', name: 'Tenda', logo: 'media/brands/tenda.svg' },
+                { id: 'chinamobile', name: 'China Mobile', logo: 'media/brands/chinamobile.svg' }
+            ]
+        };
 
         async function initCatalogPage() {
+            // Read URL category filter
             const params = new URLSearchParams(window.location.search);
             const catParam = params.get('category');
             if (catParam) {
                 currentCategory = catParam.toLowerCase().trim();
             }
 
+            // Sync category tab active state & brands
             syncCategoryTabsUI();
+            renderCategoryBrands();
 
+            // Fetch products
             allCatalogProducts = await fetchProductsFromSheet();
 
+            // Update tab count badges
             updateTabCounts();
+
+            // Initial render
             applyFiltersAndRender();
+
+            // Event Listeners
             setupCatalogEventListeners();
+        }
+
+        function renderCategoryBrands() {
+            const section = document.getElementById('catalogBrandsSection');
+            const titleEl = document.getElementById('catalogBrandsTitle');
+            const gridEl = document.getElementById('catalogBrandsGrid');
+
+            if (!section || !gridEl) return;
+
+            const brands = CATEGORY_BRANDS[currentCategory];
+            if (!brands || brands.length === 0) {
+                section.style.display = 'none';
+                selectedBrandFilter = null;
+                return;
+            }
+
+            if (currentCategory === 'accessories') {
+                titleEl.textContent = 'Top Mobile Accessories Brands';
+            } else if (currentCategory === 'fiber') {
+                titleEl.textContent = 'Top Fiber & Internet Brands';
+            } else {
+                titleEl.textContent = 'Top Brands';
+            }
+
+            gridEl.innerHTML = brands.map(b => {
+                const isActive = (selectedBrandFilter === b.id) ? 'active' : '';
+                return `
+                    <div class="catalog-brand-card ${isActive}" onclick="toggleBrandFilter('${b.id}')" title="Filter ${escapeCartHtml(b.name)} Products">
+                        <img src="${b.logo}" alt="${escapeCartHtml(b.name)}" loading="lazy">
+                    </div>
+                `;
+            }).join('');
+
+            section.style.display = 'block';
+        }
+
+        function toggleBrandFilter(brandId) {
+            if (selectedBrandFilter === brandId) {
+                selectedBrandFilter = null;
+            } else {
+                selectedBrandFilter = brandId;
+            }
+            renderCategoryBrands();
+            applyFiltersAndRender();
         }
 
         function updateTabCounts() {
@@ -649,6 +729,7 @@
         }
 
         function setupCatalogEventListeners() {
+            // Search Input (Real-time live typing)
             const searchInput = document.getElementById('catalogSearchInput');
             const clearBtn = document.getElementById('clearSearchBtn');
 
@@ -665,11 +746,15 @@
                 applyFiltersAndRender();
             });
 
+            // Category Filter Tabs
             document.querySelectorAll('.filter-tab-btn').forEach(btn => {
                 btn.addEventListener('click', () => {
                     currentCategory = btn.getAttribute('data-category');
+                    selectedBrandFilter = null;
                     syncCategoryTabsUI();
+                    renderCategoryBrands();
 
+                    // Update URL without reloading
                     const url = new URL(window.location);
                     if (currentCategory === 'all') {
                         url.searchParams.delete('category');
@@ -682,6 +767,7 @@
                 });
             });
 
+            // Sort Dropdown
             document.getElementById('catalogSortSelect').addEventListener('change', (e) => {
                 currentSort = e.target.value;
                 applyFiltersAndRender();
@@ -704,11 +790,24 @@
                 return;
             }
 
+            // 1. Category Filtering
             let filtered = allCatalogProducts.filter(p => {
                 if (currentCategory === 'all') return true;
                 return p.category === currentCategory;
             });
 
+            // 2. Brand Filtering (if brand selected)
+            if (selectedBrandFilter) {
+                filtered = filtered.filter(p => {
+                    const text = `${p.title || ''} ${p.description || ''}`.toLowerCase();
+                    if (selectedBrandFilter === 'chinamobile') {
+                        return text.includes('china mobile') || text.includes('chinamobile') || text.includes('cmcc');
+                    }
+                    return text.includes(selectedBrandFilter);
+                });
+            }
+
+            // 3. Search Query Filtering
             if (searchQuery) {
                 filtered = filtered.filter(p => {
                     const titleMatch = (p.title || '').toLowerCase().includes(searchQuery);
@@ -718,6 +817,7 @@
                 });
             }
 
+            // 4. Sorting
             filtered.sort((a, b) => {
                 if (currentSort === 'price-low') {
                     return a.price - b.price;
@@ -728,18 +828,22 @@
                 } else if (currentSort === 'name-desc') {
                     return b.title.localeCompare(a.title);
                 }
+                // Default: newest first (already in reverse sheet order)
                 return 0;
             });
 
+            // 5. Update status count
             const categoryText = currentCategory === 'all' ? 'All Collections' : getCategoryLabel(currentCategory);
-            statusEl.innerHTML = `Showing <strong>${filtered.length}</strong> products in <em>${categoryText}</em>${searchQuery ? ` matching "${escapeCartHtml(searchQuery)}"` : ''}`;
+            const brandText = selectedBrandFilter ? ` | Brand: <span style="color:var(--primary-teal); font-weight:700;">${selectedBrandFilter.toUpperCase()}</span>` : '';
+            statusEl.innerHTML = `Showing <strong>${filtered.length}</strong> products in <em>${categoryText}</em>${brandText}${searchQuery ? ` matching "${escapeCartHtml(searchQuery)}"` : ''}`;
 
+            // 6. Render Grid
             if (filtered.length === 0) {
                 grid.innerHTML = `
                     <div class="catalog-empty-state">
                         <i class="fa-solid fa-magnifying-glass"></i>
                         <h3>No Products Found</h3>
-                        <p>No items matched your current search "${escapeCartHtml(searchQuery)}" or selected category.</p>
+                        <p>No items matched your current search "${escapeCartHtml(searchQuery)}" or selected brand/category.</p>
                         <button type="button" class="reset-filters-btn" onclick="resetAllCatalogFilters()">Clear All Filters</button>
                     </div>
                 `;
@@ -751,14 +855,17 @@
         function resetAllCatalogFilters() {
             currentCategory = 'all';
             searchQuery = '';
+            selectedBrandFilter = null;
             document.getElementById('catalogSearchInput').value = '';
             document.getElementById('clearSearchBtn').style.display = 'none';
             syncCategoryTabsUI();
+            renderCategoryBrands();
             const url = new URL(window.location);
             url.searchParams.delete('category');
             window.history.replaceState({}, '', url);
             applyFiltersAndRender();
         }
+
 
         document.addEventListener('DOMContentLoaded', initCatalogPage);
     </script>

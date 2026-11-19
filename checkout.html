@@ -131,6 +131,125 @@
             min-height: 80px;
         }
 
+        /* Payment Method Options */
+        .payment-options-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 12px;
+        }
+
+        .payment-method-card {
+            background: #fafafa;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 14px 16px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .payment-method-card:hover {
+            border-color: #cbd5e1;
+            background: #f8fafc;
+        }
+
+        .payment-method-card.selected {
+            background: #f0fdfa;
+            border-color: var(--primary-teal);
+            box-shadow: 0 0 0 1px var(--primary-teal);
+        }
+
+        .payment-card-left {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .payment-card-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: #e6fffa;
+            color: var(--primary-teal);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .payment-method-card.selected .payment-card-icon {
+            background: var(--primary-teal);
+            color: #ffffff;
+        }
+
+        .payment-card-text h4 {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--black);
+            margin-bottom: 2px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .payment-card-text p {
+            font-size: 12px;
+            color: #64748b;
+            margin: 0;
+        }
+
+        .free-delivery-badge {
+            background: #10b981;
+            color: #ffffff;
+            font-size: 10px;
+            font-weight: 800;
+            padding: 2px 8px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .payment-check-indicator {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            border: 2px solid #cbd5e1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            color: transparent;
+            transition: var(--transition);
+            flex-shrink: 0;
+        }
+
+        .payment-method-card.selected .payment-check-indicator {
+            background: var(--primary-teal);
+            border-color: var(--primary-teal);
+            color: #ffffff;
+        }
+
+        .advance-details-notice {
+            background: #ecfdf5;
+            border: 1px dashed #10b981;
+            border-radius: 8px;
+            padding: 12px 14px;
+            margin-top: 10px;
+            font-size: 12.5px;
+            color: #065f46;
+            line-height: 1.5;
+            display: none;
+        }
+
         /* Order Summary Items */
         .order-summary-card {
             background: #fafafa;
@@ -399,6 +518,17 @@
                 gap: 0;
             }
 
+            .payment-method-box {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+                padding: 12px;
+            }
+
+            .payment-badge {
+                align-self: flex-start;
+            }
+
             .btn-whatsapp-order {
                 font-size: 14px;
                 padding: 14px;
@@ -416,7 +546,7 @@
 
     <!-- ANNOUNCEMENT BAR -->
     <div class="announcement-bar">
-        Fast Nationwide Delivery across Pakistan | Free Delivery
+        Fast Nationwide Delivery across Pakistan | Flat Rs. 300 Delivery
     </div>
 
     <!-- MAIN HEADER -->
@@ -459,7 +589,9 @@
     <div class="mobile-menu-overlay" onclick="toggleMenu()"></div>
     <div class="mobile-menu">
         <div class="close-menu">
-            <h4>Miracle Store</h4>
+            <a href="index.html" class="menu-logo-link">
+                <img src="media/logo.webp" alt="Miracle Store Logo" class="menu-logo-img">
+            </a>
             <i class="fa-solid fa-xmark" onclick="toggleMenu()"></i>
         </div>
         <nav class="mobile-nav">
@@ -472,7 +604,7 @@
                 <li><a href="catalog.html?category=bangles" onclick="toggleMenu()">Bangles & Jewellery</a></li>
                 <li><a href="catalog.html?category=cosmetics" onclick="toggleMenu()">Cosmetics</a></li>
                 <li><a href="catalog.html?category=flowers" onclick="toggleMenu()">Flowers & Decor</a></li>
-                <li><a href="catalog.html?category=fiber" onclick="toggleMenu()">Fiber Optic</a></li>
+                <li><a href="catalog.html?category=fiber" onclick="toggleMenu()">Fiber Optic & Internet</a></li>
                 <li><a href="index.html#contact" onclick="toggleMenu()">Contact Us</a></li>
             </ul>
         </nav>
@@ -500,11 +632,11 @@
                 </div>
                 <div class="cart-summary-row">
                     <span>Delivery Charges:</span>
-                    <span id="cartDelivery">Free</span>
+                    <span id="cartDelivery">Rs. 300</span>
                 </div>
                 <div class="cart-summary-row cart-grand-total">
                     <span>Grand Total:</span>
-                    <strong id="cartGrandTotal">Rs. 0</strong>
+                    <strong id="cartGrandTotal">Rs. 300</strong>
                 </div>
             </div>
             <a href="checkout.html" class="checkout-btn" id="cartCheckoutBtn">
@@ -579,27 +711,43 @@
                     </div>
 
                     <h3 style="margin-top: 30px;"><i class="fa-solid fa-money-bill-wave"></i> 2. Payment Method</h3>
-                    <div class="payment-methods-container">
-                        <label class="payment-method-box selected" id="codBox">
-                            <input type="radio" name="payment_method" value="COD" checked onchange="updatePaymentSelection()">
-                            <div class="payment-info-left">
-                                <i class="fa-solid fa-hand-holding-dollar"></i>
-                                <div>
+                    <div class="payment-options-grid">
+                        <!-- Option 1: Cash on Delivery -->
+                        <div class="payment-method-card selected" id="payOptionCOD" onclick="selectPaymentMethod('cod')">
+                            <div class="payment-card-left">
+                                <div class="payment-card-icon">
+                                    <i class="fa-solid fa-hand-holding-dollar"></i>
+                                </div>
+                                <div class="payment-card-text">
                                     <h4>Cash on Delivery (COD)</h4>
-                                    <p>Pay safely in cash to the rider when receiving your parcel.</p>
+                                    <p>Pay cash to the rider at your doorstep (Flat Rs. 300 Delivery).</p>
                                 </div>
                             </div>
-                        </label>
-                        <label class="payment-method-box" id="advBox">
-                            <input type="radio" name="payment_method" value="Advance Payment" onchange="updatePaymentSelection()">
-                            <div class="payment-info-left">
-                                <i class="fa-solid fa-building-columns"></i>
-                                <div>
-                                    <h4>Advance Payment</h4>
-                                    <p>Pay via Bank Transfer, EasyPaisa, or JazzCash.</p>
+                            <div class="payment-check-indicator"><i class="fa-solid fa-check"></i></div>
+                        </div>
+
+                        <!-- Option 2: Advance Payment (FREE DELIVERY DISCOUNT) -->
+                        <div class="payment-method-card" id="payOptionAdvance" onclick="selectPaymentMethod('advance')">
+                            <div class="payment-card-left">
+                                <div class="payment-card-icon">
+                                    <i class="fa-solid fa-bolt"></i>
+                                </div>
+                                <div class="payment-card-text">
+                                    <h4>
+                                        Advance Payment
+                                        <span class="free-delivery-badge"><i class="fa-solid fa-gift"></i> FREE DELIVERY</span>
+                                    </h4>
+                                    <p>EasyPaisa / JazzCash / Bank Transfer. Zero delivery charges (Save Rs. 300)!</p>
                                 </div>
                             </div>
-                        </label>
+                            <div class="payment-check-indicator"><i class="fa-solid fa-check"></i></div>
+                        </div>
+                    </div>
+
+                    <!-- Advance Payment Instruction Notice -->
+                    <div class="advance-details-notice" id="advanceDetailsNotice">
+                        <i class="fa-solid fa-circle-check" style="color: #10b981; margin-right: 6px;"></i>
+                        <strong>Special Discount Applied:</strong> 100% FREE Nationwide Delivery! Payment account details (EasyPaisa / JazzCash / Bank) will be provided on WhatsApp immediately for fast order dispatch.
                     </div>
 
                     <button type="submit" class="btn-whatsapp-order" id="submitOrderBtn">
@@ -629,11 +777,11 @@
                 </div>
                 <div class="breakdown-row">
                     <span>Delivery Charges:</span>
-                    <span id="summaryDelivery">Free</span>
+                    <span id="summaryDelivery">Rs. 300</span>
                 </div>
                 <div class="breakdown-row total">
                     <span>Grand Total:</span>
-                    <span id="summaryGrandTotal">Rs. 0</span>
+                    <span id="summaryGrandTotal">Rs. 300</span>
                 </div>
 
                 <div class="store-helpline-box"
@@ -677,7 +825,7 @@
         <div class="footer-container">
             <div class="footer-col">
                 <h2 class="footer-logo"><span style="color: var(--primary-teal);">MIRACLE</span> STORE</h2>
-                <p class="powered-by">POWERED BY AL RASHEED EMPIRE</p>
+                <p class="powered-by">POWERED BY AL RASHEED GROUP</p>
                 <p class="footer-desc">Your ultimate destination for premium watches, mobile tech accessories, women's
                     fashion, beauty cosmetics, and artisanal home decor.</p>
                 <div class="social-icons">
@@ -729,8 +877,9 @@
     <script src="sheet-sync.js"></script>
 
     <script>
-        // CONFIGURATION: Miracle Store Official WhatsApp Number
+        // CONFIGURATION: Miracle Store Official WhatsApp Number (without + or 0, e.g. 923221595269)
         const MIRACLE_STORE_WHATSAPP = '923221595269';
+        let selectedPaymentMethod = 'cod'; // 'cod' or 'advance'
 
         document.addEventListener('DOMContentLoaded', () => {
             if (typeof fetchProductsFromSheet === 'function') {
@@ -738,21 +887,51 @@
             }
         });
 
-        function updatePaymentSelection() {
-            const codBox = document.getElementById('codBox');
-            const advBox = document.getElementById('advBox');
-            const isCOD = document.querySelector('input[name="payment_method"]:checked').value === 'COD';
-            if(isCOD) {
-                codBox.classList.add('selected');
-                advBox.classList.remove('selected');
+        function selectPaymentMethod(method) {
+            selectedPaymentMethod = method;
+            const codCard = document.getElementById('payOptionCOD');
+            const advanceCard = document.getElementById('payOptionAdvance');
+            const noticeEl = document.getElementById('advanceDetailsNotice');
+
+            if (method === 'advance') {
+                if (advanceCard) advanceCard.classList.add('selected');
+                if (codCard) codCard.classList.remove('selected');
+                if (noticeEl) noticeEl.style.display = 'block';
             } else {
-                advBox.classList.add('selected');
-                codBox.classList.remove('selected');
+                if (codCard) codCard.classList.add('selected');
+                if (advanceCard) advanceCard.classList.remove('selected');
+                if (noticeEl) noticeEl.style.display = 'none';
+            }
+
+            renderCheckoutTotals();
+        }
+
+        function renderCheckoutTotals() {
+            const { subtotal, delivery } = getMiracleCartTotals();
+            const deliveryEl = document.getElementById('summaryDelivery');
+            const grandTotalEl = document.getElementById('summaryGrandTotal');
+
+            if (selectedPaymentMethod === 'advance') {
+                // Free delivery discount!
+                if (deliveryEl) {
+                    deliveryEl.innerHTML = `<span style="color:#10b981; font-weight:700;"><del style="color:#9ca3af; font-size:12px; margin-right:4px;">${formatPKR(delivery)}</del> FREE (Rs. 0)</span>`;
+                }
+                if (grandTotalEl) {
+                    grandTotalEl.textContent = formatPKR(subtotal);
+                }
+            } else {
+                // Standard COD delivery
+                if (deliveryEl) {
+                    deliveryEl.textContent = formatPKR(delivery);
+                }
+                if (grandTotalEl) {
+                    grandTotalEl.textContent = formatPKR(subtotal + delivery);
+                }
             }
         }
 
         function renderCheckoutPage() {
-            const { cart, subtotal, delivery, grandTotal } = getMiracleCartTotals();
+            const { cart, subtotal } = getMiracleCartTotals();
             const gridArea = document.getElementById('checkoutGridArea');
             const emptyBox = document.getElementById('emptyCheckoutBox');
             const itemsContainer = document.getElementById('checkoutItemsList');
@@ -783,17 +962,16 @@
             });
             if (itemsContainer) itemsContainer.innerHTML = itemsHtml;
 
-            // Render Totals
+            // Render Subtotal and Dynamic Totals
             document.getElementById('summarySubtotal').textContent = formatPKR(subtotal);
-            document.getElementById('summaryDelivery').textContent = delivery === 0 ? 'Free' : formatPKR(delivery);
-            document.getElementById('summaryGrandTotal').textContent = formatPKR(grandTotal);
+            renderCheckoutTotals();
         }
 
         // WhatsApp Order Submission
         function handleCheckoutSubmit(e) {
             e.preventDefault();
 
-            const { cart, subtotal, delivery, grandTotal } = getMiracleCartTotals();
+            const { cart, subtotal, delivery } = getMiracleCartTotals();
             if (cart.length === 0) {
                 alert('Your cart is empty. Please add items before checking out.');
                 return;
@@ -806,7 +984,6 @@
             const city = document.getElementById('custCity').value.trim();
             const province = document.getElementById('custProvince').value;
             const notes = document.getElementById('custNotes').value.trim();
-            const paymentMethod = document.querySelector('input[name="payment_method"]:checked').value;
 
             if (!name || !phone || !address || !city) {
                 alert('Please fill out all required fields marked with *');
@@ -816,6 +993,10 @@
             // Generate Order Reference
             const orderRef = 'MS-' + Math.floor(100000 + Math.random() * 900000);
             const orderDate = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+
+            const isAdvance = (selectedPaymentMethod === 'advance');
+            const finalDelivery = isAdvance ? 0 : delivery;
+            const finalPayable = subtotal + finalDelivery;
 
             // Format WhatsApp Message
             let msg = `🛍️ *NEW ORDER - MIRACLE STORE*\n`;
@@ -850,15 +1031,26 @@
 
             msg += `━━━━━━━━━━━━━━━━━━━━\n`;
             msg += `💰 *Subtotal:* ${formatPKR(subtotal)}\n`;
-            msg += `🚚 *Delivery Charges:* Free (100% Discount)\n`;
-            msg += `💵 *GRAND TOTAL:* ${formatPKR(grandTotal)}\n`;
-            msg += `💳 *Payment Method:* ${paymentMethod === 'COD' ? 'Cash on Delivery' : 'Advance Payment'}\n`;
-            msg += `━━━━━━━━━━━━━━━━━━━━\n`;
-            msg += `Please confirm my order and inform me regarding the delivery tracking. Thank you!`;
+            if (isAdvance) {
+                msg += `🚚 *Delivery Charges:* FREE (Rs. 0)\n`;
+                msg += `🎁 *Special Discount:* -Rs. 300 (Free Shipping on Advance Payment)\n`;
+                msg += `💵 *FINAL PAYABLE AMOUNT:* ${formatPKR(finalPayable)}\n`;
+                msg += `💳 *Payment Method:* Advance Payment (EasyPaisa / JazzCash / Bank Transfer)\n`;
+                msg += `━━━━━━━━━━━━━━━━━━━━\n`;
+                msg += `I have selected Advance Payment to avail Free Delivery. Kindly share your account details so I can transfer the payment and send the payment receipt screenshot. Thank you!`;
+            } else {
+                msg += `🚚 *Delivery Charges:* ${formatPKR(delivery)} (Flat Rate)\n`;
+                msg += `💵 *GRAND TOTAL (COD):* ${formatPKR(finalPayable)}\n`;
+                msg += `💳 *Payment Method:* Cash on Delivery (COD)\n`;
+                msg += `━━━━━━━━━━━━━━━━━━━━\n`;
+                msg += `Please confirm my order and inform me regarding the delivery tracking. Thank you!`;
+            }
 
+            // Open WhatsApp with encoded message
             const waUrl = `https://wa.me/${MIRACLE_STORE_WHATSAPP}?text=${encodeURIComponent(msg)}`;
             window.open(waUrl, '_blank');
 
+            // Show Success Modal
             document.getElementById('modalOrderRef').textContent = `ORDER #${orderRef}`;
             document.getElementById('orderSuccessModal').classList.add('active');
         }
@@ -868,6 +1060,7 @@
             window.location.href = 'index.html';
         }
 
+        // Listen for cart changes
         window.addEventListener('miracleCartUpdated', renderCheckoutPage);
         document.addEventListener('DOMContentLoaded', renderCheckoutPage);
     </script>
