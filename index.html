@@ -147,17 +147,20 @@
             top: 0;
             left: 0;
             transform: translateX(-105%);
-            width: 280px;
+            width: 290px;
             max-width: 85vw;
             height: 100vh;
+            max-height: 100vh;
             background: var(--white);
             z-index: 1002;
-            padding: 20px;
+            padding: 22px 18px 45px;
             transition: transform 0.35s ease, visibility 0.35s;
             box-shadow: 2px 0 15px rgba(0, 0, 0, 0.1);
             visibility: hidden;
             pointer-events: none;
             overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            overscroll-behavior: contain;
         }
 
         .mobile-menu.active {
@@ -382,6 +385,60 @@
                 <li><a href="#contact" onclick="toggleMenu()">Contact Us</a></li>
             </ul>
         </nav>
+
+        <!-- Top Brands in Sliding Menu -->
+        <div class="menu-top-brands-section">
+            <div class="menu-top-brands-main-title">
+                <i class="fa-solid fa-award"></i>
+                <span>OUR TOP BRANDS</span>
+            </div>
+
+            <!-- Mobile Accessories Brands -->
+            <div class="menu-brand-group">
+                <h6 class="menu-brand-group-title">
+                    <i class="fa-solid fa-mobile-screen"></i> Mobile Accessories
+                </h6>
+                <div class="menu-brand-logos-row">
+                    <a href="catalog.html?category=accessories" class="menu-brand-logo-item" title="Samsung"
+                        onclick="toggleMenu()">
+                        <img src="media/samsung.webp" alt="Samsung">
+                    </a>
+                    <a href="catalog.html?category=accessories" class="menu-brand-logo-item" title="Apple"
+                        onclick="toggleMenu()">
+                        <img src="media/apple.webp" alt="Apple">
+                    </a>
+                    <a href="catalog.html?category=accessories" class="menu-brand-logo-item" title="Google"
+                        onclick="toggleMenu()">
+                        <img src="media/google.webp" alt="Google">
+                    </a>
+                </div>
+            </div>
+
+            <!-- Fiber Optics & Internet Products Brands -->
+            <div class="menu-brand-group">
+                <h6 class="menu-brand-group-title">
+                    <i class="fa-solid fa-network-wired"></i> Fibre Optics & Internet Products
+                </h6>
+                <div class="menu-brand-logos-row">
+                    <a href="catalog.html?category=fiber" class="menu-brand-logo-item" title="UniCom"
+                        onclick="toggleMenu()">
+                        <img src="media/UniCom.webp" alt="UniCom">
+                    </a>
+                    <a href="catalog.html?category=fiber" class="menu-brand-logo-item" title="Huawei"
+                        onclick="toggleMenu()">
+                        <img src="media/huawei.webp" alt="Huawei">
+                    </a>
+                    <a href="catalog.html?category=fiber" class="menu-brand-logo-item" title="Tenda"
+                        onclick="toggleMenu()">
+                        <img src="media/tenda.webp" alt="Tenda">
+                    </a>
+                    <a href="catalog.html?category=fiber" class="menu-brand-logo-item" title="China Mobile"
+                        onclick="toggleMenu()">
+                        <img src="media/china_mobile.webp" alt="China Mobile">
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- HERO SECTION (16:9 Slider) -->
@@ -538,7 +595,8 @@
                 </div>
                 <div class="category-item dyn-circle-hidden" data-category="fiber"
                     onclick="window.location.href='catalog.html?category=fiber'">
-                    <div class="cat-circle"><img src="media/about_7.webp" fetchpriority="high" alt="Fiber Optic & Internet">
+                    <div class="cat-circle"><img src="media/about_7.webp" fetchpriority="high"
+                            alt="Fiber Optic & Internet">
                     </div>
                     <span>Fiber Optic</span>
                 </div>
@@ -580,7 +638,8 @@
                 </div>
                 <div class="category-item dyn-circle-hidden" data-category="fiber"
                     onclick="window.location.href='catalog.html?category=fiber'">
-                    <div class="cat-circle"><img src="media/about_7.webp" fetchpriority="high" alt="Fiber Optic & Internet">
+                    <div class="cat-circle"><img src="media/about_7.webp" fetchpriority="high"
+                            alt="Fiber Optic & Internet">
                     </div>
                     <span>Fiber Optic</span>
                 </div>
@@ -854,7 +913,8 @@
     <section class="category-section" id="fiber-section" data-category="fiber">
         <div class="category-header">
             <h2 class="section-title">Fiber Optic & Internet Solutions</h2>
-            <p class="section-subtitle">High-speed FTTH optical equipment, fiber drop cables, patch cords, fast connectors, and high-performance routers.</p>
+            <p class="section-subtitle">High-speed FTTH optical equipment, fiber drop cables, patch cords, fast
+                connectors, and high-performance routers.</p>
         </div>
         <div class="product-grid" id="fiber-grid">
             <!-- Dynamic products loaded from Google Sheet -->
@@ -877,9 +937,13 @@
             <div class="promo-content">
                 <span>Ultra-Fast Gigabit Connectivity</span>
                 <h2>Enterprise-Grade Fiber Optic & Internet Gear</h2>
-                <p>Equip your home or enterprise with cutting-edge optical networking gear. From low-loss single-mode and multi-mode fiber drop cables and fast-splicing connectors to high-performance dual-band routers and GPON ONUs by top brands like UniCom, Huawei, and Tenda, Miracle Store ensures seamless streaming, low ping, and rock-solid network stability.</p>
+                <p>Equip your home or enterprise with cutting-edge optical networking gear. From low-loss single-mode
+                    and multi-mode fiber drop cables and fast-splicing connectors to high-performance dual-band routers
+                    and GPON ONUs by top brands like UniCom, Huawei, and Tenda, Miracle Store ensures seamless
+                    streaming, low ping, and rock-solid network stability.</p>
                 <button class="shop-now-btn"
-                    onclick="document.getElementById('fiber-section').scrollIntoView({behavior: 'smooth'})">Explore Fiber Gear</button>
+                    onclick="document.getElementById('fiber-section').scrollIntoView({behavior: 'smooth'})">Explore
+                    Fiber Gear</button>
             </div>
         </div>
     </section>
